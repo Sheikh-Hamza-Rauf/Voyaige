@@ -34,7 +34,7 @@ const HeroSection = () => {
               onChange={(e) => setStartingPoint(e.target.value)}
               placeholder="Starting Point"
             >
-              <option value="" disabled>Select Starting Point</option>
+              <option value="" disabled>Starting Point</option>
               {citiesInPakistan.map((city, index) => (
                 <option key={index} value={city}>{city}</option>
               ))}
@@ -47,7 +47,7 @@ const HeroSection = () => {
               onChange={(e) => setDestination(e.target.value)}
               placeholder="Where are you going?"
             >
-              <option value="" disabled>Select Destination</option>
+              <option value="" disabled>Destination</option>
               {citiesInPakistan.map((city, index) => (
                 <option key={index} value={city}>{city}</option>
               ))}
