@@ -1,0 +1,146 @@
+/* body {
+    background-color: aqua;
+}
+    */
+
+/* Homepage.css */
+
+
+.homepage {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Featured Destinations and Promo Tours CSS remains the same */
+  .featured-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #f9f9f9;
+  }
+  
+  .featured-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .destinations {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .destination-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .destination-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .destination-info {
+    padding: 20px;
+  }
+  
+  .destination-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .promo-section {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .promo-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .promo-tours {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .promo-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .promo-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .promo-info {
+    padding: 20px;
+  }
+  
+  .promo-card button {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .promo-card:hover {
+    transform: translateY(-5px);
+  }  
+ /* AI Section */
+/* AI Section */
+.ai-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 50px; /* Increased padding for a larger section */
+    background-color: #f4f4f4;
+    height: 60vh; /* Make the section cover more vertical space */
+}
+
+.ai-content {
+    flex: 0.5; /* Adjusted flex to give more space to the text */
+    text-align: left; /* Align text to the left */
+    padding-left: 100px; /* Move text further to the right */
+    font-size: 1.5rem; /* Increase font size for larger text */
+    line-height: 1.8; /* Optional: Increase line height for better readability */
+}
+
+.ai-image {
+    flex: 1;
+    text-align: left;
+}
+
+
+
+.ai-plan-button {
+    padding: 10px 19px; /* Reduced button size */
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px; /* Reduced font size */
+    margin-top: 20px; /* Space between the button and content */
+}
+
+.ai-image img {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+}
+
+.ai-image img:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+}
+

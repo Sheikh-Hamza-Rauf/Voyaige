@@ -1,0 +1,140 @@
+/* ai-banner.css */
+
+.ai-trip-banner {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    padding: 40px 30px;
+    color: white;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    margin-top: 60px;
+}
+
+.banner-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-content {
+    flex: 1;
+    max-width: 500px;
+}
+
+.ai-badge {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.beta-tag {
+    background-color: #f39c12;
+    color: #2c3e50;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.try-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.try-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.image-container {
+    flex: 1;
+    max-width: 400px;
+    position: relative;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.banner-image:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+@media (max-width: 1024px) {
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text-content, .image-container {
+        max-width: 100%;
+    }
+
+    .image-container {
+        margin-top: 30px;
+    }
+
+    .main-title {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ai-trip-banner {
+        padding: 30px 20px;
+    }
+
+    .main-title {
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .try-button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}

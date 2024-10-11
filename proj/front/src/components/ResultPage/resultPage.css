@@ -1,0 +1,15 @@
+.results-page {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  .results-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .results-page p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  

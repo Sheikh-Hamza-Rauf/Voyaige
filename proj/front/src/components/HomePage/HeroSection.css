@@ -1,0 +1,171 @@
+.hero-section {
+
+  height: 100vh;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+  /* background-image: url('https://assets.theoceancleanup.com/app/uploads/2023/07/231026-FULL-SYSTEM-SPAN-7-scaled.jpg'); */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.7) 0%, rgba(0, 204, 153, 0.7) 100%); 
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-bottom: 2rem;
+  opacity: 0; /* Initial state for animation */
+  transform: translateY(-20px); /* Initial position */
+  animation: fadeInUp 0.5s forwards; /* Animation for fade in and slide up */
+  animation-delay: 0.2s; /* Delay for content */
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(45deg, #ffffff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: #f0f0f0;
+}
+
+.tagline {
+  font-size: 18px;
+  font-weight: 300;
+  color: #e0e0e0;
+}
+
+.search-form {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 1200px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Initial state for animation */
+  transform: translateY(20px); /* Initial position */
+  animation: fadeInUp 0.5s forwards; /* Animation for fade in and slide up */
+  animation-delay: 0.4s; /* Delay for form */
+}
+
+.search-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex: 1;
+  position: relative;
+  margin: 0 10px;
+}
+
+.search-input i {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #0066cc;
+}
+
+.search-input select,
+.search-input input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  border: none;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.search-input select:focus,
+.search-input input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #0066cc;
+  background-color: #ffffff;
+}
+
+.search-button {
+  padding: 12px 24px;
+  background: linear-gradient(45deg, #0066cc, #00cc99);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .search-row {
+    flex-direction: column;
+  }
+
+  .search-input {
+    margin: 10px 0;
+  }
+
+  .main-title {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+  }
+
+  .tagline {
+    font-size: 16px;
+  }
+}
