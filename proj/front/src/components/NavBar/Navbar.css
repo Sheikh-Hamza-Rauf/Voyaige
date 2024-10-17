@@ -635,7 +635,7 @@
 }
 
 .auth-button, .search-button2 {
-  background-color: #0066cc;
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -650,7 +650,7 @@
 }
 
 .auth-button:hover, .search-button2:hover {
-  background-color: #004999;
+  background: linear-gradient(135deg, #232c35, #49848e);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -703,7 +703,7 @@
 
 .search-box button {
   padding: 10px 20px;
-  background-color: #0066cc;
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
   color: #fff;
   border: none;
   border-radius: 0 4px 4px 0;
@@ -712,7 +712,7 @@
 }
 
 .search-box button:hover {
-  background-color: #004999;
+  background: linear-gradient(135deg, #232c35, #49848e);
 }
 
 .error-message {
