@@ -7,8 +7,8 @@ const AiBanner = () => {
       <div className="banner-content">
         <div className="text-content">
           <div className="ai-badge">Powered by AI <span className="beta-tag">BETA</span></div>
-          <h1 className="main-title">AI trip builder gets you out there</h1>
-          <p className="subtitle">Get a whole getaway's worth of ideas made for you—ready in seconds.</p>
+          <h1 className="aimain-title">AI trip builder gets you out there</h1>
+          <p className="aisubtitle">Get a whole getaway's worth of ideas made for you—ready in seconds.</p>
           <button className="try-button">
             <span className="icon">✦</span> Try it
           </button>

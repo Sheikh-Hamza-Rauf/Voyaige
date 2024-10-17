@@ -9,6 +9,7 @@ import './IslamabadPage.css';
 
 const IslamabadPage = () => {
     return (
+        
         <div className="islamabad-page">
             <Navbar />
             <main className="main-content">
