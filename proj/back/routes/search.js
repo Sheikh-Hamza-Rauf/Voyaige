@@ -19,8 +19,8 @@ router.get('/search', async (req, res) => {
     }
 
     const [hotels, restaurants] = await Promise.all([
-      Hotel.find(query).limit(3),
-      Restaurant.find(query).limit(3)
+      Hotel.find(query).limit(8),
+      Restaurant.find(query).limit(8)
     ]);
 
     console.log('Search results:', { hotels, restaurants }); // Add this line for debugging

@@ -170,7 +170,7 @@
   }
 }
 */
-
+/* 
 .hero-section {
   
   height: 100vh;
@@ -224,7 +224,7 @@
 }
 
 /* Blurred background for titles */
-.blurred-background {
+/* .blurred-background {
   position: absolute;
   top: 0;
   left: 0;
@@ -254,10 +254,10 @@
   color:#ffffff;
   text-shadow: 2px 2px 4px rgb(0, 0, 0);
 
-}
-
+} */
+/* 
 .subtitle {
-  font-size: 32px; /* Increased size */
+  font-size: 32px; 
   font-weight: 400;
   margin-bottom: 10px;
   color: #ffffff;
@@ -265,30 +265,93 @@
 }
 
 .tagline {
-  font-size: 28px; /* Increased size */
+  font-size: 28px; 
   font-weight: 300;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgb(0, 0, 0);
+} */ 
+
+
+
+.heroo {
+  margin-bottom: 10rem;
 }
 
+/* Form container with animated shadow effect */
 .search-form {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+
   max-width: 1200px;
   padding: 20px;
+  padding-bottom: 40px;
+  margin-top: 40px;
   padding-top: 40px;
   background-color: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid #0066cc;
+  
+  /* Initial box-shadow settings before animation */
+  box-shadow: 0 0 20px rgba(0, 102, 204, 0.7);
+  
+  /* Animation for the form and shadow */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards, animateShadow 3s infinite alternate ease-in-out;
+  animation-delay: 0.4s;
+}
+
+/* Keyframes for the form fade-in */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Keyframes for animated shadow using blue monochromatic colors */
+@keyframes animateShadow {
+  0% {
+    box-shadow: 0 0 20px rgba(0, 102, 204, 0.7);
+  }
+  25% {
+    box-shadow: 0 0 30px rgba(0, 77, 153, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 51, 102, 0.7);
+  }
+  75% {
+    box-shadow: 0 0 50px rgba(0, 25, 51, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 60px rgba(0, 102, 204, 0.7);
+  }
+}
+
+/* For the heading animation and hover effect */
+.titttle {
+  font-weight: 800;
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 7rem;
+  margin-bottom: 3rem;
+  color: black;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.5s forwards;
-  animation-delay: 0.4s;
+  animation-delay: 0.2s;
+}
+
+.titttle span {
+  display: inline;
+  transition: color 0.3s ease;
+}
+
+.titttle span:hover {
+  color: #4486c8;
 }
 
 .search-row {
@@ -318,7 +381,7 @@
   padding: 12px 12px 12px 40px;
   border: none;
   border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 183, 255, 0.1);
   color: #333;
   font-size: 14px;
   transition: all 0.3s ease;
@@ -339,6 +402,7 @@
   border-radius: 30px;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin-top: 10px;
 }
 
 .search-button:hover {
@@ -351,4 +415,3 @@
 .search-button span {
   margin-right: 10px;
 }
-
