@@ -19,7 +19,7 @@
 .main_title p {
   margin: 10px 0 0;
   font-size: 14px;
-  color: #777;
+  color: #0066cc;
 }
 
 /* Tours Carousel */
@@ -122,7 +122,7 @@
 
 .box_grid ul li {
   font-size: 12px;
-  color: #777;
+  color: #0066cc;
   display: flex;
   align-items: center;
 }

@@ -6,8 +6,23 @@
     color: white;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-    margin-top: 60px;
+    margin-top: 40px;
+    border-radius: 20px;
+      /* Animation for the form and shadow */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
+  animation-delay: 0.7s;
 }
+
+/* Keyframes for the form fade-in */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .banner-content {
     max-width: 1000px;
@@ -17,10 +32,7 @@
     justify-content: space-between;
 }
 
-.text-content {
-    flex: 1;
-    max-width: 500px;
-}
+
 
 .ai-badge {
     display: inline-block;
@@ -70,9 +82,9 @@
 }
 
 .try-button:hover {
-    background-color: #c0392b;
+    background-color:green;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    
 }
 
 .icon {
@@ -81,7 +93,7 @@
 
 .image-container {
     flex: 1;
-    max-width: 400px;
+    max-width: 300px;
     position: relative;
 }
 

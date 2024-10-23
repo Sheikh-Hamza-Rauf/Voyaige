@@ -222,7 +222,7 @@ const HeroSection = () => {
     // </div>
 
     <div className='heroo'>
-    <h1 className="titttle" style={{ fontWeight: '800', textAlign: 'center', fontSize: '3rem', marginTop: '7rem', marginBottom: '1rem' }}>
+    <h1 className="titttle" style={{ fontWeight: '800', textAlign: 'center', fontSize: '3rem', marginTop: '5rem', marginBottom: '1rem' }}>
      <span> Where to?</span>
     </h1>
     <div>
