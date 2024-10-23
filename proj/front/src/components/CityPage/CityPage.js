@@ -3,25 +3,23 @@ import Navbar from '../NavBar/Navbar';
 import Hero from './Hero';
 import TopAttractions from './TopAttractions';
 import HotelsSection from './HotelsSection';
+import './CityPage.css';
 
-
-import './IslamabadPage.css';
-
-const IslamabadPage = () => {
+// Add cityName as a prop parameter
+const CityPage = ({ cityName }) => {
     return (
-        
-        <div className="islamabad-page">
+        <div className="City-page">
             <Navbar />
             <main className="main-content">
-                <Hero />
+                {/* Pass cityName to each component */}
+                <Hero cityName={cityName} />
                 <div className="content-wrapper">
-                    <TopAttractions />
-                    <HotelsSection />
+                    <TopAttractions cityName={cityName} />
+                    <HotelsSection cityName={cityName} />
                 </div>
             </main>
-          
         </div>
     );
 };
 
-export default IslamabadPage;
+export default CityPage;

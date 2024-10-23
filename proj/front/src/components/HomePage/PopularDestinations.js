@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 import './PopularDestinations.css';
 
 const PopularDestinations = () => {
@@ -10,7 +10,7 @@ const PopularDestinations = () => {
       country: 'Islamabad',
       name: 'Islamabad',
       description: 'The Pakistan Monument (Urdu: یادگارِ پاکستان) is a national monument, located on the western Shakarparian Hills.',
-      path: '/IslamabadPage', // Path to Islamabad component
+      path: '/city/islamabad', // Updated path format
     },
     {
       id: 2,
@@ -18,7 +18,7 @@ const PopularDestinations = () => {
       country: 'Lahore',
       name: 'Lahore',
       description: 'Standing proud in Lahore, Minar-E-Pakistan is a constant reminder of the tiresome journey of independence.',
-      path: '/lahore', // Path to Lahore component
+      path: '/city/lahore', // Updated path format
     },
     {
       id: 3,
@@ -26,7 +26,7 @@ const PopularDestinations = () => {
       country: 'Multan',
       name: 'Multan',
       description: 'The tomb is located in the ancient city of Multan, at the northwestern edge of the Multan Fort.',
-      path: '/multan', // Path to Multan component
+      path: '/city/multan', // Updated path format
     },
   ];
 
@@ -42,7 +42,7 @@ const PopularDestinations = () => {
             <li key={dest.id}>
               <div className="popular-card">
                 <figure className="card-img">
-                  <Link to={dest.path}> {/* Use Link to navigate */}
+                  <Link to={dest.path} state={{ cityName: dest.name }}> {/* Added state prop */}
                     <img src={dest.image} alt={dest.name} />
                   </Link>
                 </figure>
@@ -54,7 +54,7 @@ const PopularDestinations = () => {
                   </div>
 
                   <h3 className="card-title">
-                    <Link to={dest.path}>{dest.name}</Link> {/* Link to the respective page */}
+                    <Link to={dest.path} state={{ cityName: dest.name }}>{dest.name}</Link>
                   </h3>
                   <p className="card-text">{dest.description}</p>
                 </div>
