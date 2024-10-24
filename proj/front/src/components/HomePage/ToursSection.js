@@ -17,11 +17,11 @@ const ToursSection = () => {
       rating: 8.9,
       reviews: 350
     },
-    // Add more tour objects here...
+
     {
-        id: 1,
-        title: "KARACHI",
-        image: "https://cdn.britannica.com/85/128585-050-5A1BDD02/Karachi-Pakistan.jpg",
+        id: 2,
+        title: "Islamabad",
+        image: "https://www.orangesmile.com/common/img_cities_original/islamabad-nobo21-5.jpg",
         category: "City",
         description: "Id placerat tacitmates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.",
         price: 54,
@@ -30,9 +30,9 @@ const ToursSection = () => {
         reviews: 350
       },
       {
-        id: 1,
-        title: "KARACHI",
-        image: "https://cdn.britannica.com/85/128585-050-5A1BDD02/Karachi-Pakistan.jpg",
+        id: 3,
+        title: "Lahore",
+        image: "https://www.travelingeast.com/wp-content/uploads/2013/06/Depositphotos_5271427_xl-2015-2048x1536.jpg",
         category: "City",
         description: "Id placerat tacitmates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.",
         price: 54,
@@ -41,9 +41,9 @@ const ToursSection = () => {
         reviews: 350
       },
       {
-        id: 1,
-        title: "KARACHI",
-        image: "https://cdn.britannica.com/85/128585-050-5A1BDD02/Karachi-Pakistan.jpg",
+        id: 4,
+        title: "Multan",
+        image: "https://mnsuam.edu.pk/images/com_osgallery/gal-39/original/images-27B2F860A2-99CC-116F-3625-E106AF0DE37D.jpeg",
         category: "City",
         description: "Id placerat tacitmates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.",
         price: 54,
@@ -52,9 +52,9 @@ const ToursSection = () => {
         reviews: 350
       },
       {
-        id: 1,
-        title: "KARACHI",
-        image: "https://cdn.britannica.com/85/128585-050-5A1BDD02/Karachi-Pakistan.jpg",
+        id: 5,
+        title: "Murree",
+        image: "https://www.brandsynario.com/wp-content/uploads/Murree.jpg",
         category: "City",
         description: "Id placerat tacitmates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.",
         price: 54,
@@ -63,9 +63,9 @@ const ToursSection = () => {
         reviews: 350
       },
       {
-        id: 1,
-        title: "KARACHI",
-        image: "https://cdn.britannica.com/85/128585-050-5A1BDD02/Karachi-Pakistan.jpg",
+        id: 6,
+        title: "Skardu",
+        image: "https://cdn.britannica.com/11/145411-050-263CFA2B/Swat-River-Kalam-Pak.jpg",
         category: "City",
         description: "Id placerat tacitmates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.",
         price: 54,
@@ -100,8 +100,8 @@ const ToursSection = () => {
     <section className="tours_section">
       <div className="container">
         <div className="main_title">
-          <h2>Our Popular Tours</h2>
-          <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+          <h2>Pre Planned Trips</h2>
+          <p>Discover the Pakistan with Ease - Pre-Planned Trips for Effortless Adventures!</p>
         </div>
         <div className="tours_carousel" ref={carouselRef}>
           {tours.map((tour, index) => (
@@ -128,21 +128,6 @@ const ToursSection = () => {
         <div className="carousel_controls">
           <button onClick={handlePrev} className="prev">&lt;</button>
           <button onClick={handleNext} className="next">&gt;</button>
-        </div>
-        <div className="carousel_indicators">
-          {tours.map((_, index) => (
-            <span 
-              key={index} 
-              className={index === activeIndex ? 'active' : ''}
-              onClick={() => {
-                setActiveIndex(index);
-                carouselRef.current.scrollTo({
-                  left: index * 280,
-                  behavior: 'smooth'
-                });
-              }}
-            ></span>
-          ))}
         </div>
       </div>
     </section>
