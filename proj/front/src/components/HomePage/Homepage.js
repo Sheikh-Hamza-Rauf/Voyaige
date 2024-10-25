@@ -5,6 +5,7 @@ import NavBar from "../NavBar/Navbar";
 import ToursSection from "./ToursSection";
 import PopularDestinations from "./PopularDestinations"
 import AiBanner from "./AiBanner";
+import Challenges from "./Challenges";
 
 // const citiesInPakistan = [
 //   "Islamabad",
@@ -32,6 +33,7 @@ const Homepage = () => {
       <NavBar />
      <HeroSection />
     <AiBanner/>
+      <Challenges />
      <ToursSection />
      <PopularDestinations />
      

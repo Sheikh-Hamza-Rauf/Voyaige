@@ -291,6 +291,7 @@
   background-color: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   border: 1px solid #0066cc;
+  margin-left: 30px;
   
   /* Initial box-shadow settings before animation */
   box-shadow: 0 0 20px rgba(0, 102, 204, 0.7);

@@ -13,6 +13,8 @@
   transform: translateY(20px);
   animation: fadeInUp 0.5s forwards;
   animation-delay: 0.7s;
+  width: 1200px;
+  margin-left: 30px;
 }
 
 /* Keyframes for the form fade-in */
@@ -64,6 +66,7 @@
     font-size: 18px;
     margin-bottom: 25px;
     opacity: 0.9;
+    color:white;
 }
 
 .try-button {
@@ -79,6 +82,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
+ 
+}
+a {
+    text-decoration: none; /* To ensure the Link itself has no underline */
 }
 
 .try-button:hover {

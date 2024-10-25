@@ -6,7 +6,7 @@ import SignupForm from './components/SignupForm/Signup';
 import Home from './components/HomePage/Homepage';
 import CityPage from './components/CityPage/CityPage';
 import Footer from './components/CityPage/Footer';
-
+import PlanSelection from './components/HomePage/PlanSelection';
 
 import './App.css';
 
@@ -22,6 +22,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/city/:cityName" element={<CityPageWrapper />} />
+            <Route  path='/PlanSelection' element = {<PlanSelection />} />
            
           </Routes>
         </div>

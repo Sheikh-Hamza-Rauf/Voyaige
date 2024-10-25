@@ -1,0 +1,120 @@
+.restaurants-section {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.see-all {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.restaurants-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.restaurant-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.restaurant-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.favorite-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.image-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    margin: 0 2px;
+}
+
+.dot.active {
+    background: white;
+}
+
+.restaurant-info {
+    padding: 15px;
+}
+
+.restaurant-info h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.star {
+    color: #e0e0e0;
+    font-size: 18px;
+}
+
+.star.filled {
+    color: #0066cc;
+}
+
+.review-count {
+    margin-left: 5px;
+    color: #6b6b6b;
+    font-size: 14px;
+}
+
+.price-range {
+    margin: 0;
+    color: #6b6b6b;
+    font-size: 14px;
+}
+
+@media (max-width: 1024px) {
+    .restaurants-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .restaurants-list {
+        grid-template-columns: 1fr;
+    }
+}
