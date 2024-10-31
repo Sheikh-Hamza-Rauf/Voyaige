@@ -749,7 +749,7 @@
   align-items: center;
   margin: 0 auto;
   padding: 0 20px;
-  max-width: 1200px;
+
 }
 
 .navbar-logo {
@@ -844,6 +844,7 @@
   background: linear-gradient(135deg, #34495e, #5cb8c2);
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color:white;
 }
 
 .search-button2 {
