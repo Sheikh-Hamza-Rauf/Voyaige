@@ -60,7 +60,7 @@ const PlanSelection = () => {
         className={`side left ${hoveredSide === 'left' ? 'hovered' : ''}`}
         onMouseEnter={() => setHoveredSide('left')}
         onMouseLeave={() => setHoveredSide(null)}
-        onClick={() => handleSideClick('/chatbot-plan')}
+        onClick={() => handleSideClick('/MiloChatbot')}
       >
         <div className="content-wrapper">
           <div className="icon-wrapper">
