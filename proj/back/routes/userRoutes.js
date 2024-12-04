@@ -53,5 +53,86 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 });
+router.post('/updatePoints', async (req, res) => {
+  console.log("in update");
+  try {
+      const { email, points, challengeId } = req.body;
+
+      // Update points and set the challenge status as completed
+      const updatedUser = await User.findOneAndUpdate(
+          { email },
+          {
+              $inc: { points }, // Increment points atomically
+              $set: { [`challengesStatus.${challengeId}`]: true } // Mark the specified challenge ID as completed
+          },
+          { new: true, useFindAndModify: false } // Return the updated document and disable useFindAndModify deprecation warning
+      );
+
+      if (!updatedUser) {
+          console.log("User not found");
+          return res.status(404).json({ msg: 'User not found' });
+      }
+
+      // Log to check the full updated document
+      console.log("Updated user:", updatedUser);
+
+      res.status(200).json({ msg: 'Points and challenge status updated successfully', user: updatedUser });
+  } catch (err) {
+      console.error('Error updating points:', err);
+      res.status(500).json({ msg: 'Server error' });
+  }
+});
+// Express route to check all challenge statuses for a user
+router.post('/checkAllChallengeStatuses', async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find the user based on the email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // Send the challenge status back to the client
+    res.status(200).json({ statuses: user.challengesStatus });
+  } catch (err) {
+    console.error('Error fetching challenge statuses:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+// Route to check consecutive login days
+router.post('/checkConsecutiveLogins', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    const currentDate = new Date();
+    const lastLoginDate = new Date(user.lastLoginDate);
+    const diffDays = Math.floor((currentDate - lastLoginDate) / (1000 * 60 * 60 * 24));
+
+    if (diffDays > 1) {
+      // Reset consecutive login days
+      user.consecutiveLoginDays = 0;
+    } else if (diffDays === 1) {
+      // Increment consecutive login days
+      user.consecutiveLoginDays += 1;
+    } else if (diffDays === 0) {
+      // User logged in today already
+      return res.json({ consecutiveLoginDays: user.consecutiveLoginDays, lastLoginDate: user.lastLoginDate });
+    }
+
+    user.lastLoginDate = currentDate;
+    await user.save();
+
+    res.json({ consecutiveLoginDays: user.consecutiveLoginDays, lastLoginDate: user.lastLoginDate });
+  } catch (error) {
+    console.error("Error checking consecutive login days:", error);
+    res.status(500).send("Internal server error");
+  }
+});
 
 module.exports = router;
