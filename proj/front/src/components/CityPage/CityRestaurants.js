@@ -3,28 +3,28 @@ import './RestaurantsSection.css';
 
 const cityRestaurants = {
     Islamabad: [
-        { name: "Monal Islamabad", rating: 4.7, reviews: 1520, price: "$$$", image: "path_to_monal_image.jpg" },
-        { name: "Savour Foods", rating: 4.5, reviews: 3100, price: "$", image: "path_to_savour_foods_image.jpg" },
-        { name: "Texas Steakhouse", rating: 4.6, reviews: 750, price: "$$$", image: "path_to_texas_steakhouse_image.jpg" },
-        { name: "Tuscany Courtyard", rating: 4.4, reviews: 900, price: "$$$", image: "path_to_tuscany_image.jpg" },
-        { name: "Chaye Khana", rating: 4.3, reviews: 800, price: "$$", image: "path_to_chaye_khana_image.jpg" },
-        { name: "Burning Brownie", rating: 4.6, reviews: 500, price: "$$", image: "path_to_burning_brownie_image.jpg" }
+        { name: "Burger In Town", rating: 4.7, reviews: 1520, price: "$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/0b/29/ec/burger-in-town-serving.jpg?w=1400&h=800&s=1" },
+        { name: "1969", rating: 4.5, reviews: 3100, price: "$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/c0/90/4f/photo0jpg.jpg?w=1800&h=1000&s=1" },
+        { name: "Asian Wok Beverly Center", rating: 4.6, reviews: 750, price: "$$$", image: "https://media-cdn.tripadvisor.com/media/photo-s/12/e6/12/22/main-enterance.jpg" },
+        { name: "Savour Foods", rating: 4.4, reviews: 900, price: "$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/5b/9a/e8/photo0jpg.jpg?w=1800&h=1000&s=1" },
+        { name: "Nouba", rating: 4.3, reviews: 800, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/ce/a4/e0/ambience.jpg?w=1400&h=800&s=1" },
+        { name: "Burning Brownie", rating: 4.6, reviews: 500, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/22/05/44/37/burning-brownie.jpg?w=1400&h=800&s=1" }
     ],
     Lahore: [
-        { name: "Café Aylanto", rating: 4.7, reviews: 1200, price: "$$$", image: "path_to_aylanto_image.jpg" },
-        { name: "Butt Karahi", rating: 4.5, reviews: 2500, price: "$$", image: "path_to_butt_karahi_image.jpg" },
-        { name: "Andaaz Restaurant", rating: 4.8, reviews: 1100, price: "$$$$", image: "path_to_andaaz_image.jpg" },
-        { name: "Salt'n Pepper", rating: 4.6, reviews: 1300, price: "$$", image: "path_to_salt_n_pepper_image.jpg" },
-        { name: "Spice Bazaar", rating: 4.5, reviews: 900, price: "$$$", image: "path_to_spice_bazaar_image.jpg" },
-        { name: "Rina's Kitchenette", rating: 4.6, reviews: 780, price: "$$", image: "path_to_rinas_image.jpg" }
+        { name: "Café Aylanto", rating: 4.7, reviews: 1200, price: "$$$", image: "https://d2liqplnt17rh6.cloudfront.net/coverImages/Coveraylanto_82e7b65f-8a42-4cdf-a612-71edea6372b4-559.jpeg" },
+        { name: "Monal Lahore", rating: 4.5, reviews: 2500, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/3a/1d/45/img-20190913-141114-largejpg.jpg?w=900&h=-1&s=1" },
+        { name: "Andaaz Restaurant", rating: 4.8, reviews: 1100, price: "$$$$", image: "https://media-cdn.tripadvisor.com/media/photo-s/16/17/86/02/andaaz-restaurant.jpg" },
+        { name: "Salt'n Pepper", rating: 4.6, reviews: 1300, price: "$$", image: "https://images-beta.tossdown.com/site/11771dbf-36a1-4684-a55e-18af61e0f77c.webp" },
+        { name: "Spice Bazaar", rating: 4.5, reviews: 900, price: "$$$", image: "https://sunday.com.pk/wp-content/uploads/2020/11/spice-bazaar-dha-hi-tea-lunch-dinner-phase-6-5-scaled.jpg" },
+        { name: "Arcadian Cafe Packages Mall", rating: 4.6, reviews: 780, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/de/12/af/arcadian-packages-mall.jpg?w=1800&h=1000&s=1" }
     ],
     Karachi: [
-        { name: "Kolachi Restaurant", rating: 4.8, reviews: 2000, price: "$$$", image: "path_to_kolachi_image.jpg" },
-        { name: "Okra Restaurant", rating: 4.7, reviews: 1300, price: "$$$$", image: "path_to_okra_image.jpg" },
-        { name: "Lal Qila", rating: 4.5, reviews: 1800, price: "$$$", image: "path_to_lal_qila_image.jpg" },
-        { name: "The Patio", rating: 4.6, reviews: 900, price: "$$$", image: "path_to_patio_image.jpg" },
-        { name: "Pompei", rating: 4.6, reviews: 650, price: "$$$$", image: "path_to_pompei_image.jpg" },
-        { name: "Kababs And Curries", rating: 4.4, reviews: 500, price: "$$", image: "path_to_kababs_curries_image.jpg" }
+        { name: "Lotus Court", rating: 4.8, reviews: 2000, price: "$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/24/6d/2d/0b/lotus-court.jpg?w=1400&h=800&s=1" },
+        { name: "Xander's", rating: 4.7, reviews: 1300, price: "$$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/e7/d3/5b/getlstd-property-photo.jpg?w=1000&h=600&s=1" },
+        { name: "Lal Qila", rating: 4.5, reviews: 1800, price: "$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/ac/60/0b/lal-qila-at-the-end-of.jpg?w=1800&h=-1&s=1" },
+        { name: "Al Bustan", rating: 4.6, reviews: 900, price: "$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/24/6d/29/de/al-bustan.jpg?w=1400&h=800&s=1" },
+        { name: "Ammos", rating: 4.6, reviews: 650, price: "$$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/d4/77/bf/ammos-very-amazing-ambiance.jpg?w=1400&h=800&s=1" },
+        { name: "Mirchili", rating: 4.4, reviews: 500, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/d0/87/23/photo0jpg.jpg?w=1400&h=800&s=1" }
     ],
     Murree: [
         { name: "The Monal Murree", rating: 4.8, reviews: 950, price: "$$$", image: "path_to_monal_murree_image.jpg" },
@@ -67,12 +67,12 @@ const cityRestaurants = {
         { name: "Quetta Grill", rating: 4.2, reviews: 350, price: "$$", image: "path_to_quetta_grill_image.jpg" }
     ],
     Multan: [
-        { name: "Sethi's Delight", rating: 4.7, reviews: 850, price: "$$", image: "path_to_sethis_image.jpg" },
-        { name: "Bundu Khan Multan", rating: 4.6, reviews: 980, price: "$$$", image: "path_to_bundu_khan_image.jpg" },
-        { name: "Shaikh BBQ", rating: 4.5, reviews: 750, price: "$$", image: "path_to_shaikh_bbq_image.jpg" },
-        { name: "Salt'n Pepper Multan", rating: 4.6, reviews: 700, price: "$$", image: "path_to_salt_n_pepper_multan_image.jpg" },
-        { name: "Zanzibar", rating: 4.5, reviews: 650, price: "$$$", image: "path_to_zanzibar_image.jpg" },
-        { name: "Chicken Cottage", rating: 4.3, reviews: 500, price: "$$", image: "path_to_chicken_cottage_image.jpg" }
+        { name: "Ramada Multan", rating: 4.7, reviews: 850, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/aa/f9/ac/located-in-the-heart.jpg?w=1400&h=800&s=1" },
+        { name: "Bundu Khan Multan", rating: 4.6, reviews: 980, price: "$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/18/47/fa/outside-sign-at-night.jpg?w=2000&h=-1&s=1" },
+        { name: "Shahjahan Grill", rating: 4.5, reviews: 750, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/4d/11/94/exterior-facade.jpg?w=2000&h=-1&s=1" },
+        { name: "Midtown Diners", rating: 4.6, reviews: 700, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/e9/8c/cd/mtd-outside.jpg?w=1400&h=800&s=1" },
+        { name: "Chaaye Khana", rating: 4.5, reviews: 650, price: "$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/37/b2/61/view-from-the-street.jpg?w=1400&h=800&s=1" },
+        { name: "London Courtyard", rating: 4.3, reviews: 500, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/c2/0f/e3/photo1jpg.jpg?w=1800&h=1000&s=1" }
     ],
     Faisalabad: [
         { name: "Faisalabad Restaurant", rating: 4.5, reviews: 700, price: "$$", image: "path_to_faisalabad_restaurant_image.jpg" },

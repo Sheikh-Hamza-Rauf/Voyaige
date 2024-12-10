@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+
 const router = express.Router();
 
 // Register route
@@ -18,7 +19,8 @@ router.post('/register', async (req, res) => {
       lastName,
       email,
       phoneNumber,
-      password: await bcrypt.hash(password, 10)
+      password: await bcrypt.hash(password, 10),
+      points: 0,
     });
 
     await user.save();
@@ -53,6 +55,7 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 });
+
 router.post('/updatePoints', async (req, res) => {
   console.log("in update");
   try {
@@ -134,5 +137,29 @@ router.post('/checkConsecutiveLogins', async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+router.get('/points', async (req, res) => {
+  try {
+    const email = req.headers['x-user-email']; // Extract email from custom header
+
+    if (!email) {
+      return res.status(400).json({ msg: 'Email is required' });
+    }
+
+    // Fetch the user from the database
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // Return the points
+    res.status(200).json({ points: user.points });
+  } catch (error) {
+    console.error('Error fetching points:', error);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+
 
 module.exports = router;

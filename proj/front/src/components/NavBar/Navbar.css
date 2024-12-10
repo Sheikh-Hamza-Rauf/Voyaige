@@ -1036,3 +1036,55 @@
     padding: 10px;
   }
 }
+
+.profile-container {
+  position: relative;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem; /* Adjust size as needed */
+  color: #2e808d; /* Lighter black */
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%; /* Aligns it below the button */
+  right: 0; /* Aligns to the right of the button */
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 250px; /* Increase width */
+  z-index: 1000;
+}
+
+.profile-dropdown ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-dropdown li {
+  margin: 10px 0; /* Increase space between items */
+}
+
+.profile-dropdown li a,
+.profile-dropdown li button {
+  text-decoration: none;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  padding: 10px 15px; /* Increase padding */
+  width: 100%;
+  text-align: center; /* Center text */
+}
+
+.profile-dropdown li a:hover,
+.profile-dropdown li button:hover {
+  background-color: #f1f1f1;
+}

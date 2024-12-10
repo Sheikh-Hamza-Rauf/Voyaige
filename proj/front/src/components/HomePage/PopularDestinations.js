@@ -28,6 +28,14 @@ const PopularDestinations = () => {
       description: 'The tomb is located in the ancient city of Multan, at the northwestern edge of the Multan Fort.',
       path: '/city/multan', // Updated path format
     },
+    {
+      id: 4,
+      image: 'https://thejoshtours.pk/wp-content/uploads/2023/03/Karachi.jpg',
+      country: 'Karachi',
+      name: 'Karachi',
+      description: 'Karachi,  a bustling metropolis known for its vibrant culture, coastal beauty, and economic significance.',
+      path: '/city/karachi', 
+    },
   ];
 
   return (

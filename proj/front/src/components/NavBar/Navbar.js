@@ -587,19 +587,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaHotel, FaUtensils, FaSearch, FaMapMarkerAlt, FaWalking } from 'react-icons/fa';
+import { FaHotel, FaUtensils, FaSearch, FaMapMarkerAlt, FaWalking, FaUser } from 'react-icons/fa';
 import logo from '../../assets/LOGO.png';
 import './Navbar.css';
 import axios from 'axios';
@@ -613,7 +603,41 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [error, setError] = useState(null);
   const [backgroundGray, setBackgroundGray] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [points, setPoints] = useState(0); // State for points
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsAuthenticated(!!token);
+
+    if (token) {
+      fetchUserPoints(token);
+    }
+  }, []);
+
+  const fetchUserPoints = async (token) => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user')); // Get user details from localStorage
+      if (!user || !user.email) {
+        console.error('User email not found in localStorage');
+        return;
+      }
+  
+      const response = await axios.get('http://localhost:5000/api/users/points', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Pass the token
+          'X-User-Email': user.email,      // Pass the email in a custom header
+        },
+      });
+  
+      setPoints(response.data.points || 0); // Set points from MongoDB
+    } catch (error) {
+      console.error('Failed to fetch points:', error);
+      setPoints(0); // Default to 0 if fetching fails
+    }
+  };
+  
 
   useEffect(() => {
     const checkAuthentication = () => {
@@ -685,6 +709,10 @@ const Navbar = () => {
     setSearchQuery('');
   };
 
+  const handleProfileClick = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
   return (
     <nav className="navbaar">
       <div className="navbar-container">
@@ -703,7 +731,20 @@ const Navbar = () => {
             <FaSearch />
           </button>
           {isAuthenticated ? (
-            <button className="auth-button" onClick={signOut}>Log Out</button>
+            <div className="profile-container">
+              <button className="profile-button" onClick={handleProfileClick}>
+                <FaUser />
+              </button>
+              {dropdownVisible && (
+                <div className="profile-dropdown">
+                  <ul>
+
+                    <li>Points: {points}</li> {/* Display points dynamically */}
+                    <li><button onClick={signOut}>Log Out</button></li>
+                  </ul>
+                </div>
+              )}
+            </div>
           ) : (
             <Link className="auth-button" to="/login">Sign In</Link>
           )}

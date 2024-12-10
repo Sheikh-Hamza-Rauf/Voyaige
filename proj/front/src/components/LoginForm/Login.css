@@ -1,190 +1,63 @@
-/* LoginForm.css */
-/*  
-.auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    min-width: 100%;
-    background: linear-gradient(to right, #4a90e2, #7e57c2);
-    
-  }
-  
-  .auth-form {
-    background-color: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .logo {
-    text-align: center;
-    font-size: 48px;
-    color: #4a90e2;
-    margin-bottom: 20px;
-  }
-  
-  h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .input-group {
-    position: relative;
-    margin-bottom: 20px;
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 10px 40px 10px 10px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: border-color 0.3s;
-  }
-  
-  .input-group input:focus {
-    border-color: #4a90e2;
-    outline: none;
-  }
-  
-  .input-group .icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    color: #999;
-  }
-  
-  .submit-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #4a90e2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .submit-btn:hover {
-    background-color: #3a7bd5;
-  }
-  
-  .switch-form {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .switch-form a {
-    color: #4a90e2;
-    text-decoration: none;
-  }
-  
-  .switch-form a:hover {
-    text-decoration: underline;
-  }
-
-
-
-  */
-
-
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
 .auth-container {
   display: flex;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background-image: url('https://static2.tripoto.com/media/filter/nl/img/595291/TripDocument/1526054349_800px_badshahi_mosque_lahore_i.jpg'); /* Replace with your image URL */
+  background-size: cover; /* Ensures the image covers the whole container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents repeating the image */
+  padding: 20px;
   width: 100%;
-  background: linear-gradient(120deg, #004e92, #000428);
-}
-
-.auth-image {
-  width: 50%;
-  height: 100vh;
-  background-image: url('https://via.placeholder.com/600');
-  background-size: cover;
-  background-position: center;
-  animation: fadeInImage 1.5s ease-in-out;
-}
-
-@keyframes fadeInImage {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .auth-form {
-  width: 50%;
-  padding: 60px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: slideIn 0.6s ease-in-out;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(100%); }
-  to { opacity: 1; transform: translateX(0); }
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
 }
 
 .logo {
-  text-align: center;
-  font-size: 42px;
-  color: #004e92;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
   margin-bottom: 30px;
+  text-decoration: none;
+  color: #004e92;
 }
 
 .logo h3 {
-  font-weight: bold;
+  font-size: 28px;
+  margin-right: 10px;
 }
 
 .plane-icon {
-  color: #004e92;
-  font-size: 32px;
-}
-
-h2 {
-  color: #333;
-  font-size: 28px;
-  margin-bottom: 25px;
-  text-align: center;
+  font-size: 24px;
 }
 
 .input-group {
   position: relative;
-  margin-bottom: 20px;
-  width: 100%;
+  margin-bottom: 25px;
+  padding-top: 5px;
 }
 
 .input-group input {
   width: 100%;
-  padding: 12px 45px 12px 15px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
   font-size: 16px;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.input-group input:focus {
-  border-color: #004e92;
-  outline: none;
+.input-group.input-error input {
+  border-color: #ff4d4d;
+  background-color: #fff0f0;
 }
 
 .input-group .icon {
@@ -193,40 +66,82 @@ h2 {
   right: 15px;
   transform: translateY(-50%);
   color: #888;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
-.input-group input:focus + .icon {
-  color: #004e92;
+.error-tooltip {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  color: #ff4d4d;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  animation: slideDown 0.3s ease;
+}
+
+.error-tooltip svg {
+  margin-right: 5px;
+}
+
+@keyframes slideDown {
+  from { 
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-group input:focus {
+  border-color: #004e92;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 78, 146, 0.1);
 }
 
 .submit-btn {
   width: 100%;
   padding: 12px;
   background-color: #004e92;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 18px;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
+  margin-top: 5px;
 }
 
 .submit-btn:hover {
-  background-color: #00366d;
-  transform: translateY(-3px);
+  background-color: #003a6e;
 }
 
-.submit-btn:active {
-  transform: translateY(1px);
+.submit-btn:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.global-error {
+  background-color: #fff0f0;
+  color: #ff4d4d;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.global-error svg {
+  margin-right: 10px;
 }
 
 .switch-form {
+  text-align: center;
   margin-top: 20px;
   color: #666;
-  text-align: center;
-  font-size: 14px;
 }
 
 .switch-form a {
@@ -238,16 +153,3 @@ h2 {
 .switch-form a:hover {
   text-decoration: underline;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-  

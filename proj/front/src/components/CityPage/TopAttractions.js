@@ -11,44 +11,43 @@ const cityAttractions = {
         { name: "Lake View Park", description: "Parks", rating: 4, reviews: 94, image: "https://zameenblog.s3.amazonaws.com/blog/wp-content/uploads/2020/07/Lake-View-Park-Islamabad-B-10-07-1024x640.jpg" }
     ],
     Lahore: [
-        { name: "Badshahi Mosque", description: "Historical Religious Sites", rating: 4.8, reviews: 1250, image: "https://upload.wikimedia.org/wikipedia/commons/5/5a/Badshahi_Mosque_Lahore.jpg" },
-        { name: "Lahore Fort", description: "Historical Landmarks", rating: 4.7, reviews: 980, image: "https://upload.wikimedia.org/wikipedia/commons/a/af/Lahore_Fort_View_1.JPG" },
-        { name: "Shalimar Gardens", description: "Historical Gardens", rating: 4.5, reviews: 756, image: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Shalimar_Gardens_Lahore_12.jpg" },
+        { name: "Badshahi Mosque", description: "Historical Religious Sites", rating: 4.8, reviews: 1250, image: "https://mogulesque.com/wp-content/uploads/2023/01/badshahi-mosque-full-view-lahore-pakistan-4-1155x770.jpg" },
+        { name: "Lahore Fort", description: "Historical Landmarks", rating: 4.7, reviews: 980, image: "https://architecturalanatomyblog.wordpress.com/wp-content/uploads/2017/06/feat3.jpg" },
+        { name: "Shalimar Gardens", description: "Historical Gardens", rating: 4.5, reviews: 756, image: "https://media.licdn.com/dms/image/v2/D4D12AQEHWFNQNN30Yw/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1698578653509?e=2147483647&v=beta&t=fV2pnjuYK99ntpj5eqizJrs0DpxRfy5om95oMGfb6ho" },
         { name: "Walled City", description: "Historic Sites", rating: 4.6, reviews: 890, image: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Lahore_Walled_City.jpg" },
-        { name: "Minar-e-Pakistan", description: "Monuments", rating: 4.7, reviews: 1100, image: "https://upload.wikimedia.org/wikipedia/commons/e/e8/Minar_e_Pakistan_1.jpg" },
-        { name: "Food Street", description: "Cultural Sites", rating: 4.4, reviews: 670, image: "https://upload.wikimedia.org/wikipedia/commons/0/0a/Food_Street_Lahore.jpg" }
+        { name: "Minar-e-Pakistan", description: "Monuments", rating: 4.7, reviews: 1100, image: "https://gypsytours.pk/wp-content/uploads/2023/05/Minar-e-Pakistan.jpg" },
+        { name: "Food Street", description: "Cultural Sites", rating: 4.4, reviews: 670, image: "https://elmomento.pk/wp-content/uploads/2023/02/The-Lahore-Fort-Food-Street.jpg" }
     ],
     Karachi: [
-        { name: "Clifton Beach", description: "Beaches", rating: 4.3, reviews: 920, image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Clifton_Beach.jpg" },
-        { name: "Mazar-e-Quaid", description: "Monuments", rating: 4.7, reviews: 1500, image: "https://upload.wikimedia.org/wikipedia/commons/d/d7/Mazar-e-Quaid%2C_Karachi.jpg" },
-        { name: "Port Grand", description: "Entertainment District", rating: 4.4, reviews: 780, image: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Port_Grand_Karachi.jpg" },
-        { name: "Mohatta Palace", description: "Historical Sites", rating: 4.5, reviews: 650, image: "https://upload.wikimedia.org/wikipedia/commons/0/03/Mohatta_Palace_2020.jpg" },
-        { name: "National Museum", description: "Museums", rating: 4.3, reviews: 480, image: "https://upload.wikimedia.org/wikipedia/commons/e/e2/National_Museum_Karachi.jpg" },
-        { name: "Do Darya", description: "Waterfront Dining", rating: 4.6, reviews: 890, image: "https://upload.wikimedia.org/wikipedia/commons/b/b4/Do_Darya_Karachi.jpg" }
+        { name: "Clifton Beach", description: "Beaches", rating: 4.3, reviews: 920, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/fc/35/32/karachi-clifton-beach.jpg?w=700&h=400&s=1" },
+        { name: "Mazar-e-Quaid", description: "Monuments", rating: 4.7, reviews: 1500, image: "https://www.app.com.pk/wp-content/uploads/2024/09/Mazar-e-Quaid.jpg" },
+        { name: "Port Grand", description: "Entertainment District", rating: 4.4, reviews: 780, image: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Port_Grand_Karachi.JPG" },
+        { name: "Mohatta Palace", description: "Historical Sites", rating: 4.5, reviews: 650, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/2b/9f/b4/jardines-del-palacio.jpg?w=1400&h=800&s=1" },
+        { name: "National Museum", description: "Museums", rating: 4.3, reviews: 480, image: "https://upload.wikimedia.org/wikipedia/commons/9/9f/PK_Karachi_asv2020-02_img32_National_Museum.jpg" },
+        { name: "Do Darya", description: "Waterfront Dining", rating: 4.6, reviews: 890, image: "https://zameenblog.s3.amazonaws.com/blog/wp-content/uploads/2019/11/image-5-1.jpg" }
     ],
     Murree: [
-        { name: "Mall Road", description: "Shopping District", rating: 4.4, reviews: 780, image: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Mall_Road_Murree.jpg" },
-        { name: "Kashmir Point", description: "Viewpoint", rating: 4.6, reviews: 560, image: "https://upload.wikimedia.org/wikipedia/commons/d/db/Kashmir_Point_Murree.jpg" },
-        { name: "Pindi Point", description: "Scenic Point", rating: 4.5, reviews: 490, image: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Pindi_Point_Murree.jpg" },
-        { name: "Chair Lifts", description: "Adventure Activities", rating: 4.3, reviews: 670, image: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Chair_Lift_Murree.jpg" },
-        { name: "Patriata", description: "Hill Station", rating: 4.4, reviews: 450, image: "https://upload.wikimedia.org/wikipedia/commons/6/65/Patriata.jpg" },
-        { name: "Governor House", description: "Historical Building", rating: 4.2, reviews: 320, image: "https://upload.wikimedia.org/wikipedia/commons/9/92/Governor_House_Murree.jpg" }
+        { name: "Mall Road", description: "Shopping District", rating: 4.4, reviews: 780, image: "https://wpassets.graana.com/blog/wp-content/uploads/2023/12/Mall-Road-Murree.png.webp" },
+        { name: "Kashmir Point", description: "Viewpoint", rating: 4.6, reviews: 560, image: "http://www.pakistantoursguide.pk/wp-content/uploads/2015/10/Holy-Trinity-Churchs-view-from-Kashmir-Point-1.jpg" },
+        { name: "Pindi Point", description: "Scenic Point", rating: 4.5, reviews: 490, image: "https://www.pakistantoursguide.pk/wp-content/uploads/2015/10/Murree-Photos-General-Post-Office-Murree-after-heavy-snow-Murree-Pictures.jpg" },
+        { name: "Chair Lifts", description: "Adventure Activities", rating: 4.3, reviews: 670, image: "https://elands.pk/wp-content/uploads/2024/10/Pindi-Point-Murree-1-edited.webp" },
+        { name: "Governor House", description: "Historical Building", rating: 4.2, reviews: 320, image: "https://zameenblog.s3.amazonaws.com/blog/wp-content/uploads/2019/08/cover-image-90.jpg" }
     ],
     Peshawar: [
-        { name: "Bala Hisar Fort", description: "Historical Forts", rating: 4.7, reviews: 630, image: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Bala_Hisar_Fort_Peshawar.jpg" },
-        { name: "Qissa Khwani Bazaar", description: "Markets", rating: 4.5, reviews: 710, image: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Qissa_Khwani_Bazaar_Peshawar.jpg" },
-        { name: "Peshawar Museum", description: "Museums", rating: 4.6, reviews: 430, image: "https://upload.wikimedia.org/wikipedia/commons/9/91/Peshawar_Museum.jpg" },
-        { name: "Islamia College", description: "Educational Sites", rating: 4.8, reviews: 520, image: "https://upload.wikimedia.org/wikipedia/commons/1/15/Islamia_College_Peshawar.jpg" },
-        { name: "Khyber Pass", description: "Historical Sites", rating: 4.7, reviews: 560, image: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Khyber_Pass.jpg" },
-        { name: "Chowk Yadgar", description: "Monuments", rating: 4.3, reviews: 350, image: "https://upload.wikimedia.org/wikipedia/commons/5/55/Chowk_Yadgar_Peshawar.jpg" }
+        { name: "Bala Hisar Fort", description: "Historical Forts", rating: 4.7, reviews: 630, image: "https://res.cloudinary.com/www-travelpakistani-com/image/upload/v1660911384/Bala_Hisar_fort_-_Peshawar.jpg" },
+        { name: "Qissa Khwani Bazaar", description: "Markets", rating: 4.5, reviews: 710, image: "https://upload.wikimedia.org/wikipedia/commons/8/81/Oldpeshawarcity.jpg" },
+        { name: "Peshawar Museum", description: "Museums", rating: 4.6, reviews: 430, image: "https://kparchaeology.gkp.pk/all_assets/images/1.jpg" },
+        { name: "Islamia College", description: "Educational Sites", rating: 4.8, reviews: 520, image: "https://i.tribune.com.pk/media/images/1079245-IslamiaCollegePeshawarUniversityKPK-1459885675/1079245-IslamiaCollegePeshawarUniversityKPK-1459885675.jpg" },
+        { name: "Khyber Pass", description: "Historical Sites", rating: 4.7, reviews: 560, image: "https://res.cloudinary.com/www-travelpakistani-com/image/upload/v1680261995/khyber_pass_KPK.jpg" },
+        { name: "Chowk Yadgar", description: "Monuments", rating: 4.3, reviews: 350, image: "https://res.cloudinary.com/www-travelpakistani-com/image/upload/v1680177593/chowk_yadgar.jpg" }
     ],
     Skardu: [
-        { name: "Shangrila Resort", description: "Resorts", rating: 4.9, reviews: 350, image: "https://upload.wikimedia.org/wikipedia/commons/2/28/Shangrila_Resort_Skardu.jpg" },
-        { name: "Deosai National Park", description: "National Parks", rating: 5, reviews: 420, image: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Deosai_National_Park.jpg" },
-        { name: "Satpara Lake", description: "Lakes", rating: 4.7, reviews: 290, image: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Satpara_Lake.jpg" },
-        { name: "Skardu Fort", description: "Historical Forts", rating: 4.5, reviews: 250, image: "https://upload.wikimedia.org/wikipedia/commons/7/77/Skardu_Fort.jpg" },
-        { name: "Upper Kachura Lake", description: "Lakes", rating: 4.8, reviews: 320, image: "https://upload.wikimedia.org/wikipedia/commons/4/49/Upper_Kachura_Lake_Skardu.jpg" },
-        { name: "Katpana Desert", description: "Deserts", rating: 4.6, reviews: 180, image: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Katpana_Desert_Skardu.jpg" }
+        { name: "Shangrila Resort", description: "Resorts", rating: 4.9, reviews: 350, image: "https://porterpakistan.com/uploads/locations/Shangrila%20Lake.jpg" },
+        { name: "Deosai National Park", description: "National Parks", rating: 5, reviews: 420, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/30/78/2c/rama-meadows.jpg?w=1600&h=-1&s=1" },
+        { name: "Satpara Lake", description: "Lakes", rating: 4.7, reviews: 290, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/56/c6/1e/lake-formed-when-valley.jpg?w=1800&h=1000&s=1" },
+        { name: "Skardu Fort", description: "Historical Forts", rating: 4.5, reviews: 250, image: "https://pyaraskardu.com/wp-content/uploads/2023/01/Kharpocho-Fort-Skardu-Pakistan.jpg" },
+        { name: "Upper Kachura Lake", description: "Lakes", rating: 4.8, reviews: 320, image: "https://www.calamitytravels.com/wp-content/uploads/2022/04/IMG_8236-2-1024x578.jpg" },
+        { name: "Katpana Desert", description: "Deserts", rating: 4.6, reviews: 180, image: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Katpana_Desert.jpg" }
     ],
     Hunza: [
         { name: "Altit Fort", description: "Historical Sites", rating: 4.9, reviews: 410, image: "https://upload.wikimedia.org/wikipedia/commons/6/69/Altit_Fort_Hunza.jpg" },
@@ -67,12 +66,12 @@ const cityAttractions = {
         { name: "Hazarganji Chiltan National Park", description: "National Parks", rating: 4.5, reviews: 180, image: "https://upload.wikimedia.org/wikipedia/commons/e/e9/Hazarganji_Chiltan_National_Park.jpg" }
     ],
     Multan: [
-        { name: "Tomb of Shah Rukn-e-Alam", description: "Historical Religious Sites", rating: 4.9, reviews: 720, image: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Tomb_of_Shah_Rukn-e-Alam_Multan.jpg" },
-        { name: "Multan Fort", description: "Historical Sites", rating: 4.6, reviews: 540, image: "https://upload.wikimedia.org/wikipedia/commons/5/50/Multan_Fort.jpg" },
-        { name: "Ghanta Ghar", description: "Clock Towers", rating: 4.4, reviews: 380, image: "https://upload.wikimedia.org/wikipedia/commons/a/ac/Ghanta_Ghar_Multan.jpg" },
-        { name: "Shrine of Bahauddin Zakariya", description: "Religious Sites", rating: 4.8, reviews: 610, image: "https://upload.wikimedia.org/wikipedia/commons/9/91/Shrine_of_Bahauddin_Zakariya_Multan.jpg" },
-        { name: "Hussain Agahi Bazaar", description: "Markets", rating: 4.5, reviews: 500, image: "https://upload.wikimedia.org/wikipedia/commons/f/f9/Hussain_Agahi_Bazaar_Multan.jpg" },
-        { name: "Tomb of Shah Shams Tabrez", description: "Historical Sites", rating: 4.7, reviews: 430, image: "https://upload.wikimedia.org/wikipedia/commons/5/54/Tomb_of_Shah_Shams_Tabrez_Multan.jpg" }
+        { name: "Tomb of Shah Rukn-e-Alam", description: "Historical Religious Sites", rating: 4.9, reviews: 720, image: "https://www.saoarchitects.com/images-o/images/multan-tomb.jpg" },
+        { name: "Multan Fort", description: "Historical Sites", rating: 4.6, reviews: 540, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/f1/31/68/old-fort-views.jpg?w=1100&h=-1&s=1" },
+        { name: "Ghanta Ghar", description: "Clock Towers", rating: 4.4, reviews: 380, image: "https://multan.punjab.gov.pk/system/files/multan-ghanta-ghar_0.jpg" },
+        { name: "Shrine of Bahauddin Zakariya", description: "Religious Sites", rating: 4.8, reviews: 610, image: "https://www.orientalarchitecture.com/gallery/pakistan/multan/bahauddin-zakariya/photos/bahauddin-zakariya_tomb01.jpg" },
+        { name: "Hussain Agahi Bazaar", description: "Markets", rating: 4.5, reviews: 500, image: "https://pakvoices.pk/wp-content/uploads/2017/03/IMG_3052.jpg" },
+        { name: "Tomb of Shah Shams Tabrez", description: "Historical Sites", rating: 4.7, reviews: 430, image: "https://www.orientalarchitecture.com/gallery/pakistan/multan/shah-shams-sabzwari/photos/shah-shams-sabzwari03.jpg" }
     ],
     Faisalabad: [
         { name: "Clock Tower", description: "Historical Landmarks", rating: 4.6, reviews: 920, image: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Clock_Tower_Faisalabad.jpg" },
