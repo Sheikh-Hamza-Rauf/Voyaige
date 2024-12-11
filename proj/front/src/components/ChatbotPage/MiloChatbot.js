@@ -1,140 +1,186 @@
-import React, { useState, useEffect } from 'react';
-import NavBar from "../NavBar/Navbar";
-import './MiloChatbot.css'; // Import CSS for styling
+import React, { useState, useEffect } from "react";
+import Navbar from "../NavBar/Navbar";
+import "./MiloChatbot.css";
 
-function MiloChatbot() {
-    const [userInput, setUserInput] = useState('');
-    const [conversation, setConversation] = useState([]);
-    const [conversationState, setConversationState] = useState({
-        awaitingInput: null,
-        tripDetails: {
-            startingCity: '',
-            destinationCity: '',
-            modeOfTransport: '',
-            days: 0,
-            budget: 0,
-        },
-    });
-    const [initialMessageShown, setInitialMessageShown] = useState(true);
-    const [isTyping, setIsTyping] = useState(false);
+const MiloChatbot = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [welcomeVisible, setWelcomeVisible] = useState(true);
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [isTyping, setIsTyping] = useState(false);
 
-    useEffect(() => {
-        if (initialMessageShown) {
-            const initialMessages = [
-                { sender: 'bot', message: "Hi, I'm Milo, your personal travel assistant! Let's start planning your trip." },
-            ];
-            setConversation(initialMessages);
-        }
-    }, [initialMessageShown]);
+  const apiBaseURL = "http://127.0.0.1:5001/";
 
-    const handleChat = async (e) => {
-        e.preventDefault();
-        try {
-            let response;
-            const { awaitingInput, tripDetails } = conversationState;
+  useEffect(() => {
+    const initialMessages = [
+      { sender: "bot", text: "Hi, I'm Milo, your personal travel assistant! Let's start planning your trip." },
+    ];
+    setMessages(initialMessages);
+  }, []);
 
-            // User input message added to conversation
-            setConversation((prev) => [...prev, { sender: 'user', message: userInput }]);
+  const handleUserMessage = async () => {
+    if (!input.trim()) return;
+  
+    const userMessage = input.trim();
+    setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
+    setHistory([userMessage, ...history]);
+    setInput("");
+    setWelcomeVisible(false);
+    setIsTyping(true);
+  
+    let endpoint = "/MiloChatbot";
+    let payload = { user_input: userMessage };
+  
+    if (userMessage.toLowerCase().includes("generate itinerary") || userMessage.toLowerCase().includes("plan a trip")) {
+      const userInputParts = userMessage.split(" ");
+      const startingCity = userInputParts.includes("from")
+        ? userInputParts[userInputParts.indexOf("from") + 1]
+        : "Islamabad";
+      const destinationCity = userInputParts.includes("to")
+        ? userInputParts[userInputParts.indexOf("to") + 1]
+        : "Lahore";
+      const daysMatch = userMessage.match(/(\d+)\s+days/);
+      const days = daysMatch ? parseInt(daysMatch[1], 10) : 3;
+      const modeOfTransportMatch = userMessage.match(/by\s+(\w+)/);
+      const modeOfTransport = modeOfTransportMatch
+        ? modeOfTransportMatch[1].toLowerCase()
+        : "bus";
+      const budgetMatch = userMessage.match(/budget\s+(\d+)/);
+      const budget = budgetMatch ? parseInt(budgetMatch[1], 10) : 50000;
+  
+      endpoint = "/generate-itinerary";
+      payload = {
+        user_input: userMessage,
+        starting_city: startingCity,
+        destination_city: destinationCity,
+        days,
+        mode_of_transport: modeOfTransport,
+        budget,
+      };
+    } else if (userMessage.toLowerCase().includes("tell me about", "what is", "describe", "give details on", "wheres")) {
+      endpoint = "/retrieve-details";
+    } else if (userMessage.toLowerCase().includes("top") || userMessage.toLowerCase().includes("best")) {
+      const match = userMessage.match(/top\s+(\d+)?\s*(hotels|restaurants|attractions|airbnbs?)\s+in\s+([\w\s]+)/i);
+      if (match) {
+        const numRecommendations = parseInt(match[1], 10) || 5;
+        const category = match[2].toLowerCase();
+        const city = match[3].trim().toLowerCase();
+  
+        endpoint = "/retrieve-top-items";
+        payload = {
+          user_input: userMessage,
+          num_recommendations: numRecommendations,
+          category,
+          city,
+        };
+      } else {
+        setMessages((prev) => [...prev, { sender: "milo", text: "Please specify what type of top information you need (e.g., 'top 5 hotels in Lahore')." }]);
+        setIsTyping(false);
+        return;
+      }
+    } else if (userMessage.toLowerCase().includes("compare")) {
+      endpoint = "/compare-two-options";
+    }
+  
+    try {
+      const response = await fetch(`${apiBaseURL}${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+  
+      let botResponse;
+  
+      if (endpoint === "/retrieve-details" && data.result) {
+        botResponse = data.result; // Handle "tell me about" queries
+      } else if (endpoint === "/retrieve-top-items" && data.result) {
+        botResponse = data.result; // Handle "top items" queries
+      } else if (endpoint === "/generate-itinerary" && data.response) {
+        botResponse = data.response; // Handle "generate itinerary" queries
+      } else {
+        botResponse = "I'm here to assist you!";
+      }
+  
+      setMessages((prev) => [...prev, { sender: "milo", text: botResponse }]);
+    } catch (error) {
+      console.error("Error communicating with backend:", error);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "milo", text: "Sorry, something went wrong. Please try again later." },
+      ]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+  
+  
+  
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleUserMessage();
+    } else if (e.key === "ArrowUp") {
+      if (historyIndex < history.length - 1) {
+        const newIndex = historyIndex + 1;
+        setInput(history[newIndex]);
+        setHistoryIndex(newIndex);
+      }
+    } else if (e.key === "ArrowDown") {
+      if (historyIndex > 0) {
+        const newIndex = historyIndex - 1;
+        setInput(history[newIndex]);
+        setHistoryIndex(newIndex);
+      } else {
+        setInput("");
+        setHistoryIndex(-1);
+      }
+    }
+  };
 
-            if (awaitingInput) {
-                const updatedTripDetails = { ...tripDetails, [awaitingInput]: userInput };
-                setConversationState({ ...conversationState, tripDetails: updatedTripDetails, awaitingInput: null });
-                setUserInput('');
+  useEffect(() => {
+    const chatContainer = document.getElementById("chat-container");
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  }, [messages]);
 
-                const nextInput = getNextDetail(updatedTripDetails);
-                if (nextInput) {
-                    const botMessage = `Please provide your ${nextInput}.`;
-                    setConversation((prev) => [...prev, { sender: 'bot', message: botMessage }]);
-                } else {
-                    response = await fetch('http://127.0.0.1:5000/generate-itinerary', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updatedTripDetails),
-                    });
-                    const data = await response.json();
-                    const botMessage = data.response || 'Your itinerary has been generated!';
-                    setConversation((prev) => [...prev, { sender: 'bot', message: botMessage }]);
-                }
-                return;
-            }
-
-            if (userInput.includes("generate itinerary")) {
-                const nextInput = getNextDetail(tripDetails);
-                if (nextInput) {
-                    setConversationState({ ...conversationState, awaitingInput: nextInput });
-                    const botMessage = `Please provide your ${nextInput}.`;
-                    setConversation((prev) => [...prev, { sender: 'bot', message: botMessage }]);
-                }
-            } else {
-                setIsTyping(true); // Set typing state to true
-                response = await fetch('http://127.0.0.1:5000/MiloChatbot', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ user_input: userInput }),
-                });
-                const data = await response.json();
-                const botMessage = data.response || 'I am here to assist you!';
-                setConversation((prev) => [
-                    ...prev,
-                    { sender: 'bot', message: botMessage },
-                ]);
-                setIsTyping(false); // Set typing state to false after response
-            }
-
-            setUserInput('');
-        } catch (error) {
-            console.error('Error communicating with the chatbot:', error);
-            setConversation((prev) => [...prev, { sender: 'bot', message: 'Sorry, there was an error. Please try again.' }]);
-        }
-    };
-
-    const getNextDetail = (details) => {
-        if (!details.startingCity) return 'starting city';
-        if (!details.destinationCity) return 'destination city';
-        if (!details.modeOfTransport) return 'mode of transport';
-        if (!details.days) return 'number of days';
-        if (!details.budget) return 'budget';
-        return null;
-    };
-
-    return (
-        <div>
-            <NavBar />
-            <div className="chat-container">
-                <div className="chatbox" style={initialMessageShown ? { transform: 'translateY(100px)' } : {}}>
-                    {/* Initial Message Displayed on Screen */}
-                    {initialMessageShown && (
-                        <div className="initial-message">
-                            <h1 className="initial-message-title">Welcome to Voyaige!</h1>
-                            <h4 className="initial-message-subtitle">Type your message below to start the chat.</h4>
-                        </div>
-                    )}
-
-                    {/* Chat Messages */}
-                    {conversation.map((msg, index) => (
-                        <div key={index} className={`chat-message ${msg.sender === 'user' ? 'user-message' : 'bot-message'}`}>
-                            {msg.sender === 'user' && <div className="sender-label">You</div>}
-                            {msg.sender === 'bot' && <div className="sender-label">Milo</div>}
-                            <p>{msg.message}</p>
-                            {msg.sender === 'bot' && isTyping && <span className="typing">...</span>} {/* Typing Indicator */}
-                        </div>
-                    ))}
-                </div>
-
-                {/* User Input */}
-                <form onSubmit={(e) => { handleChat(e); setInitialMessageShown(false); }} className="chat-input">
-                    <input
-                        type="text"
-                        placeholder="Type your message here..."
-                        value={userInput}
-                        onChange={(e) => setUserInput(e.target.value)}
-                        onFocus={() => setInitialMessageShown(false)}
-                    />
-                    <button type="submit">Send</button>
-                </form>
-            </div>
+  return (
+    <div className="chatbot-container">
+      <Navbar />
+      {welcomeVisible && (
+        <div className="welcome-message">
+          <p>Welcome to a chat with Milo, your personal smart AI trip planner.</p>
+          <p>Click on the input bar to start the chat.</p>
         </div>
-    );
-}
+      )}
+
+      <div id="chat-container" className="chat-container">
+        {messages.map((msg, index) => (
+          <div key={index} className={`chat-bubble ${msg.sender}`}>
+            <span>{msg.sender === "user" ? `You: ${msg.text}` : `Milo: ${msg.text}`}</span>
+          </div>
+        ))}
+        {isTyping && (
+          <div className="chat-bubble milo">
+            <span>Milo is typing...</span>
+          </div>
+        )}
+      </div>
+
+      <div className="input-container">
+        <input
+          type="text"
+          placeholder="Type your message here..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setWelcomeVisible(false)}
+        />
+        <button onClick={handleUserMessage}>Send</button>
+      </div>
+    </div>
+  );
+};
 
 export default MiloChatbot;

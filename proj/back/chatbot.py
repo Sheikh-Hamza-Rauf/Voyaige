@@ -13,9 +13,13 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel
 from flask import Flask, request, jsonify
 import re
 from flask_cors import CORS
+from flask_cors import cross_origin
+import logging
 
 app = Flask(__name__)
-CORS(app)
+#CORS(app)
+CORS(app, resources={r"/MiloChatbot": {"origins": "http://localhost:3000"}})
+
 
 def load_data(file_path, file_type='csv'):
     if not os.path.exists(file_path):
@@ -119,6 +123,10 @@ model = AutoModelForCausalLM.from_pretrained(model_name)
 pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_length=100)
 llm = HuggingFacePipeline(pipeline=pipe)
 
+# Load model and tokenizer during app startup
+preloaded_model = AutoModelForCausalLM.from_pretrained(model_name)  # Replace with your model loader
+preloaded_tokenizer = AutoTokenizer.from_pretrained(model_name)  # Replace with your tokenizer loader
+
 # Updated prompt to enhance coherence
 prompt_template = PromptTemplate(input_variables=["query"], template="Respond to this travel-related question: {query}")
 langchain_pipeline = LLMChain(prompt=prompt_template, llm=llm)
@@ -213,129 +221,100 @@ def get_randomized_cost(info, category):
     return 1000  # Default value if no category matches
 
 # Predefined minimum budgets per day
-MIN_BUDGET_PER_DAY = 3000  # You can adjust this as per your requirements
+MIN_BUDGET_PER_DAY = 7500
 
-# Generate an itinerary
-def generate_itinerary(user_input, starting_city, destination_city, days, mode_of_transport, city_hotels, city_restaurants, city_attractions, amenities_data, hotel_names, restaurant_names, attraction_names, MIN_BUDGET_PER_DAY, model, tokenizer, budget=None):
-    # Validate number of days
-    if days > 7:
-        return "Sorry, the trip duration cannot exceed 7 days."
-    
-    min_budget = days * MIN_BUDGET_PER_DAY
-    if budget is not None and budget < min_budget:
-        return f"Sorry, the minimum budget for a {days}-day trip is Rs{min_budget}. Please increase your budget."
+def generate_itinerary(user_input, starting_city, destination_city, days, mode_of_transport, budget=None):
+    try:
+        response_messages = []
 
-    # Generate user embedding (assuming 'model' and 'tokenizer' are pre-defined)
-    user_embedding = model.transformer.wte(tokenizer.encode(user_input, return_tensors='pt')).mean(dim=1).detach().numpy()
+        # Validate inputs
+        if not starting_city or not destination_city:
+            return {"status": "error", "messages": ["Starting and destination cities are required."]}
 
-    # Transport suggestion for day 1
-    day_1_transport = None
-    car_transport = None
+        if days > 7:
+            return {"status": "error", "messages": ["Sorry, the trip duration cannot exceed 7 days."]}
 
-    if mode_of_transport == "car":
-        car_name = input("Please specify the car you'd like to use (e.g., Corolla, Civic, etc.): ").strip()
-        validated_car_name = validate_car_name(car_name)
-        
-        while not validated_car_name:
-            print("Sorry, the car name you entered is not available. Please enter a valid car name.")
-            car_name = input("Please specify the car you'd like to use (e.g., Corolla, Civic, etc.): ").strip()
-            validated_car_name = validate_car_name(car_name)
-        
-        day_1_transport = validated_car_name
-        car_transport = validated_car_name
+        min_budget = days * MIN_BUDGET_PER_DAY
+        if budget is not None and budget < min_budget:
+            return {"status": "error", "messages": [f"Sorry, the minimum budget for a {days}-day trip is Rs{min_budget}. Please increase your budget."]}
 
-    elif mode_of_transport in ["bus", "train"]:
-        day_1_transport = find_top_similarities(
-            bus_embeddings if mode_of_transport == "bus" else train_embeddings,
-            bus_names if mode_of_transport == "bus" else train_names,
-            user_embedding,
-            top_n=1
-        )[0]
+        # Initialize total cost
+        total_cost = 0
+        itinerary_details = f"Generated Itinerary from {starting_city.title()} to {destination_city.title()} ({days} days):\n" \
+                            "----------------------\n\n"
 
-        print("On day 2 and beyond, only cars can be selected for transport.")
-        available_cars = amenities_data.get('car', {})
-        if not available_cars:
-            return "Sorry, no cars are available."
-        
-        print("Please choose a car from the following options:")
-        for idx, (car_name, car_info) in enumerate(available_cars.items(), start=1):
-            print(f"{idx}. {car_name}: {car_info}")
-        
-        car_choice = input("Please select a car by number: ").strip()
-        try:
-            car_choice = int(car_choice)
-            if 1 <= car_choice <= len(available_cars):
-                car_transport = list(available_cars.keys())[car_choice - 1]
+        # Get city-specific recommendations
+        city_hotels = [name for name in hotel_names if destination_city.lower() in name.lower()]
+        city_restaurants = [name for name in restaurant_names if destination_city.lower() in name.lower()]
+        city_attractions = [name for name in attraction_names if destination_city.lower() in name.lower()]
+
+        if not city_hotels or not city_restaurants or not city_attractions:
+            return {"status": "error", "messages": [f"Sorry, we couldn't find enough recommendations for {destination_city}."]}
+
+        # Generate itinerary for each day
+        for day in range(1, days + 1):
+            daily_details = f"\tDay {day}\n"
+
+            # Transport
+            if day == 1:
+                if mode_of_transport in ["bus", "train"]:
+                    transport = find_top_similarities(
+                        bus_embeddings if mode_of_transport == "bus" else train_embeddings,
+                        bus_names if mode_of_transport == "bus" else train_names,
+                        model.transformer.wte(tokenizer.encode(user_input, return_tensors='pt')).mean(dim=1).detach().numpy(),
+                        top_n=1
+                    )[0]
+                    daily_details += f"Transport: {mode_of_transport.title()} - {transport}\n"
+                else:
+                    daily_details += "Transport: Car - User-selected car\n"
             else:
-                return "Invalid choice. Please select a valid car number."
-        except ValueError:
-            return "Invalid input. Please enter a number corresponding to a car."
+                daily_details += "Transport: Car - Rental option\n"
 
-    # Get city-specific recommendations
-    city_hotels = [name for name in hotel_names if destination_city.lower() in name.lower()]
-    city_restaurants = [name for name in restaurant_names if destination_city.lower() in name.lower()]
-    city_attractions = [name for name in attraction_names if destination_city.lower() in name.lower()]
+            # Accommodation
+            accommodation = random.choice(city_hotels)
+            accommodation_cost = random.randint(3000, 15000)
+            daily_details += f"Accommodation: {accommodation} - Rs{accommodation_cost}\n"
+            total_cost += accommodation_cost
 
-    if not city_hotels or not city_restaurants or not city_attractions:
-        return f"Sorry, we couldn't find recommendations for {destination_city}."
+            # Attractions
+            attraction = random.choice(city_attractions)
+            daily_details += f"Attraction 1: {attraction}\n"
+            if len(city_attractions) > 1:
+                second_attraction = random.choice(city_attractions)
+                while second_attraction == attraction:
+                    second_attraction = random.choice(city_attractions)
+                daily_details += f"Attraction 2: {second_attraction}\n"
 
-    # Itinerary generation
-    itinerary_details = f"Generated Itinerary from {starting_city.title()} to {destination_city.title()} ({days} days):\n"
-    total_cost = 0
+            # Restaurants
+            restaurant1 = random.choice(city_restaurants)
+            restaurant1_cost = random.randint(500, 3500)
+            daily_details += f"Restaurant 1: {restaurant1} - Rs{restaurant1_cost}\n"
 
-    for day in range(1, days + 1):
-        itinerary_details += "\n----------------------\n"
-        itinerary_details += f"Day {day}\n"
+            restaurant2 = random.choice(city_restaurants)
+            while restaurant2 == restaurant1:
+                restaurant2 = random.choice(city_restaurants)
+            restaurant2_cost = random.randint(500, 3500)
+            daily_details += f"Restaurant 2: {restaurant2} - Rs{restaurant2_cost}\n"
 
-        # Transport logic
-        if day == 1:
-            itinerary_details += f"Transport: {mode_of_transport.title()} - {day_1_transport}\n"
-        else:
-            itinerary_details += f"Transport: Car - {car_transport}\n"
+            daily_cost = accommodation_cost + restaurant1_cost + restaurant2_cost
+            total_cost += restaurant1_cost + restaurant2_cost
 
-        # Accommodation
-        accommodation = random.choice(city_hotels)
-        accommodation_info = amenities_data['hotel'].get(accommodation, {})
-        accommodation_cost = accommodation_info.get('cost', random.randint(3000, 15000)) if isinstance(accommodation_info, dict) else random.randint(3000, 15000)
-        itinerary_details += f"Accommodation: {accommodation} - Rs{accommodation_cost}\n"
-        daily_cost = accommodation_cost
+            daily_details += f"Total cost for Day {day}: Rs{daily_cost}\n" \
+                             "----------------------\n\n"
+            itinerary_details += daily_details
 
-        # Restaurants
-        restaurants = random.sample(city_restaurants, min(2, len(city_restaurants)))
-        restaurant1 = restaurants[0]
-        restaurant1_info = amenities_data['restaurant'].get(restaurant1, {})
-        restaurant1_cost = restaurant1_info.get('cost', random.randint(500, 3500)) if isinstance(restaurant1_info, dict) else random.randint(500, 3500)
-        itinerary_details += f"Restaurant 1: {restaurant1} - Rs{restaurant1_cost}\n"
-        daily_cost += restaurant1_cost
+        # Final budget check
+        if budget and total_cost > budget:
+            return {
+                "status": "error",
+                "messages": [f"Total trip cost exceeds budget of Rs{budget}. Total cost is Rs{total_cost}."]
+            }
 
-        # Attractions
-        attraction1 = random.choice(city_attractions)
-        itinerary_details += f"Attraction 1: {attraction1}\n"
-
-        if len(city_attractions) > 1:
-            attraction2 = random.choice(city_attractions)
-            itinerary_details += f"Attraction 2: {attraction2}\n"
-
-        # Additional Restaurant (if exists)
-        if len(restaurants) > 1:
-            restaurant2 = restaurants[1]
-            restaurant2_info = amenities_data['restaurant'].get(restaurant2, {})
-            restaurant2_cost = restaurant2_info.get('cost', random.randint(500, 3500)) if isinstance(restaurant2_info, dict) else random.randint(500, 3500)
-            itinerary_details += f"Restaurant 2: {restaurant2} - Rs{restaurant2_cost}\n"
-            daily_cost += restaurant2_cost
-
-        # Day cost and total cost
-        itinerary_details += f"Total cost for Day {day}: Rs{daily_cost}\n"
-        total_cost += daily_cost
-
-        itinerary_details += "----------------------\n"
-
-    # Budget check
-    if budget and total_cost > budget:
-        return f"Sorry, the trip cost exceeded your budget of Rs{budget}. Total cost is Rs{total_cost}.\nItinerary details:\n{itinerary_details}"
-
-    # Return the full itinerary
-    return f"Total Trip Cost: Rs{total_cost}\nItinerary details:\n{itinerary_details}"
+        # Return final itinerary
+        itinerary_details += f"Total Trip Cost: Rs{total_cost}\n"
+        return {"status": "success", "messages": [itinerary_details]}
+    except Exception as e:
+        return {"status": "error", "messages": [f"An error occurred: {str(e)}"]}
 
 # Function to retrieve details without specifying types
 def retrieve_details(user_input):
@@ -463,29 +442,41 @@ def compare_two_options(user_input):
 
     return result
 
+@app.after_request
+def after_request(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
 @app.route('/generate-itinerary', methods=['POST'])
 def generate_itinerary_endpoint():
     data = request.json
-    user_input = data.get('user_input')
-    starting_city = data.get('starting_city')
-    destination_city = data.get('destination_city')
-    mode_of_transport = data.get('mode_of_transport')
-    days = data.get('days')
-    budget = data.get('budget')
+    result = generate_itinerary(
+        user_input=data.get('user_input', ''),
+        starting_city=data.get('starting_city', ''),
+        destination_city=data.get('destination_city', ''),
+        days=data.get('days', 0),
+        mode_of_transport=data.get('mode_of_transport', ''),
+        budget=data.get('budget', None)
+    )
 
-    # Call the original generate_itinerary function
-    result = generate_itinerary(user_input, starting_city, destination_city, mode_of_transport, days, budget)
-    
-    return jsonify({"result": result})
+    print(result)  # Debugging: Log the result
+
+    if result["status"] == "success":
+        # Join messages into a readable string
+        messages = "\n".join(result["messages"])
+        return jsonify({"response": messages})
+    else:
+        # Join error messages into a readable string
+        error_messages = "\n".join(result["messages"])
+        return jsonify({"response": error_messages})
 
 @app.route('/retrieve-details', methods=['POST'])
 def retrieve_details_endpoint():
     data = request.json
     user_input = data.get('user_input')
-    
-    # Call the retrieve_details function
     result = retrieve_details(user_input)
-    
     return jsonify({"result": result})
 
 
@@ -493,30 +484,32 @@ def retrieve_details_endpoint():
 def retrieve_top_items_endpoint():
     data = request.json
     user_input = data.get('user_input')
-    num_recommendations = data.get('num_recommendations', 5)  # Default to 5 if not provided
-    
+    num_recommendations = data.get('num_recommendations', 5)  
     result = retrieve_top_items(user_input, num_recommendations)
-    
     return jsonify({"result": result})
 
 @app.route('/compare-two-options', methods=['POST'])
 def compare_two_options_endpoint():
     data = request.json
     user_input = data.get('user_input')
-    
     result = compare_two_options(user_input)
-    
     return jsonify({"result": result})
 
-
 @app.route('/MiloChatbot', methods=['POST'])
+@cross_origin()
 def milo():
     user_input = request.json.get('user_input', '').strip().lower()
     
+    if not user_input:
+        return jsonify({"response": "Invalid input. Please provide more details."}), 400
+    
+    logging.basicConfig(level=logging.INFO)
+    logging.info(f"User input: {user_input}")
+
     if user_input in ["exit", "quit", "goodbye", "bye"]:
         return jsonify({"response": "Goodbye! Have a safe trip!"})
     
-    ## finding the top results 
+    ## Finding the top results 
     elif "top" in user_input or "best" in user_input:
         match = re.search(r"(top|best)\s+(\d+)?\s*(hotels|restaurants|attractions|airbnb)\s+in\s+([\w\s]+)", user_input)
         
@@ -530,14 +523,18 @@ def milo():
         response = retrieve_top_items(user_input, num_recommendations)
         return jsonify({"response": response})
     
-    ## retrieiving information about sometihing
+    ## Retrieving information about something
     elif any(phrase in user_input for phrase in ["tell me about", "can you give details on", "what is", "where is", "information on", "details about", "describe", "info on"]):
-        response = retrieve_details(user_input)
-        return jsonify({"response": response})
+        try:
+            response = retrieve_details(user_input)
+            return jsonify({"response": response})
+        except Exception as e:
+            logging.error(f"Error in retrieve_details: {e}")
+            return jsonify({"response": "Sorry, something went wrong while fetching the details. Please try again later."}), 500
     
-    ## generating an itinerary
+    ## Generating an itinerary
+
     elif "plan a trip" in user_input or "plan from" in user_input or "generate an itinerary" in user_input or "give possible trip for" in user_input or "generate itinerary" in user_input:
-        # Logic for planning a trip
         parsed_input = parse_user_input(user_input)
         if isinstance(parsed_input, str):
             return jsonify({"response": parsed_input})  # Error message from parsing
@@ -556,11 +553,11 @@ def milo():
             budget_input = request.json.get('budget_input', 'no').strip().lower()
             if budget_input == "yes":
                 budget = int(request.json.get('budget', 0))
-        
-        itinerary = generate_itinerary(user_input, start, dest, transport, days, budget)
+
+        itinerary = generate_itinerary(user_input, start, dest, days, transport, budget=None)
         return jsonify({"response": itinerary})
 
-    ## comparing two things together
+    ## Comparing two things together
     elif "compare" in user_input:
         response = compare_two_options(user_input)
         return jsonify({"response": response})
@@ -568,5 +565,10 @@ def milo():
     else:
         return jsonify({"response": "I'm here to help! You can ask about details on accommodations, restaurants, attractions, or plan/update your itinerary."})
 
+    
+@app.route('/')
+def home():
+    return "Welcome to the Flask App!"
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5001, debug=True)
