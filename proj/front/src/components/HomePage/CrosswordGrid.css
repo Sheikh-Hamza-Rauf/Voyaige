@@ -1,5 +1,3 @@
-/* src/CrosswordGrid.css */
-
 .container {
     display: flex;
     flex-direction: column;
@@ -8,12 +6,11 @@
     margin-top: 70px; /* Add margin to the top of the container */
 }
 
-
 .grid {
     display: grid;
-    grid-template-columns: repeat(25, 30px); /* Adjust the column width */
-    gap: 2px;
-    margin: 5px 0;
+    grid-template-columns: repeat(25, 42px); /* Reduce cell width to 30px */
+    gap: 2px; /* Reduce gap between cells to maintain compact grid */
+    margin: 20px 0 0 0; /* Add margin to the top to move the grid down */
 }
 
 .row {
@@ -25,23 +22,24 @@
 }
 
 .cell {
-    width: 30px;
-    height: 30px;
+    width: 42px;  /* Reduce cell width to 30px */
+    height: 42px;  /* Reduce cell height to 30px */
     text-align: center;
-    font-size: 20px;
-    border: 1px solid #cdcccc
+    font-size: 10px; /* Reduce font size for smaller letters */
+    border: 1px solid #cdcccc;
+    box-sizing: border-box; /* Ensure padding and borders are included in the element's total size */
 }
 
 .staticCell {
-    background-color: #949393;; /* Gray out cells that are not editable */
+    background-color: #949393; /* Gray out cells that are not editable */
 }
 
 .smallDigit {
-    font-size: 14px;
+    font-size: 10px; /* Reduce the small digit size */
     font-weight: bold;
     position: absolute;
-    top: -15px; /* Adjust positioning as needed */
-    left: -10px;
+    top: -10px; /* Adjust positioning for smaller cells */
+    left: -8px; /* Adjust positioning for smaller cells */
     color: #424242;
     cursor: pointer;
 }
@@ -50,9 +48,9 @@
     position: absolute;
     background-color: #ffffff;
     color: #000000;
-    font-size: 12px;
-    padding: 8px;
-    border-radius: 4px;
+    font-size: 10px; /* Reduce font size for hints */
+    padding: 6px; /* Adjust padding to fit smaller hints */
+    border-radius: 5px;
     z-index: 100;
 }
 
@@ -62,8 +60,8 @@
 
 .button {
     margin: 5px;
-    padding: 10px 15px;
-    font-size: 16px;
+    padding: 8px 12px; /* Adjust button size to match the new grid size */
+    font-size: 14px; /* Reduce font size for buttons */
     cursor: pointer;
     background-color: #4ca1af;
     color: white;
@@ -75,13 +73,6 @@
     background-color: #2c3e50;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(25, 30px); /* Adjust the column width */
-    gap: 2px;
-    margin: 20px 0 0 0; /* Add margin to the top to move the grid down */
-}
-
 /* Fixed Positioning for Win/Lose Messages */
 .win-message {
     position: fixed;
@@ -91,16 +82,16 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    font-size: 30px;
+    font-size: 30px; /* Adjust win message font size */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-weight: bold;
     z-index: 9999;
-  }
-  
-  .lose-message {
+}
+
+.lose-message {
     position: fixed;
     top: 0;
     left: 0;
@@ -108,12 +99,11 @@
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    font-size: 30px;
+    font-size: 30px; /* Adjust lose message font size */
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-weight: bold;
     z-index: 9999;
-  }
-  
+}
