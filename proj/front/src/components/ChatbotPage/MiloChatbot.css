@@ -1,25 +1,44 @@
+body {
+  background-color: #eef3f7; /* Light gray with a slight tint for a clean look */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .chatbot-container {
   display: flex;
   flex-direction: column;
   height: 85vh;
-  width: 70%;
-  background-color: #f4f6f9;
+  width: 55%;
+  background-color: #f4f6f9; /* Slightly darker shade for contrast */
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  margin: auto;
-  font-family: Arial, sans-serif;
+  margin-left: 2%;
+  position: relative;
+  transition: background-color 0.3s ease, width 0.3s ease;
+  z-index: 1;
+}
+
+.chatbot-container:hover {
+  background-color: #e8eff5; /* Subtle hover effect for the main container */
 }
 
 .welcome-message {
-  background-color: #d1f2eb;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
   text-align: center;
-  font-size: 1.2rem;
-  color: #0b5345;
+  font-size: 1.4rem;
+  color: #ffffff;
   font-weight: bold;
+  box-shadow: 0 3px 6px rgb(255, 238, 238);
+  transition: transform 0.3s ease;
+}
+
+.welcome-message:hover {
+  transform: scale(1.02);
 }
 
 .chat-container {
@@ -32,6 +51,11 @@
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
+  transition: width 0.3s ease;
+}
+
+.chat-container.reduced-width {
+  transition: width 0.3s ease;
 }
 
 .chat-bubble {
@@ -43,6 +67,11 @@
   font-size: 1rem;
   line-height: 1.5;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.chat-bubble:hover {
+  transform: translateY(-3px); /* Slight lift effect on hover */
 }
 
 .chat-bubble.user {
@@ -74,7 +103,7 @@ input[type="text"] {
   border-radius: 8px;
   outline: none;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input[type="text"]:focus {
@@ -84,7 +113,7 @@ input[type="text"]:focus {
 
 button {
   padding: 12px 20px;
-  background-color: #003366;
+  background-color: #4ca1af;
   color: white;
   border: none;
   border-radius: 8px;
@@ -94,10 +123,82 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #2c3e50;
   transform: scale(1.05);
 }
 
 button:active {
   transform: scale(0.95);
+}
+
+.itinerary-container,
+.recommendations-container {
+  position: fixed;
+  top: 10%;
+  right: 2%;
+  height: 80vh;
+  width: 40%;
+  background-color: #ffffff;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
+  border-left: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.itinerary-container h2,
+.recommendations-container h2 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.itinerary-content,
+.recommendations-content {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
+
+.close-itinerary,
+.close-recommendations {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-itinerary:hover,
+.close-recommendations:hover {
+  color: #333;
+  transform: scale(1.1);
+}
+
+@media (max-width: 1024px) {
+  .chatbot-container {
+    width: 90%;
+  }
+
+  .chat-container.reduced-width {
+    width: 100%;
+  }
+
+  .itinerary-container,
+  .recommendations-container {
+    width: 90%;
+    left: 5%;
+    height: 90vh;
+    top: 5%;
+    border-radius: 0;
+  }
 }

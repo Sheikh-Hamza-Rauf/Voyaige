@@ -12,6 +12,7 @@ import MiloChatbot from './components/ChatbotPage/MiloChatbot';
 import Challenges from "./components/HomePage/Challenges";
 import CrosswordGrid from "./components/HomePage/CrosswordGrid";
 import Quiz from "./components/HomePage/quiz"; 
+import ItineraryForm from "./components/RecommendationForm/ItineraryForm";
 
 import './App.css';
 
@@ -34,6 +35,7 @@ function App() {
             <Route path="/city/:cityName" element={<CityPageWrapper />} />
             <Route path="/PlanSelection" element={<PlanSelection />} />
             <Route path="/MiloChatbot" element={<MiloChatbot />} /> 
+            <Route path="/form-plan" element={<ItineraryForm />} />
             <Route path="/" element={<Challenges />} />
             <Route path="/crossword" element={<CrosswordGrid />} />
             <Route
