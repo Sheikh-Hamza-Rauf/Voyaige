@@ -27,20 +27,20 @@ const cityHotels = {
         { name: "Beach Luxury Hotel", rating: 4.1, reviews: 420, price: 100, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/145246938.jpg?k=c88a9c0183f5e9d43e197e88866a365aecd8a9005217192cee2bced983959eda&o=" }
     ],
     Murree: [
-        { name: "Lockwood Hotel Murree", rating: 4.3, reviews: 350, price: 85, image: "path_to_lockwood_image.jpg" },
-        { name: "Shangrila Resort Murree", rating: 4.5, reviews: 400, price: 110, image: "path_to_shangrila_image.jpg" },
-        { name: "Hotel One Murree", rating: 4.2, reviews: 280, price: 75, image: "path_to_hotel_one_murree_image.jpg" },
-        { name: "Grand Taj Hotel", rating: 4, reviews: 150, price: 60, image: "path_to_grand_taj_image.jpg" },
-        { name: "Metropole Hotel Murree", rating: 4.1, reviews: 220, price: 90, image: "path_to_metropole_image.jpg" },
-        { name: "The Smart Hotel Murree", rating: 4.3, reviews: 290, price: 100, image: "path_to_smart_hotel_image.jpg" }
+        { name: "Lockwood Hotel Murree", rating: 4.3, reviews: 350, price: 85, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/74/4b/e6/main-building.jpg?w=1400&h=-1&s=1" },
+        { name: "Shangrila Resort Murree", rating: 4.5, reviews: 400, price: 110, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/439295483.jpg?k=6d3b425a7058ec5b8a5ed2bcae46b266a5b58c07bbf7c96ef282535e7d6ee7c7&o=" },
+        { name: "Falettis Grand Hotel", rating: 4.2, reviews: 280, price: 75, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/542730433.jpg?k=c6eb8efa28589903e45cfe1c57b05f97ff2c1ada7c037512cc6a3dea6505d4e8&o=" },
+        { name: "LOKAL Rooms", rating: 4, reviews: 150, price: 60, image: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/456728298.jpg?k=f7d71404df1798a19f610ed2c5b199d21ca9bcad07d605c1639633194cd20332&o=&hp=1" },
+        { name: "Ramada by Wyndham Murree", rating: 4.1, reviews: 220, price: 90, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/488946208.jpg?k=ec74dfea8f391f20571121965e12e3fc4001b05f3bc8f0b224a1e3fc87e497ef&o=" },
+        { name: "Fiora Hotel", rating: 4.3, reviews: 290, price: 100, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/550440582.jpg?k=098170438df46f654a5a9ff2ad8a6d51f5941b4a0ee783d9d6a030a537822553&o=" }
     ],
     Peshawar: [
-        { name: "Pearl Continental Peshawar", rating: 4.5, reviews: 500, price: 150, image: "path_to_pc_peshawar_image.jpg" },
-        { name: "Shelton's Rezidor Peshawar", rating: 4.4, reviews: 380, price: 120, image: "path_to_sheltons_image.jpg" },
-        { name: "Fort Continental Hotel", rating: 4.3, reviews: 250, price: 100, image: "path_to_fort_continental_image.jpg" },
-        { name: "VIP House", rating: 4.1, reviews: 180, price: 75, image: "path_to_vip_house_image.jpg" },
-        { name: "Hotel Grand Peshawar", rating: 4.2, reviews: 140, price: 80, image: "path_to_grand_peshawar_image.jpg" },
-        { name: "Greens Hotel Peshawar", rating: 4, reviews: 120, price: 70, image: "path_to_greens_image.jpg" }
+        { name: "Crown Castle Peshawar", rating: 4.5, reviews: 500, price: 150, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/522494185.jpg?k=9d2b915429d268479be7394dfede90306376646342b759e4f32a0a503b4c6bd2&o=" },
+        { name: "Shelton's Rezidor", rating: 4.4, reviews: 380, price: 120, image: "https://lh3.googleusercontent.com/proxy/Y9vnDz0tgBUdXD3J1-OG3CLo2V1mvWXxsf_Lzlbn6ECU855ZJRMzlXWuY_DSZJFPZC2IbPacy7uyEzZobo-ter6rzssSeoEIDuM7ruuP6t0QJ6c86-TN04KijpdFB8wNa6YpvOLsrhDbLmUNQuJM26CkcrUEEq0=w574-h384-n-k-no-v1-rj" },
+        { name: "Hotel Tourmaline Peshawar", rating: 4.3, reviews: 250, price: 100, image: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/556388417.jpg?k=f5359f23550695f5c0771f19dcede1644ae02cd45d7f8433731758fc1905f5a1&o=&hp=1" },
+        { name: "Peshawar Barracks", rating: 4.1, reviews: 180, price: 75, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/521138231.jpg?k=03272ca3703f09cbc5c5fa99d320dd15ed7c577167854eadba49f7652f574d2a&o=" },
+        { name: "Shelton House", rating: 4.2, reviews: 140, price: 80, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/556107370.jpg?k=a66eaf6168fa9fde84cfd1127aca5beac3c78cfd9ea0ef417799b801dcf00560&o=" },
+        { name: "Chandi Hotel", rating: 4, reviews: 120, price: 70, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/592271091.jpg?k=b7955e64bfd153f2d5020fb8d4ae5f8ad178f6b082efd9cb27dcf5032029e2b8&o=&hp=1" }
     ],
     Skardu: [
         { name: "Shangrila Resort Skardu", rating: 4.8, reviews: 700, price: 180, image: "path_to_shangrila_skardu_image.jpg" },
@@ -59,11 +59,11 @@ const cityHotels = {
         { name: "The Hunza View Hotel", rating: 4.7, reviews: 480, price: 140, image: "path_to_hunza_view_image.jpg" }
     ],
     Quetta: [
-        { name: "Quetta Serena Hotel", rating: 4.7, reviews: 800, price: 190, image: "path_to_serena_quetta_image.jpg" },
-        { name: "Bloom Star Hotel", rating: 4.2, reviews: 270, price: 70, image: "path_to_bloom_star_image.jpg" },
-        { name: "Hotel Deluxe Quetta", rating: 4.1, reviews: 210, price: 60, image: "path_to_hotel_deluxe_image.jpg" },
-        { name: "Al Makkah Hotel", rating: 4, reviews: 180, price: 55, image: "path_to_al_makkah_image.jpg" },
-        { name: "Quetta Hotel International", rating: 4.3, reviews: 320, price: 100, image: "path_to_quetta_international_image.jpg" },
+        { name: "Quetta Serena Hotel", rating: 4.7, reviews: 800, price: 190, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/9f/c2/6f/quetta-serena-hotel.jpg?w=1400&h=-1&s=1" },
+        { name: "Bloom Star Hotel", rating: 4.2, reviews: 270, price: 70, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/d1/c8/37/garden.jpg?w=2000&h=-1&s=1" },
+        { name: "Lourdes Hotel", rating: 4.1, reviews: 210, price: 60, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/203022055.jpg?k=7e37e3b4c086f4de7c62cb6f7facd1381c9dd204a8d9a6d5030eebdc4c4b119c&o=" },
+        { name: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/569127279.jpg?k=dfa2c7a1565cd816830636b40c5351e99c184de688499c5239fa04c5068885ff&o=", rating: 4, reviews: 180, price: 55, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/569127279.jpg?k=dfa2c7a1565cd816830636b40c5351e99c184de688499c5239fa04c5068885ff&o=" },
+        { name: "Grand Hotel Quetta", rating: 4.3, reviews: 320, price: 100, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/437254459.jpg?k=e33457aab59f055d8bfe27175c4ab579118e4f1db20d62323e27dff260daf5b6&o=" },
         { name: "New Super Paradise Hotel", rating: 4.1, reviews: 140, price: 80, image: "path_to_super_paradise_image.jpg" }
     ],
     Multan: [
