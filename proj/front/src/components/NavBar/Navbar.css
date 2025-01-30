@@ -847,25 +847,22 @@
   color:white;
 }
 
-.search-button2 {
-  background: linear-gradient(135deg, #2c3e50, #4ca1af);
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.search-button-circle {
+  background: linear-gradient(135deg, #34495e, #5cb8c2); /* Gradient background */
+  border-radius: 60%; /* Circular shape */
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease; /* Smooth transition on hover */
 }
 
-.search-button2:hover {
-  background: linear-gradient(135deg, #34495e, #5cb8c2);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.search-button-circle:hover {
+  background: linear-gradient(135deg, #5cb8c2, #34495e); /* Reverse the gradient for hover effect */
 }
+
 
 
 .nav-search-overlay {
@@ -1051,6 +1048,12 @@
   cursor: pointer;
   font-size: 1rem; /* Adjust size as needed */
   color: #2e808d; /* Lighter black */
+}
+
+/* Remove the hover effect from the profile button */
+.profile-button:hover {
+  background: none;
+  color: #2e808d; /* Keep the same color as the normal state */
 }
 
 .profile-dropdown {

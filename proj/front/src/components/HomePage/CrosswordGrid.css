@@ -8,12 +8,11 @@
     margin-top: 70px; /* Add margin to the top of the container */
 }
 
-
 .grid {
     display: grid;
-    grid-template-columns: repeat(25, 30px); /* Adjust the column width */
+    grid-template-columns: repeat(25, 40px); /* Adjust the column width to match the cell width */
     gap: 2px;
-    margin: 5px 0;
+    margin: 20px 0 0 0; /* Add margin to the top to move the grid down */
 }
 
 .row {

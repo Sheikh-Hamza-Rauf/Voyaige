@@ -1,11 +1,27 @@
-/* ImprovedSignup.css */
+/* SignupForm.css */
 .auth-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to right, #4a90e2, #7e57c2);
   padding: 20px;
+  position: relative; /* Ensure pseudo-element is positioned correctly */
+  background-image: url('https://www.photohound.co/images/1021393l.jpg'); /* Replace with your image URL */
+  background-size: cover; /* Ensures the image covers the container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+}
+
+/* Dark overlay */
+.auth-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+  z-index: 1; /* Ensures the overlay is above the background image but below content */
 }
 
 .auth-form {
@@ -15,50 +31,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-}
-
-.input-group {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 10px 40px 10px 10px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.input-group.error input {
-  border-color: #ff4d4d;
-  background-color: #fff5f5;
-  box-shadow: 0 0 5px rgba(255, 77, 77, 0.3);
-}
-
-.error-tooltip {
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  color: #ff4d4d;
-  font-size: 12px;
-  background-color: #fff5f5;
-  padding: 2px 5px;
-  border-radius: 3px;
-  animation: errorFadeIn 0.3s ease;
-  z-index: 10;
-}
-
-@keyframes errorFadeIn {
-  from { 
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to { 
-    opacity: 1;
-    transform: translateY(0);
-  }
+  z-index: 2; /* Ensure form content is above the overlay */
 }
 
 
@@ -93,46 +66,20 @@ h2 {
   border: 2px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.input-group.error input {
-  border-color: #ff4d4d;
-  background-color: #fff0f0;
+  transition: border-color 0.3s;
 }
 
 .input-group input:focus {
   border-color: #4a90e2;
   outline: none;
-  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
 
 .input-group .icon {
   position: absolute;
   top: 50%;
-  right: 40px;
+  right: 10px;
   transform: translateY(-50%);
   color: #999;
-  z-index: 10;
-}
-
-.error-message {
-  color: #ff4d4d;
-  font-size: 12px;
-  margin-top: 5px;
-  display: flex;
-  align-items: center;
-  animation: fadeIn 0.3s ease;
-}
-
-.error-icon {
-  margin-right: 5px;
-  color: #ff4d4d;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .submit-btn {

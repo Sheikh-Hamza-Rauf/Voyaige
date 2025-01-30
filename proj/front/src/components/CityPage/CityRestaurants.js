@@ -27,10 +27,10 @@ const cityRestaurants = {
         { name: "Mirchili", rating: 4.4, reviews: 500, price: "$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/d0/87/23/photo0jpg.jpg?w=1400&h=800&s=1" }
     ],
     Murree: [
-        { name: "The Monal Murree", rating: 4.8, reviews: 950, price: "$$$", image: "path_to_monal_murree_image.jpg" },
-        { name: "Almaza Hotel", rating: 4.6, reviews: 800, price: "$$$", image: "path_to_almaza_image.jpg" },
-        { name: "Shangrila Resort", rating: 4.5, reviews: 600, price: "$$$$", image: "path_to_shangrila_image.jpg" },
-        { name: "Murree Lodge", rating: 4.4, reviews: 700, price: "$$", image: "path_to_murree_lodge_image.jpg" },
+        { name: "thaali- a traditional cuisine", rating: 4.8, reviews: 950, price: "$$$", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/d3/08/4e/getlstd-property-photo.jpg?w=900&h=500&s=1" },
+        { name: "Monal Murree", rating: 4.6, reviews: 800, price: "$$$", image: "https://murreetoday.com/wp-content/uploads/2023/02/The-Monal.jpg" },
+        { name: "Des Pardes", rating: 4.5, reviews: 600, price: "$$$$", image: "https://murreetoday.com/wp-content/uploads/2023/02/Des-Perdais.jpg" },
+        { name: "Gloria Jeans Coffees", rating: 4.4, reviews: 700, price: "$$", image: "https://murreetoday.com/wp-content/uploads/2023/02/Gloria-Jeans-Murree.jpg" },
         { name: "Hilltop Restaurant", rating: 4.3, reviews: 500, price: "$$", image: "path_to_hilltop_image.jpg" },
         { name: "Pindi Point Restaurant", rating: 4.5, reviews: 600, price: "$$", image: "path_to_pindi_point_image.jpg" }
     ],

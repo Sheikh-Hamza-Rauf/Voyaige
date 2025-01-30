@@ -623,21 +623,20 @@ const Navbar = () => {
         console.error('User email not found in localStorage');
         return;
       }
-  
+
       const response = await axios.get('http://localhost:5000/api/users/points', {
         headers: {
           Authorization: `Bearer ${token}`, // Pass the token
           'X-User-Email': user.email,      // Pass the email in a custom header
         },
       });
-  
+
       setPoints(response.data.points || 0); // Set points from MongoDB
     } catch (error) {
       console.error('Failed to fetch points:', error);
       setPoints(0); // Default to 0 if fetching fails
     }
   };
-  
 
   useEffect(() => {
     const checkAuthentication = () => {
@@ -669,7 +668,7 @@ const Navbar = () => {
       const matchedCity = CITIES.find(city => city.toLowerCase().includes(query.toLowerCase()));
       if (matchedCity) {
         try {
-          const { data } = await axios.get(`http://localhost:5000/api/search`, {
+          const { data } = await axios.get('http://localhost:5000/api/search', {
             params: { query: matchedCity }
           });
           setSearchResults({
@@ -727,8 +726,11 @@ const Navbar = () => {
           <li><Link to="/restaurants">Eat & Drink</Link></li>
         </ul>
         <div className="navbar-actions">
-          <button onClick={() => setSearchOpen(!searchOpen)} className="search-button2">
-          <FaSearch color="white" /> 
+          <button 
+            onClick={() => setSearchOpen(!searchOpen)} 
+            className="search-button-circle"  
+          >
+            <FaSearch />
           </button>
           {isAuthenticated ? (
             <div className="profile-container">
@@ -738,7 +740,6 @@ const Navbar = () => {
               {dropdownVisible && (
                 <div className="profile-dropdown">
                   <ul>
-
                     <li>Points: {points}</li> {/* Display points dynamically */}
                     <li><button onClick={signOut}>Log Out</button></li>
                   </ul>
@@ -755,7 +756,6 @@ const Navbar = () => {
         <div className="nav-search-overlay">
           <div className="nav-search-box">
             <div className="nav-search-input-container">
-              <FaSearch className="nav-search-icon" />
               <input
                 type="text"
                 placeholder="Search cities..."
@@ -819,3 +819,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
