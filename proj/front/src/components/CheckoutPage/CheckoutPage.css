@@ -1,0 +1,244 @@
+/* CheckoutPage.css */
+.checkout-container {
+    max-width: 1000px;
+    padding: 2rem;
+    border-radius: 20px;
+    margin-top: 4rem;
+    overflow: hidden;
+    min-height: 600px;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .travel-image-collage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+    opacity: 0.6;
+    z-index: 0;
+  }
+  
+  .image-item {
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .img-1 { background-image: url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b') }
+  .img-2 { background-image: url('https://images.unsplash.com/photo-1508672019048-805c876b67e2') }
+  .img-3 { background-image: url('https://images.unsplash.com/photo-1499591934245-40b55745b905') }
+  .img-4 { background-image: url('https://images.unsplash.com/photo-1498307833015-e7b400441eb8') }
+  
+  .checkout-content {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    animation: slideUp 0.8s ease-out;
+    font-family: 'Times New Roman';
+  }
+  
+  .header-animation {
+    text-align: center;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  
+  .passport-icon {
+    font-size: 3rem;
+    color: #4ca1af;
+    animation: rotate 3s ease-in-out infinite;
+  }
+  
+  .checkout-heading {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin: 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .price-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .total-amount {
+    font-size: 2.5rem;
+    color: #4ca1af;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .suitcase-icon {
+    font-size: 2rem;
+    color: #2c3e50;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  
+  .checkout-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .card-element-container {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid #4ca1af;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .card-element-container:hover {
+    transform: translateY(-2px);
+  }
+  
+  .pay-button {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    color: white;
+    padding: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+  
+  .pay-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(46, 139, 87, 0.4);
+  }
+  
+  .pay-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .error-message {
+    color: #dc3545;
+    text-align: center;
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  .success-message {
+    color: #2c3e50;
+    text-align: center;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    animation: confetti 2s ease-out;
+  }
+  
+  .plane-icon {
+    font-size: 1.5rem;
+    animation: fly 1.5s ease-in-out infinite;
+  }
+  
+  .security-note {
+    margin-top: 2rem;
+    text-align: center;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .lock-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Animations */
+  @keyframes slideUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes rotate {
+    0% { transform: rotate(-15deg) }
+    50% { transform: rotate(15deg) }
+    100% { transform: rotate(-15deg) }
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) }
+    50% { transform: translateY(-10px) }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0) }
+    50% { transform: translateY(-20px) }
+  }
+  
+  @keyframes fly {
+    0%, 100% { transform: translateX(0) }
+    50% { transform: translateX(10px) }
+  }
+  
+  @keyframes confetti {
+    0% { transform: translateY(-50px); opacity: 0 }
+    50% { transform: translateY(0); opacity: 1 }
+    100% { transform: translateY(0) }
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg) }
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0) }
+    25% { transform: translateX(-10px) }
+    75% { transform: translateX(10px) }
+  }
+  
+  @media (max-width: 768px) {
+    .checkout-container {
+      padding: 1rem;
+      min-height: auto;
+    }
+    
+    .travel-image-collage {
+      display: none;
+    }
+    
+    .checkout-content {
+      padding: 1.5rem;
+    }
+  }

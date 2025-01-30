@@ -13,8 +13,14 @@ import Challenges from "./components/HomePage/Challenges";
 import CrosswordGrid from "./components/HomePage/CrosswordGrid";
 import Quiz from "./components/HomePage/quiz"; 
 import ItineraryForm from "./components/RecommendationForm/ItineraryForm";
-
+import CheckoutPage from "./components/CheckoutPage/CheckoutPage";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import './App.css';
+
+const stripePromise = loadStripe('pk_test_51MqErmDG40mBr38yGJ5Efis4h3Sy1yPqbDVzGI0cVtt8t4dPVgK2B8nUf7pTJzhuY5I6JnI8Qpn1yReQRT9M5KL000i6zT7fco');
+
+
 
 function App() {
   const [points, setPoints] = useState(0); // State to track total points
@@ -41,6 +47,14 @@ function App() {
             <Route
               path="/quiz"
               element={<Quiz onPointsUpdate={handlePointsUpdate} />} // Pass callback to Quiz
+            />
+            <Route 
+              path="/checkout" 
+              element={
+                <Elements stripe={stripePromise}>
+                  <CheckoutPage />
+                </Elements>
+              } 
             />
           </Routes>
         </div>
