@@ -728,7 +728,7 @@ const Navbar = () => {
         </ul>
         <div className="navbar-actions">
           <button onClick={() => setSearchOpen(!searchOpen)} className="search-button2">
-            <FaSearch />
+          <FaSearch color="white" /> 
           </button>
           {isAuthenticated ? (
             <div className="profile-container">

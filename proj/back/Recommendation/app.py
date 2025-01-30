@@ -66,67 +66,79 @@ def generate_itinerary():
         except Exception as e:
             print(f"Error generating itinerary: {e}")
             return jsonify({'error': str(e)}), 500
-
-
 def generate_itinerary_ml(user_input, hotels_dict, restaurants_dict, attractions_dict, algo, allocation_percentages):
-            destination = user_input['destination']
-            duration = user_input['duration_days']
-            budget = user_input['budget']
+    destination = user_input['destination']
+    duration = user_input['duration_days']
+    budget = user_input['budget']
 
-            # Dynamic budget allocation
-            allocated_budget = dynamic_budget_allocation(budget, allocation_percentages)
+    # Dynamic budget allocation
+    allocated_budget = dynamic_budget_allocation(budget, allocation_percentages)
 
-            # Retrieve hotels, restaurants, and attractions for the given destination
-            hotel_data = hotels_dict.get(destination, [])
-            restaurant_data = restaurants_dict.get(destination, [])
-            attraction_data = attractions_dict.get(destination, [])
+    # Retrieve hotels, restaurants, and attractions for the given destination
+    hotel_data = hotels_dict.get(destination, [])
+    restaurant_data = restaurants_dict.get(destination, [])
+    attraction_data = attractions_dict.get(destination, [])
 
-            # Recommendation system predictions
-            user_id = 0
-            recommended_hotels = recommend_items(algo, user_id, [hotel['hotel_name'] for hotel in hotel_data], hotel_data, budget=allocated_budget['hotel'], top_n=5)
-            recommended_restaurants = recommend_items(algo, user_id, [rest['restaurant_name'] for rest in restaurant_data], restaurant_data, budget=allocated_budget['restaurants'], top_n=10)
-            recommended_attractions = recommend_items(algo, user_id, [attr['attr_name'] for attr in attraction_data], attraction_data, top_n=20)
+    # Recommendation system predictions for hotels and attractions only
+    user_id = 0
+    recommended_hotels = recommend_items(algo, user_id, [hotel['hotel_name'] for hotel in hotel_data], hotel_data, budget=allocated_budget['hotel'], top_n=5)
+    recommended_attractions = recommend_items(algo, user_id, [attr['attr_name'] for attr in attraction_data], attraction_data, top_n=20)
 
-            # Select a hotel within budget
-            selected_hotel = None
-            for hotel in recommended_hotels:
-                if hotel['price'] * duration <= allocated_budget['hotel']:
-                    selected_hotel = hotel
-                    break
-            if not selected_hotel and hotel_data:
-                selected_hotel = hotel_data[0]
-            elif not selected_hotel:
-                selected_hotel = {'hotel_name': 'No suitable hotel found', 'hotel_address': 'N/A', 'hotel_price': 'N/A'}
+    # Select a hotel within budget
+    selected_hotel = None
+    for hotel in recommended_hotels:
+        if hotel['price'] * duration <= allocated_budget['hotel']:
+            selected_hotel = hotel
+            break
+    if not selected_hotel and hotel_data:
+        selected_hotel = hotel_data[0]
+    elif not selected_hotel:
+        selected_hotel = {'hotel_name': 'No suitable hotel found', 'hotel_address': 'N/A', 'hotel_price': 'N/A'}
 
-            # Select restaurants without displaying prices
-            selected_restaurants = recommended_restaurants[:2 * duration]
-            if not selected_restaurants and restaurant_data:
-                selected_restaurants = restaurant_data[:2 * duration]
+    # Select restaurants for lunch and dining directly from the city data
+    selected_restaurants = []
+    lunch_dinner_count = 2 * duration  # Number of meals (lunch + dinner for each day)
+    
+    if restaurant_data:
+        # Select restaurants based on the available data in the city
+        selected_restaurants = restaurant_data[:lunch_dinner_count]
 
-            # Select top attractions
-            selected_attractions = recommended_attractions[:3]
-            if not selected_attractions and attraction_data:
-                selected_attractions = attraction_data[:3]
+    # Ensure selected_restaurants is never empty
+    if not selected_restaurants:
+        selected_restaurants = [
+            {'restaurant_name': 'No suitable restaurant found in this city', 'restaurant_address': 'N/A'}
+        ]
 
-            # Transport cost
-            transport_cost = allocated_budget.get('transport', 0)
+    # Print the selected restaurants in the terminal
+    print("Selected Restaurants:")
+    for restaurant in selected_restaurants:
+        print(f"- {restaurant['restaurant_name']} ({restaurant.get('restaurant_address', 'Address not available')})")
 
-            # Create the itinerary dictionary
-            itinerary = {
-                'hotel': selected_hotel,
-                'restaurants': selected_restaurants,
-                'attractions': selected_attractions,
-                'transport': transport_cost
-            }
+    # Select top attractions
+    selected_attractions = recommended_attractions[:5]
+    if not selected_attractions and attraction_data:
+        selected_attractions = attraction_data[:5]
 
-            # Format the itinerary for display
-            formatted_itinerary = format_itinerary_ml(itinerary, user_input, duration)
+    # Transport cost
+    transport_cost = allocated_budget.get('transport', 0)
 
-            # Calculate the total estimated cost
-            hotel_cost = selected_hotel.get('price', 0) * duration if isinstance(selected_hotel.get('price', 0), (int, float)) else 0
-            total_cost = hotel_cost + transport_cost  # Include transport cost
+    # Create the itinerary dictionary
+    itinerary = {
+        'hotel': selected_hotel,
+        'restaurants': selected_restaurants,
+        'attractions': selected_attractions,
+        'transport': transport_cost
+    }
 
-            return formatted_itinerary, total_cost
+    # Format the itinerary for display
+    formatted_itinerary = format_itinerary_ml(itinerary, user_input, duration, restaurants_dict)
+
+    # Calculate the total estimated cost
+    hotel_cost = selected_hotel.get('price', 0) * duration if isinstance(selected_hotel.get('price', 0), (int, float)) else 0
+    total_cost = hotel_cost + transport_cost  # Include transport cost
+
+    return formatted_itinerary, total_cost
+
 
 # Define recommendation functions
 def recommend_items(algo, user_id, items, item_data, budget=None, top_n=5):
@@ -154,78 +166,82 @@ def recommend_items(algo, user_id, items, item_data, budget=None, top_n=5):
                                 for item, est, price, rating in predictions[:top_n]]
 
             return recommended_items
+def format_itinerary_ml(itinerary, user_input, duration, restaurants_dict):
+    """
+    Formats the itinerary into a day-by-day itinerary string.
 
-def format_itinerary_ml(itinerary, user_input, duration):
-            """
-            Formats the itinerary into a day-by-day itinerary string.
+    Args:
+        itinerary (dict): Contains selected hotel, restaurants, and attractions.
+        user_input (dict): Contains user's destination, duration, number of travelers, area of interest, and budget.
+        duration (int): Number of days for the itinerary.
+        restaurants_dict (dict): Dictionary containing restaurant data for the destination.
 
-            Args:
-                itinerary (dict): Contains selected hotel, restaurants, and attractions.
-                user_input (dict): Contains user's destination, duration, number of travelers, area of interest, and budget.
-                duration (int): Number of days for the itinerary.
+    Returns:
+        dict: A formatted itinerary dictionary.
+    """
+    destination = user_input['destination']
+    formatted_itinerary = {
+        "destination": destination,
+        "duration": duration,
+        "num_travelers": user_input['num_travelers'],
+        "area_of_interest": user_input['area_of_interest'],
+        "total_budget": user_input['budget'],
+        "hotel": itinerary['hotel'],
+        "transport_budget": itinerary['transport'],
+        "days": []
+    }
 
-            Returns:
-                dict: A formatted itinerary dictionary.
-            """
-            destination = user_input['destination']
-            formatted_itinerary = {
-                "destination": destination,
-                "duration": duration,
-                "num_travelers": user_input['num_travelers'],
-                "area_of_interest": user_input['area_of_interest'],
-                "total_budget": user_input['budget'],
-                "hotel": itinerary['hotel'],
-                "transport_budget": itinerary['transport'],
-                "days": []
+    # Prepare day-wise itinerary activities
+    attractions = itinerary['attractions']
+    restaurants = itinerary['restaurants']
+
+    # Add restaurants from restaurants_dict
+    if destination in restaurants_dict:
+        restaurants.extend(restaurants_dict[destination])
+
+    # Adjust attractions per day based on availability
+    if attractions:
+        attractions_per_day = max(1, len(attractions) // duration)
+    else:
+        attractions_per_day = 0
+
+    # Format each day
+    for day in range(1, duration + 1):
+        day_info = {
+            "day": day,
+            "attractions": [],
+            "dining": {}
+        }
+
+        # Allocate daily attractions
+        daily_attractions = attractions[(day - 1) * attractions_per_day : day * attractions_per_day]
+        if daily_attractions:
+            day_info["attractions"] = [
+                {
+                    "name": attraction.get('attr_name', 'Not specified'),
+                    "category": attraction.get('attr_category', 'General')
+                } for attraction in daily_attractions
+            ]
+        else:
+            day_info["attractions"].append({"name": "No specific attractions planned for today", "category": ""})
+
+        # Allocate restaurants (lunch and dinner)
+        if day <= len(restaurants) // 2:
+            lunch_restaurant = restaurants[(day - 1) * 2]
+            dinner_restaurant = restaurants[(day - 1) * 2 + 1]
+            day_info["dining"] = {
+                "lunch": lunch_restaurant.get('restaurant_name', 'Not specified'),
+                "dinner": dinner_restaurant.get('restaurant_name', 'Not specified')
+            }
+        else:
+            day_info["dining"] = {
+                "lunch": "Local eateries",
+                "dinner": "Local eateries"
             }
 
-            # Prepare day-wise itinerary activities
-            attractions = itinerary['attractions']
-            restaurants = itinerary['restaurants']
+        formatted_itinerary["days"].append(day_info)
 
-            # Adjust attractions per day based on availability
-            if attractions:
-                attractions_per_day = max(1, len(attractions) // duration)
-            else:
-                attractions_per_day = 0
-
-            # Format each day
-            for day in range(1, duration + 1):
-                day_info = {
-                    "day": day,
-                    "attractions": [],
-                    "dining": {}
-                }
-
-                # Allocate daily attractions
-                daily_attractions = attractions[(day - 1) * attractions_per_day : day * attractions_per_day]
-                if daily_attractions:
-                    day_info["attractions"] = [
-                        {
-                            "name": attraction.get('attr_name', 'Not specified'),
-                            "category": attraction.get('attr_category', 'General')
-                        } for attraction in daily_attractions
-                    ]
-                else:
-                    day_info["attractions"].append({"name": "No specific attractions planned for today", "category": ""})
-
-                # Allocate restaurants (lunch and dinner)
-                if day <= len(restaurants) // 2:
-                    lunch_restaurant = restaurants[(day - 1) * 2]
-                    dinner_restaurant = restaurants[(day - 1) * 2 + 1]
-                    day_info["dining"] = {
-                        "lunch": lunch_restaurant.get('name', 'Not specified'),
-                        "dinner": dinner_restaurant.get('name', 'Not specified')
-                    }
-                else:
-                    day_info["dining"] = {
-                        "lunch": "Local eateries",
-                        "dinner": "Local eateries"
-                    }
-
-                formatted_itinerary["days"].append(day_info)
-
-            return formatted_itinerary
+    return formatted_itinerary
 
 def dynamic_budget_allocation(total_budget, allocation_percentages):
             """
@@ -255,7 +271,7 @@ def dynamic_budget_allocation(total_budget, allocation_percentages):
             return allocated_budget  # Ensure the function returns allocated_budget
 
 
-    # Step 1: Define 30 Itineraries
+
 
 def load_json_with_cleaning(file_path):
         encodings = ['utf-8', 'utf-8-sig', 'ISO-8859-1']
@@ -943,17 +959,19 @@ if __name__ == '__main__':
     itineraries_df = pd.DataFrame(itineraries_data)
     
     # Define file paths (Update these paths as per your local setup)
+  
     paths = {
-        "Cleaned_attr": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_attr.csv",
-        "clean_hotel_data": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\clean_hotel_data.json",
-        "Cleaned_Airbnb": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_Airbnb.csv",
-        "Cleaned_busses": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_busses.csv",
-        "Cleaned_Cars": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_Cars.csv",
-        "Cleaned_trains": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_trains.csv",
-        "hotel_reviews": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\new_hotel_database.reviews.json",
-        "restaurant_data": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\new_restaurant_db.restaurants_data.json",
-        "restaurant_reviews": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\new_restaurant_db.restaurants_reviews.json"
-    }
+    "Cleaned_attr": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_attr.csv",
+    "clean_hotel_data": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\clean_hotel_data.json",
+    "Cleaned_Airbnb": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_Airbnb.csv",
+    "Cleaned_busses": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_busses.csv",
+    "Cleaned_Cars": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_Cars.csv",
+    "Cleaned_trains": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_trains.csv",
+    "hotel_reviews": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\new_hotel_database.reviews.json",
+    "restaurant_data": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\new_restaurant_db.restaurants_data.json",
+    "restaurant_reviews": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\new_restaurant_db.restaurants_reviews.json"
+}
+
 
     # Prepare data when the Flask app starts
     data_prepared = prepare_data()

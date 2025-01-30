@@ -906,13 +906,17 @@
 
 .nav-search-icon {
   position: absolute;
-  left: 15px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
   color: #666;
   font-size: 18px;
 }
+.nav-search-icon2 {
 
+  color: #faf4f4;
+
+}
 .nav-search-input {
   width: 100%;
   padding: 12px 15px 12px 45px;
@@ -1045,7 +1049,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 2rem; /* Adjust size as needed */
+  font-size: 1rem; /* Adjust size as needed */
   color: #2e808d; /* Lighter black */
 }
 
