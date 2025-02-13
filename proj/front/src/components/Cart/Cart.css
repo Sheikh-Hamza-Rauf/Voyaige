@@ -1,0 +1,195 @@
+.itinerary-card {
+    width: 1400px;
+    margin: 100px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    margin-bottom: 24px;
+  }
+  
+  .header h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+  }
+  
+  .user-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+  }
+  
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .info-row span {
+    font-size: 14px;
+    color: #444;
+  }
+  
+  .day-section {
+    margin-bottom: 24px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 15px;
+  }
+  
+  .day-section h2 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .date {
+    color: #666;
+    font-size: 14px;
+  }
+  
+  /* New timeline styles */
+  .timeline {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    overflow-x: auto;
+  }
+  
+  .timeline-item {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  
+  .timeline-content {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 4px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .timeline-connector {
+    width: 50px;
+    height: 2px;
+    background: #ddd;
+    margin: 0 10px;
+    position: relative;
+  }
+  
+  .timeline-connector::after {
+    content: '→';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #2f4a47;
+  }
+  
+  .time {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .activity {
+    color: #444;
+  }
+  
+  .location {
+    color: #666;
+    font-size: 0.9em;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 400px;
+    margin-top: 24px;
+  }
+  
+  .bttn {
+    
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+ 
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .email-bttn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .print-bttn {
+    background-color: #6c757d;
+    color: white;
+  }
+  
+  .home-bttn {
+    background-color: #0d6efd;
+    color: white;
+  }
+  
+  .bttn:hover {
+    opacity: 0.9;
+  }
+  
+  @media (max-width: 1440px) {
+    .itinerary-card {
+      width: 95%;
+      margin: 20px auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .timeline {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .timeline-item {
+      flex-direction: column;
+    }
+  
+    .timeline-connector {
+      height: 20px;
+      width: 2px;
+      margin: 10px auto;
+    }
+  
+    .timeline-connector::after {
+      content: '↓';
+    }
+  
+    .timeline-content {
+      width: 100%;
+      min-width: unset;
+    }
+  
+    .button-group {
+      flex-direction: column;
+    }
+  
+    .bttn {
+      width: 100%;
+    }
+  }

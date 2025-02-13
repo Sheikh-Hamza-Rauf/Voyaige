@@ -2,23 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlane, faPassport, faSuitcase } from '@fortawesome/free-solid-svg-icons';
-import Navbar from '../NavBar/Navbar';
+import { CreditCard, Lock, Calendar, User, Shield } from 'lucide-react';
 import './CheckoutPage.css';
+import Navbar from '../NavBar/Navbar';
 
-const CheckoutPage = ({ totalBalance = 10000 }) => {
+const CheckoutPage = ({ tripData = {
+  days: [
+    { title: "Plan + Flight + Hotel", cost: 140000 },
+    { title: "Plan + Bus + Hotel", cost: 25000 },
+    { title: "Plan + Car + Hotel", cost: 32500 }
+  ],
+  discountPercentage: 10
+} }) => {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+  const [isCardFocused, setIsCardFocused] = useState(false);
+
+  // Calculate totals
+  const subtotal = tripData.days.reduce((sum, day) => sum + day.cost, 0);
+  const discount = (subtotal * tripData.discountPercentage) / 100;
+  const total = subtotal - discount;
 
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
-        navigate('/');
+        navigate('/cart');
       }, 3000);
       return () => clearTimeout(timer);
     }
@@ -32,7 +46,7 @@ const CheckoutPage = ({ totalBalance = 10000 }) => {
 
     try {
       const { data: { clientSecret } } = await axios.post('http://localhost:5000/create-payment-intent', {
-        amount: totalBalance * 100
+        amount: total
       });
 
       const { error: stripeError } = await stripe.confirmCardPayment(clientSecret, {
@@ -56,56 +70,124 @@ const CheckoutPage = ({ totalBalance = 10000 }) => {
   };
 
   return (
-    <>
+    <div className="checkout-container">
       <Navbar />
-      <div className="checkout-container">
-        <div className="travel-image-collage">
-          <div className="image-item img-1"></div>
-          <div className="image-item img-2"></div>
-          <div className="image-item img-3"></div>
-          <div className="image-item img-4"></div>
+      <div className="checkout-content fade-in">
+        <div className="checkout-header">
+          <h1>Complete Your Payment</h1>
+          <div className="secure-badge">
+            <Shield size={18} /> Secured & Encrypted
+          </div>
         </div>
 
-        <div className="checkout-content">
-          <div className="header-animation">
-            <FontAwesomeIcon icon={faPassport} className="passport-icon" />
-            <h2 className="checkout-heading">Adventure Awaits!<br />Complete Your Journey</h2>
-          </div>
-
-          <div className="price-container">
-            <p className="total-amount">PKR {totalBalance}</p>
-            <FontAwesomeIcon icon={faSuitcase} className="suitcase-icon" />
-          </div>
-
-          <form onSubmit={handleSubmit} className="checkout-form">
-            <div className="card-element-container">
-              <CardElement className="card-element" />
+        <div className="checkout-grid">
+          <div className="summary-card">
+            <div className="card-header">
+              <h2>Trip Summary</h2>
+              <CreditCard size={20} />
             </div>
 
-            {error && <div className="error-message pulse">{error}</div>}
-            {success && (
-              <div className="success-message">
-                <FontAwesomeIcon icon={faPlane} className="plane-icon" />
-                <span>Payment Successful! Redirecting to Home Page...</span>
+            <div className="cost-breakdown">
+              {tripData.days.map((day, index) => (
+                <div key={index} className="cost-item slide-in">
+                  <span>Day {index + 1}: {day.title}</span>
+                  <span className="cost">{day.cost.toLocaleString()}</span>
+                </div>
+              ))}
+              
+              <div className="cost-divider"></div>
+              
+              <div className="subtotal cost-item">
+                <span>Sub-total</span>
+                <span className="cost">{subtotal.toLocaleString()}</span>
               </div>
-            )}
+              
+              <div className="discount cost-item">
+                <span>Points Discount ({tripData.discountPercentage}%)</span>
+                <span className="cost-discount">-{discount.toLocaleString()}</span>
+              </div>
+              
+              <div className="total cost-item">
+                <span>Total Amount</span>
+                <span className="cost-total">{total.toLocaleString()}</span>
+              </div>
+            </div>
 
-            <button className="pay-button" disabled={!stripe || loading}>
-              {loading ? (
-                <div className="spinner"></div>
-              ) : (
-                <>
-                  <FontAwesomeIcon icon={faPlane} />
-                  <span>Confirm Payment</span>
-                </>
-              )}
-            </button>
-          </form>
+            <div className="promosection">
+              <h3>Promo Code</h3>
+              <div className="promo-input">
+                <input 
+                  type="text" 
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                  placeholder="Enter your code"
+                />
+                <button className="promo-button">Apply</button>
+              </div>
+            </div>
+          </div>
 
+          <div className="payment-card">
+            <div className="card-header">
+              <h2>Card Payment</h2>
+              <Lock size={20} />
+            </div>
 
+            <form onSubmit={handleSubmit} className="payment-form">
+              <div className={`stripe-card ${isCardFocused ? 'focused' : ''}`}>
+                <CardElement 
+                  onFocus={() => setIsCardFocused(true)}
+                  onBlur={() => setIsCardFocused(false)}
+                  options={{
+                    style: {
+                      base: {
+                        fontSize: '16px',
+                        fontWeight: '500',
+                        fontFamily: 'Inter, system-ui, sans-serif',
+                        color: '#1a1f36',
+                        '::placeholder': {
+                          color: '#6b7280',
+                        },
+                        padding: '20px 0',
+                      },
+                      invalid: {
+                        color: '#ef4444',
+                      },
+                    },
+                  }}
+                />
+              </div>
+
+              {error && <div className="error-message slide-in">{error}</div>}
+              {success && <div className="success-message slide-in">Payment successful! Redirecting...</div>}
+
+              <button 
+                className={`payment-button ${loading ? 'loading' : ''}`}
+                type="submit"
+                disabled={!stripe || loading}
+              >
+                {loading ? (
+                  <>
+                    <div className="spinner"></div>
+                    Processing Payment...
+                  </>
+                ) : (
+                  <>
+                    <Lock size={18} />
+                    Pay {total.toLocaleString()}
+                  </>
+                )}
+              </button>
+            </form>
+
+            <div className="security-info">
+              <Shield size={16} />
+              <span>Your payment information is encrypted and secure</span>
+            </div>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

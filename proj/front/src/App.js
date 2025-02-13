@@ -16,6 +16,7 @@ import ItineraryForm from "./components/RecommendationForm/ItineraryForm";
 import CheckoutPage from "./components/CheckoutPage/CheckoutPage";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import Cart from "./components/Cart/Cart";
 import './App.css';
 
 const stripePromise = loadStripe('pk_test_51MqErmDG40mBr38yGJ5Efis4h3Sy1yPqbDVzGI0cVtt8t4dPVgK2B8nUf7pTJzhuY5I6JnI8Qpn1yReQRT9M5KL000i6zT7fco');
@@ -43,6 +44,7 @@ function App() {
             <Route path="/MiloChatbot" element={<MiloChatbot />} /> 
             <Route path="/form-plan" element={<ItineraryForm />} />
             <Route path="/" element={<Challenges />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/crossword" element={<CrosswordGrid />} />
             <Route
               path="/quiz"
