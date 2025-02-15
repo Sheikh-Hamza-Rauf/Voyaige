@@ -70,28 +70,7 @@
     transform: scale(1.1);
   }
   
-  .like-button {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    padding: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    backdrop-filter: blur(4px);
-  }
-  
-  .like-button:hover {
-    background: white;
-    transform: scale(1.1);
-  }
-  
-  .like-button.active i {
-    color: #ef4444;
-  }
-  
+
   .card-content {
     padding: 1.25rem;
   }
@@ -103,9 +82,11 @@
     margin-bottom: 0.75rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2; /* Standard property for compatibility */
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }
+}
+
   
   .card-meta {
     display: flex;

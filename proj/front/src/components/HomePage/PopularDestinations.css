@@ -1,67 +1,64 @@
-.popular {
+.popular-dest {
   padding: 30px 0;
   background-color: #f8f8f8;
+  margin-top: 80px;
 }
 
-.container {
+.container-dest {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   
 }
 
-
-.section-title {
+.section-title-dest {
   
   font-size: 28px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.section-text {
+.section-text-dest {
   text-align: center;
   color: #666;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  padding :-10px;
 }
 
-.popular-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  list-style-type: none;
-  padding: 0;
-}
-
-.popular-card {
+.popular-card-dest {
   background: white;
   border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-
+  width: 70%;  /* Reduced width */
+  margin: 0 auto; /* Center the card */
 }
-.popular-card:hover
+
+
+
+.popular-card-dest:hover
 {
   transform: translateY(-5px);
 }
-.card-img {
+.card-img-dest {
   height: 250px;
   margin: 0;
 }
 
-.card-img img {
+.card-img-dest img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.card-content {
+.card-content-dest {
   padding: 20px;
   position: relative;
 }
 
-.card-rating {
+.card-rating-dest {
   position: absolute;
   top: -15px;
   right: 20px;
@@ -75,28 +72,42 @@
   font-size: 14px;
 }
 
-.card-subtitle {
+.card-subtitle-dest {
 
   font-size: 0.9rem;
   text-transform: uppercase;
   margin-bottom: 8px;
 }
 
-.card-title {
+.card-title-dest {
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
-.card-subtitle a
+.card-subtitle-dest a
 {
     color: #0066cc;
 }
-.card-title a 
+.card-title-dest a 
 {
     color: #0066cc;
 }
-.card-text {
+.card-text-dest {
   color: #060606;
   font-size: 0.9rem;
+}
+.popular-list-dest {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Display two cards per line */
+  gap: 10px;
+  list-style-type: none;
+  padding: 0;
+  
+}
+
+@media (max-width: 768px) {
+  .popular-list-dest {
+    grid-template-columns: 1fr; /* Stack cards on smaller screens */
+  }
 }
 
 .btn {
@@ -118,8 +129,3 @@
   background-color: #0052a3;
 }
 
-@media (max-width: 768px) {
-  .popular-list {
-    grid-template-columns: 1fr;
-  }
-}

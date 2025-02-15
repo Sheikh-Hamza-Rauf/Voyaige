@@ -38,12 +38,7 @@ const ChallengeCard = ({
     <div className="challenge-card">
       <div className="image-container">
         <img src={image} alt={title} className="challenge-image" />
-        <button
-          className={`like-button ${isLiked ? "active" : ""}`}
-          onClick={() => setIsLiked(!isLiked)}
-        >
-          <FontAwesomeIcon icon={isLiked ? fasHeart : farHeart} size="lg" />
-        </button>
+        
       </div>
 
       <div className="card-content">

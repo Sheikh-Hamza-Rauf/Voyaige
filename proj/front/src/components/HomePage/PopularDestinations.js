@@ -30,7 +30,7 @@ const PopularDestinations = () => {
     },
     {
       id: 4,
-      image: 'https://thejoshtours.pk/wp-content/uploads/2023/03/Karachi.jpg',
+      image: 'https://cdn.britannica.com/85/128585-050-5A1BDD02/Karachi-Pakistan.jpg',
       country: 'Karachi',
       name: 'Karachi',
       description: 'Karachi,  a bustling metropolis known for its vibrant culture, coastal beauty, and economic significance.',
@@ -39,32 +39,32 @@ const PopularDestinations = () => {
   ];
 
   return (
-    <section className="popular" id="destination">
-      <div className="container">
-        <h2 className="section-title">Popular Destination</h2>
-        <p className="section-text">
+    <section className="popular-dest" id="destination">
+      <div className="container-dest">
+        <h2 className="section-title-dest">Popular Destination</h2>
+        <p className="section-text-dest">
           Traveling opens the door to creating memories !!!
         </p>
-        <ul className="popular-list">
+        <ul className="popular-list-dest">
           {destinations.map((dest) => (
             <li key={dest.id}>
-              <div className="popular-card">
-                <figure className="card-img">
+              <div className="popular-card-dest">
+                <figure className="card-img-dest">
                   <Link to={dest.path} state={{ cityName: dest.name }}> {/* Added state prop */}
                     <img src={dest.image} alt={dest.name} />
                   </Link>
                 </figure>
-                <div className="card-content">
-                  <div className="card-rating">
+                <div className="card-content-dest">
+                  <div className="card-rating-dest">
                     {[...Array(5)].map((_, i) => (
                       <span key={i} className="star">★</span>
                     ))}
                   </div>
 
-                  <h3 className="card-title">
+                  <h3 className="card-title-dest">
                     <Link to={dest.path} state={{ cityName: dest.name }}>{dest.name}</Link>
                   </h3>
-                  <p className="card-text">{dest.description}</p>
+                  <p className="card-text-dest">{dest.description}</p>
                 </div>
               </div>
             </li>

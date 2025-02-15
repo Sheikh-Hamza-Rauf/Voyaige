@@ -20,7 +20,7 @@ const cityAttractions = {
     ],
     Karachi: [
         { name: "Clifton Beach", description: "Beaches", rating: 4.3, reviews: 920, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/fc/35/32/karachi-clifton-beach.jpg?w=700&h=400&s=1" },
-        { name: "Mazar-e-Quaid", description: "Monuments", rating: 4.7, reviews: 1500, image: "https://www.app.com.pk/wp-content/uploads/2024/09/Mazar-e-Quaid.jpg" },
+        { name: "Mazar-e-Quaid", description: "Monuments", rating: 4.7, reviews: 1500, image: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Jinnah_Mausoleum.JPG" },
         { name: "Port Grand", description: "Entertainment District", rating: 4.4, reviews: 780, image: "https://upload.wikimedia.org/wikipedia/commons/a/a0/Port_Grand_Karachi.JPG" },
         { name: "Mohatta Palace", description: "Historical Sites", rating: 4.5, reviews: 650, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/2b/9f/b4/jardines-del-palacio.jpg?w=1400&h=800&s=1" },
         { name: "National Museum", description: "Museums", rating: 4.3, reviews: 480, image: "https://upload.wikimedia.org/wikipedia/commons/9/9f/PK_Karachi_asv2020-02_img32_National_Museum.jpg" },
@@ -87,22 +87,22 @@ const TopAttractions = ({ cityName = "Islamabad" }) => {
     const attractions = cityAttractions[cityName] || cityAttractions["Islamabad"];
 
     return (
-        <section className="top-attractions">
-            <div className="section-header">
+        <section className="top-attractions-page">
+            <div className="section-header-page">
                 <h2>Things to do in {cityName}</h2>
             </div>
-            <div className="attractions-list">
+            <div className="attractions-list-page">
                 {attractions.map((attraction, index) => (
-                    <div key={index} className="attraction-card">
-                        <div className="attraction-image" style={{ backgroundImage: `url(${attraction.image})` }}>
-                            <button className="favorite-button"><i className="fa fa-heart" /></button>
+                    <div key={index} className="attraction-card-page">
+                        <div className="attraction-image-page" style={{ backgroundImage: `url(${attraction.image})` }}>
+                            
                             <div className="image-dots">
                                 {[...Array(5)].map((_, i) => (
                                     <span key={i} className={`dot ${i === 0 ? 'active' : ''}`}></span>
                                 ))}
                             </div>
                         </div>
-                        <div className="attraction-info">
+                        <div className="attraction-info-page">
                             <h3>{attraction.name}</h3>
                             <div className="rating">
                                 {[...Array(5)].map((_, i) => (

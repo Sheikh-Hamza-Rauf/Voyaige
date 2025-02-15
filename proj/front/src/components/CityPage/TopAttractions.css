@@ -1,18 +1,19 @@
-.top-attractions {
+.top-attractions-page {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.section-header {
+.section-header-page {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-.section-header h2 {
+.section-header-page h2 {
     font-size: 24px;
+    margin-top: -10px;
     font-weight: bold;
 }
 
@@ -21,35 +22,27 @@
     text-decoration: none;
 }
 
-.attractions-list {
+.attractions-list-page {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
-.attraction-card {
+.attraction-card-page {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
+    width: 325px;
     overflow: hidden;
 }
 
-.attraction-image {
+.attraction-image-page {
     height: 200px;
     background-size: cover;
     background-position: center;
     position: relative;
 }
 
-.favorite-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: white;
-    border: none;
-    border-radius: 50%;
-    padding: 5px;
-    cursor: pointer;
-}
+
 
 .image-dots {
     position: absolute;
@@ -71,11 +64,11 @@
     background: white;
 }
 
-.attraction-info {
+.attraction-info-page {
     padding: 15px;
 }
 
-.attraction-info h3 {
+.attraction-info-page h3 {
     margin: 0 0 10px 0;
     font-size: 18px;
 }
@@ -101,20 +94,20 @@
     font-size: 14px;
 }
 
-.attraction-info p {
+.attraction-info-page p {
     margin: 0;
     color: #6b6b6b;
     font-size: 14px;
 }
 
 @media (max-width: 1024px) {
-    .attractions-list {
+    .attractions-list-page {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .attractions-list {
+    .attractions-list-page {
         grid-template-columns: 1fr;
     }
 }

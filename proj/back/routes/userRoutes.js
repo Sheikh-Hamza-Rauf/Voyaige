@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const UserCustomization=require('../models/UserCustomizationData')
 
 const router = express.Router();
 
@@ -157,6 +158,28 @@ router.get('/points', async (req, res) => {
   } catch (error) {
     console.error('Error fetching points:', error);
     res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+
+router.post('/customizations', async (req, res) => {
+  try {
+    const { email, startingPoint, destination, startDate, endDate, guests } = req.body;
+
+    const newCustomization = new UserCustomization({
+      email,
+      startingPoint,
+      destination,
+      startDate,
+      endDate,
+      guests
+    });
+
+    await newCustomization.save();
+    res.status(201).json({ message: "Customization saved successfully!" });
+  } catch (error) {
+    console.error("Error saving customization:", error);
+    res.status(500).json({ message: "Failed to save customization." });
   }
 });
 

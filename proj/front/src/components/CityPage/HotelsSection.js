@@ -88,22 +88,22 @@ const HotelsSection = ({ cityName = "Islamabad" }) => {
     const hotels = cityHotels[cityName] || cityHotels["Islamabad"]; // Fallback to Islamabad if no city found
 
     return (
-        <section className="hotels-section">
-            <div className="section-header">
+        <section className="hotels-section-page">
+            <div className="section-header-page">
                 <h2>Places to stay in {cityName}</h2>
             </div>
-            <div className="hotels-list">
+            <div className="hotels-list-page">
                 {hotels.map((hotel, index) => (
-                    <div key={index} className="hotel-card">
-                        <div className="hotel-image" style={{ backgroundImage: `url(${hotel.image})` }}>
-                            <button className="favorite-button"><i className="fa fa-heart" /></button>
+                    <div key={index} className="hotel-card-page">
+                        <div className="hotel-image-page" style={{ backgroundImage: `url(${hotel.image})` }}>
+                            
                             <div className="image-dots">
                                 {[...Array(5)].map((_, i) => (
                                     <span key={i} className={`dot ${i === 0 ? 'active' : ''}`}></span>
                                 ))}
                             </div>
                         </div>
-                        <div className="hotel-info">
+                        <div className="hotel-info-page">
                             <h3>{hotel.name}</h3>
                             <div className="rating">
                                 {[...Array(5)].map((_, i) => (

@@ -1,0 +1,128 @@
+.customization-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 80vh;
+  width: 1200px;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+.search-form-customization {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1000px;
+  width: 200%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #0066cc;
+  margin-top: 10px;
+}
+
+.customization-title {
+  font-size: 24px;
+  margin-top:30px;
+  color: #333;
+  margin-top: 20px;
+}
+
+.search-row-customization {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.search-input-customization {
+  flex: 1;
+  min-width: 180px;
+}
+
+.search-input-customization select,
+.search-input-customization input[type="date"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.search-input-customization select:disabled,
+.search-input-customization input[type="date"]:disabled {
+  color: #999;
+  background-color: #e9e9e9;
+  cursor: not-allowed;
+}
+.days-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px; /* Increased gap between cards */
+  justify-content: flex-start; /* Aligns cards to the left */
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.day-card {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 80px;
+  width: calc(45% - 20px); /* Adjusted width for better alignment */
+  min-height: 450px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding-left: 70px;
+  margin: 10px;
+}
+
+
+.day-number {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #34495e, #5cb8c2);
+  color: #fff;
+  border-radius: 50%;
+  margin-top: -160px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.day-line {
+  position: absolute;
+  top: 50%;
+  left: 90px; /* Increased value to move line to the right */
+  transform: translateY(-50%);
+  width: calc(100% - 170px); /* Adjusted width to maintain dynamic responsiveness */
+  height: 2px;
+  background-color: #bbb;
+  margin-top: -163px;
+  z-index: 1;
+}
+
+
+.edit-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #34495e;
+  margin-top: -163px;
+  cursor: pointer;
+}

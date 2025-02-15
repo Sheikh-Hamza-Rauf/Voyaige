@@ -1,0 +1,101 @@
+
+.panorama-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .panorama-popup {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .panorama-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .close-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+    transition: transform 0.2s ease;
+  }
+  
+  .close-button:hover {
+    transform: scale(1.1);
+  }
+  /* Previous Image Button */
+.prev-image-button {
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  background: linear-gradient(135deg, #34495e, #5cb8c2);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.prev-image-button:hover {
+  background: linear-gradient(135deg, #5cb8c2, #34495e);
+}
+
+/* Next Image Button */
+.next-image-button {
+  position: absolute;
+  top: 50%;
+  right: 6%;
+  background: linear-gradient(135deg, #34495e, #5cb8c2);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.next-image-button:hover {
+  background: linear-gradient(135deg, #5cb8c2, #34495e);
+}
