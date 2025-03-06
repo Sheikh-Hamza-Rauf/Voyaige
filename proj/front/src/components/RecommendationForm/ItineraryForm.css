@@ -1,190 +1,18 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-.itinerary-form-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: linear-gradient(135deg, #2c3e50, #4ca1af);
-
-  border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  color: #1e3a8a;
-}
-
-.itinerary-form-container h2 {
-  color: white;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.itinerary-form {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slideIn 0.5s ease-out forwards;
-}
-
-@keyframes slideIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.form-group label {
-  margin-bottom: 0.5rem;
-  color: #fafbfc;
-  font-weight: 500;
-  font-size: 1rem;
-}
-
-.form-group input {
-  padding: 0.75rem;
-  border: 1px solid #bfdbfe;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background-color: white;
-  color: #1e3a8a;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.form-group input::placeholder {
-  color: #a0aec0;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.submit-button {
-  background: linear-gradient(135deg, #34495e, #5cb8c2);  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-
-.submit-button:disabled {
-  background-color: #bfdbfe;
-  cursor: not-allowed;
-}
-
-.error-message {
-  background-color: #fee2e2;
-  color: #b91c1c;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-top: 1.5rem;
-  font-size: 0.9rem;
-}
-
-.itinerary-result {
-  margin-top: 2rem;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.itinerary-result h3 {
-  color: #1e40af;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.day-itinerary {
-  background-color: #f0f9ff;
-  border-left: 4px solid #3b82f6;
-  padding: 1.5rem;
-  margin-top: 1.5rem;
-  border-radius: 0 0.5rem 0.5rem 0;
-  transition: all 0.3s ease;
-}
-
-.day-itinerary:hover {
-  transform: translateX(5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.day-itinerary h4 {
-  color: #3b82f6;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-}
-
-.day-itinerary ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.day-itinerary li {
-  margin-bottom: 0.5rem;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.day-itinerary li::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  color: #3b82f6;
-}
-
-@media (max-width: 768px) {
-  .itinerary-form-container {
-    margin: 1rem;
-    padding: 1.5rem;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .submit-button {
-    width: 100%;
-  }
-}
-
- */
-
-
- @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f4f8;
   color: #333;
+  margin: 0;
+  padding: 0;
 }
 
 .itinerary-form-container {
   max-width: 1000px;
   margin: 2rem auto;
   padding: 2rem;
-  background: linear-gradient(135deg, #ffffff, #f0f4f8);
+  background: #ffffff;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
@@ -200,6 +28,7 @@ body {
 .itinerary-form {
   display: grid;
   gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .form-row {
@@ -238,7 +67,7 @@ body {
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
-  background-color: white;
+  background-color: #fff;
   color: #2c3e50;
 }
 
@@ -254,7 +83,7 @@ body {
 
 .submit-button {
   background: linear-gradient(135deg, #3498db, #2980b9);
-  color: white;
+  color: #fff;
   border: none;
   padding: 1rem 2rem;
   border-radius: 8px;
@@ -289,8 +118,8 @@ body {
 }
 
 .itinerary-result {
-  margin-top: 3rem;
-  background-color: white;
+  margin-top: 2rem;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
@@ -314,14 +143,17 @@ body {
   border-radius: 10px;
 }
 
-.hotel-info {
+.hotel-info,
+.transport-info,
+.cost-breakdown {
   background-color: #e8f4fd;
   padding: 1.5rem;
   border-radius: 10px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.hotel-info h4 {
+.hotel-info h4,
+.transport-info h4 {
   color: #2980b9;
   margin-bottom: 1rem;
 }
@@ -350,38 +182,31 @@ body {
   font-size: 1.2rem;
 }
 
-.attractions, .dining {
-  margin-top: 1rem;
+.day-detail p {
+  margin: 0.3rem 0;
 }
 
-.attractions h5, .dining h5 {
-  color: #34495e;
-  margin-bottom: 0.5rem;
+.confirm-button {
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 1.5rem;
+  display: block;
+  width: 100%;
 }
 
-.attractions ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.attractions li {
-  margin-bottom: 0.5rem;
-  padding-left: 1.5rem;
-  position: relative;
-}
-
-.attractions li::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  color: #3498db;
-}
-
-.total-cost {
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  text-align: right;
-  color: #2c3e50;
+.confirm-button:hover {
+  background: #219150;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -394,7 +219,8 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .submit-button {
+  .submit-button,
+  .confirm-button {
     width: 100%;
   }
 
@@ -402,4 +228,3 @@ body {
     grid-template-columns: 1fr;
   }
 }
-

@@ -109,10 +109,7 @@ def generate_itinerary_ml(user_input, hotels_dict, restaurants_dict, attractions
             {'restaurant_name': 'No suitable restaurant found in this city', 'restaurant_address': 'N/A'}
         ]
 
-    # Print the selected restaurants in the terminal
-    print("Selected Restaurants:")
-    for restaurant in selected_restaurants:
-        print(f"- {restaurant['restaurant_name']} ({restaurant.get('restaurant_address', 'Address not available')})")
+ 
 
     # Select top attractions
     selected_attractions = recommended_attractions[:5]

@@ -60,14 +60,19 @@ const ItineraryForm = () => {
     try {
       const response = await axios.post('http://127.0.0.1:5002/api/ItineraryForm', payload);
       setItinerary(response.data.itinerary);
-      setError(null);
     } catch (err) {
-      console.log("Error occurred in itinerary generation:", err);
       const errorMessage = err.response?.data?.error || err.message || 'An unknown error occurred';
       setError(errorMessage);
     } finally {
       setLoading(false);
     }
+  };
+
+  const confirmBooking = () => {
+    // Forward itinerary data to the booking page.
+    console.log("Confirmed Itinerary:", itinerary);
+    alert('Booking confirmed! Redirecting to payment page...');
+    window.location.href = '/confirm-booking'; // Replace with your actual route
   };
 
   return (
@@ -84,7 +89,6 @@ const ItineraryForm = () => {
               name="starting_point"
               value={formData.starting_point}
               onChange={handleChange}
-              required
               placeholder="e.g., Islamabad"
             />
           </div>
@@ -157,7 +161,7 @@ const ItineraryForm = () => {
           </div>
         </div>
         <button type="submit" className="submit-button" disabled={loading}>
-          {loading ? 'Generating...' : 'Generate Itinerary'}
+          {loading ? 'Generating Itinerary...' : 'Generate Itinerary'}
         </button>
       </form>
 
@@ -168,41 +172,39 @@ const ItineraryForm = () => {
           <h3>Your Personalized Itinerary</h3>
           <div className="itinerary-summary">
             <p><strong>Destination:</strong> {itinerary.destination}</p>
-            <p><strong>Duration:</strong> {itinerary.duration} Days</p>
+            <p><strong>Duration:</strong> {itinerary.duration_days} Days</p>
             <p><strong>Travelers:</strong> {itinerary.num_travelers}</p>
-            <p><strong>Interest:</strong> {itinerary.area_of_interest}</p>
             <p><strong>Total Budget:</strong> {itinerary.total_budget} PKR</p>
           </div>
           <div className="hotel-info">
             <h4>Accommodation</h4>
-            <p><strong>{itinerary.hotel.hotel_name}</strong></p>
-            <p>{itinerary.hotel.hotel_address}</p>
-            <p><strong>Price per night:</strong> {itinerary.hotel.hotel_price} PKR</p>
+            <p><strong>{itinerary.hotel.name}</strong></p>
+            <p><strong>Price per night:</strong> {itinerary.hotel.price} PKR</p>
           </div>
-          <p><strong>Transport Budget:</strong> {itinerary.transport_budget} PKR</p>
-
+          <div className="transport-info">
+            <h4>Transportation</h4>
+            <p><strong>Mode:</strong> {itinerary.transportation.mode}</p>
+            <p><strong>Estimated Cost:</strong> {itinerary.transportation.estimated_cost} PKR</p>
+          </div>
           <div className="daily-itinerary">
             {itinerary.days.map((day) => (
               <div key={day.day} className="day-itinerary">
                 <h4>Day {day.day}</h4>
-                <div className="attractions">
-                  <h5>Attractions</h5>
-                  <ul>
-                    {day.attractions.map((attr, index) => (
-                      <li key={index}>{attr.name} {attr.category && `- ${attr.category}`}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="dining">
-                  <h5>Dining</h5>
-                  <p>Lunch: {day.dining.lunch}</p>
-                  <p>Dinner: {day.dining.dinner}</p>
+                <div className="day-detail">
+                  <p><strong>Attraction:</strong> {day.attraction.name || day.attraction}</p>
+                  <p><strong>Lunch:</strong> {day.lunch}</p>
+                  <p><strong>Dinner:</strong> {day.dinner}</p>
                 </div>
               </div>
             ))}
           </div>
-
-          <p className="total-cost"><strong>Estimated Total Cost:</strong> {itinerary.total_cost} PKR</p>
+          <div className="cost-breakdown">
+            <p><strong>Total Cost:</strong> {itinerary.cost_breakdown.total_cost} PKR</p>
+            <p><strong>Status:</strong> {itinerary.cost_breakdown.status}</p>
+          </div>
+          <button className="confirm-button" onClick={confirmBooking}>
+            Confirm Booking
+          </button>
         </div>
       )}
     </div>
@@ -210,4 +212,3 @@ const ItineraryForm = () => {
 };
 
 export default ItineraryForm;
-
