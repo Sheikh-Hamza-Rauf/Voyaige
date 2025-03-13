@@ -70,7 +70,6 @@ const PopularDestinations = () => {
             </li>
           ))}
         </ul>
-        <button className="btn btn-primary">More Destination</button>
       </div>
     </section>
   );

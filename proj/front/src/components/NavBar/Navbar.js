@@ -721,9 +721,9 @@ const Navbar = () => {
         </Link>
         <ul className="navbar-menu">
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/checkout">Payment</Link></li>
+          <li><Link to="/city">Cities</Link></li>
           <li><Link to="/hotels">Hotels</Link></li>
-          <li><Link to="/restaurants">Eat & Drink</Link></li>
+          <li><Link to="/restaurants">Restaurants</Link></li>
         </ul>
         <div className="navbar-actions">
           <button 
