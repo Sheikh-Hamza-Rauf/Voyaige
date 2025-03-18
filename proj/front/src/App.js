@@ -25,7 +25,7 @@ import UserCustomization from "./components/Booking/UserCustomization/UserCustom
 import BookingOptions from "./components/Booking/BookingOptions"
 import BookHotel from "./components/Booking/BookHotel";
 import BookTransport from "./components/Booking/BookTransport";
-
+import Cart from "./components/Cart/Cart";
 const stripePromise = loadStripe('pk_test_51MqErmDG40mBr38yGJ5Efis4h3Sy1yPqbDVzGI0cVtt8t4dPVgK2B8nUf7pTJzhuY5I6JnI8Qpn1yReQRT9M5KL000i6zT7fco');
 
 
@@ -56,6 +56,7 @@ function App() {
             <Route path="/form-plan" element={<ItineraryForm />} />
             <Route path="/" element={<Challenges />} />
             <Route path="/crossword" element={<CrosswordGrid />} />
+            <Route path="/cart" element={<Cart />} />
             <Route
               path="/quiz"
               element={<Quiz onPointsUpdate={handlePointsUpdate} />} // Pass callback to Quiz

@@ -1,195 +1,367 @@
 .itinerary-card {
-    width: 1400px;
-    margin: 100px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 1200px;
+  margin: 2rem auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.receipt-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.booking-confirmation {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.confirmation-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #dcfce7;
+  color: #166534;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.confirmation-date {
+  font-weight: 400;
+  color: #166534;
+  opacity: 0.8;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: #4b5563;
+  font-size: 0.95rem;
+}
+
+.trip-overview {
+  margin-top: 1rem;
+}
+
+.trip-route {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #111827;
+}
+
+.separator {
+  color: #6b7280;
+}
+
+.trip-dates, .trip-guests {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4b5563;
+}
+
+.payment-summary {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+}
+
+.payment-summary h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+.payment-method {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.cost-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cost-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #4b5563;
+}
+
+.cost-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0.5rem 0;
+}
+
+.cost {
+  font-weight: 500;
+}
+
+.cost-discount {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.cost-total {
+  font-weight: 700;
+  color: #111827;
+  font-size: 1.1rem;
+}
+
+.itinerary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.itinerary-content h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.day-section {
+  background-color: #f9fafb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.day-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.date {
+  font-weight: 400;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.day-title {
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 1rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.timeline-item:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.8rem;
+  transform: translateY(-50%);
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: #4f46e5;
+  border-radius: 50%;
+}
+
+.timeline-connector {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.375rem;
+  transform: translateX(-50%);
+  width: 1px;
+  height: calc(100% + 0.25rem);
+  background-color: #d1d5db;
+}
+
+.timeline-content {
+  display: grid;
+  grid-template-columns: 20% 40% 40%;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.time {
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.activity {
+  font-weight: 500;
+  color: #111827;
+}
+
+.location {
+  color: #4b5563;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.bttn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.email-bttn {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.email-bttn:hover {
+  background-color: #4338ca;
+}
+
+.print-bttn {
+  background-color: #ffffff;
+  color: #4b5563;
+  border: 1px solid #d1d5db;
+}
+
+.print-bttn:hover {
+  background-color: #f9fafb;
+}
+
+.home-bttn {
+  background-color: #111827;
+  color: white;
+}
+
+.home-bttn:hover {
+  background-color: #1f2937;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  gap: 1rem;
+}
+
+.loading-spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #4f46e5;
+  border-radius: 50%;
+  animation: spinner 1s linear infinite;
+}
+
+.no-data-container {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Print styles */
+@media print {
+  .navbar-container,
+  .button-group {
+    display: none !important;
   }
   
-  .header {
-    margin-bottom: 24px;
+  .itinerary-card {
+    box-shadow: none;
+    border: none;
+    margin: 0;
+    padding: 0;
   }
   
-  .header h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-    font-size: 24px;
+  .print-section {
+    break-inside: avoid;
   }
-  
-  .user-info {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 6px;
-  }
-  
-  .info-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-  }
-  
-  .info-row span {
-    font-size: 14px;
-    color: #444;
-  }
-  
-  .day-section {
-    margin-bottom: 24px;
-    border: 1px solid #eee;
-    border-radius: 6px;
-    padding: 15px;
-  }
-  
-  .day-section h2 {
-    color: #333;
-    font-size: 18px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .date {
-    color: #666;
-    font-size: 14px;
-  }
-  
-  /* New timeline styles */
-  .timeline {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    overflow-x: auto;
-  }
-  
-  .timeline-item {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .itinerary-card {
+    margin: 1rem;
+    padding: 1.5rem;
   }
   
   .timeline-content {
-    background: #f8f9fa;
-    padding: 10px 15px;
-    border-radius: 4px;
-    min-width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .timeline-connector {
-    width: 50px;
-    height: 2px;
-    background: #ddd;
-    margin: 0 10px;
-    position: relative;
-  }
-  
-  .timeline-connector::after {
-    content: '→';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #2f4a47;
-  }
-  
-  .time {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .activity {
-    color: #444;
-  }
-  
-  .location {
-    color: #666;
-    font-size: 0.9em;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
   }
   
   .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 400px;
-    margin-top: 24px;
+    flex-direction: column;
   }
   
   .bttn {
-    
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
- 
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
   }
   
-  .email-bttn {
-    background-color: #dc3545;
-    color: white;
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
-  
-  .print-bttn {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .home-bttn {
-    background-color: #0d6efd;
-    color: white;
-  }
-  
-  .bttn:hover {
-    opacity: 0.9;
-  }
-  
-  @media (max-width: 1440px) {
-    .itinerary-card {
-      width: 95%;
-      margin: 20px auto;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .timeline {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  
-    .timeline-item {
-      flex-direction: column;
-    }
-  
-    .timeline-connector {
-      height: 20px;
-      width: 2px;
-      margin: 10px auto;
-    }
-  
-    .timeline-connector::after {
-      content: '↓';
-    }
-  
-    .timeline-content {
-      width: 100%;
-      min-width: unset;
-    }
-  
-    .button-group {
-      flex-direction: column;
-    }
-  
-    .bttn {
-      width: 100%;
-    }
-  }
+}

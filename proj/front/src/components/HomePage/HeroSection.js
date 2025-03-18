@@ -5,9 +5,8 @@ import './HeroSection.css';
 
 const citiesInPakistan = [
   "Islamabad", "Lahore", "Karachi", "Murree", "Peshawar",
-  "Skardu", "Hunza", "Quetta", "Multan", "Faisalabad", 
-  "Murree", "Kashmir", "Abbottabad", "Gilgit", "Naran",
-  "Batakundi"
+  "Skardu", "Hunza", "Quetta", "Multan", "Faisalabad",
+  "Kashmir", "Abbottabad", "Gilgit", "Naran", "Batakundi"
 ];
 
 const images = [
@@ -17,7 +16,6 @@ const images = [
 ];
 
 const HeroSection = () => {
-  
   const [startingPoint, setStartingPoint] = useState('');
   const [destination, setDestination] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -32,65 +30,111 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); 
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user && user.email) {
-      setIsLoggedIn(true); 
-      setEmail(user.email); // Store the email from the user object
+      setIsLoggedIn(true);
+      setEmail(user.email);
     } else {
       setIsLoggedIn(false);
     }
-    console.log("User status:", isLoggedIn ? "Logged in" : "Not logged in");
   }, []);
 
   const handleSaveCustomization = async (customizationData) => {
-    console.log("Sending customization data:", customizationData);
+    sessionStorage.removeItem('currentTripId');
     try {
-      const response = await axios.post('http://localhost:5000/api/users/customizations', customizationData);
+      const response = await axios.post("http://localhost:5000/api/users/customizations", customizationData);
 
-      console.log("Response: ", response.data);
       if (response.status === 201 || response.status === 200) {
-        
         navigate('/UserCustomization', { state: { customizationData } });
       } else {
         alert("Failed to save customization.");
       }
     } catch (error) {
-      console.error("Error saving customization:", error);
+      console.error("Error saving customization:", error.response?.data || error.message);
       alert("Error while saving customization.");
     }
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
-
+  
     if (!isLoggedIn) {
-      alert("Please sign in to proceed!");
+      setError("Please sign in to proceed!");
       return;
     }
-
+  
     if (!startingPoint || !destination || !startDate || !endDate || !guests) {
-      setError('Please fill in all required fields before proceeding.');
+      setError("Please fill in all required fields before proceeding.");
       return;
     }
-
-    setError('');
+  
+    if (startingPoint.trim().toLowerCase() === destination.trim().toLowerCase()) {
+      setError("Starting point and destination cannot be the same.");
+      return;
+    }
+  
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize today's date for comparison
+  
+    const tripStart = new Date(startDate);
+    const tripEnd = new Date(endDate);
+  
+    if (isNaN(tripStart) || isNaN(tripEnd)) {
+      setError("Invalid date format. Please enter a valid trip start and end date.");
+      return;
+    }
+  
+    // Ensure trip starts at least one day after today
+    const minStartDate = new Date();
+    minStartDate.setDate(today.getDate() + 1);
+  
+    if (tripStart < minStartDate) {
+      setError("Trip start date must be at least one day after today.");
+      return;
+    }
+  
+    if (tripEnd <= tripStart) {
+      setError("Trip end date must be after the start date.");
+      return;
+    }
+  
+    // Ensure trip duration is at least 3 days
+    const tripDuration = (tripEnd - tripStart) / (1000 * 60 * 60 * 24);
+    if (tripDuration < 3) {
+      setError("Trip duration must be at least 3 days.");
+      return;
+    }
+  
+    // Ensure trip duration does not exceed a realistic limit (e.g., 365 days)
+    if (tripDuration > 365) {
+      setError("Trip duration cannot be longer than 365 days.");
+      return;
+    }
+  
+    // Guests must be a number greater than 0 and reasonable
+    if (isNaN(guests) || guests < 1 || guests > 100) {
+      setError("Please select a valid number of guests (1-100).");
+      return;
+    }
+  
+    setError(""); // Clear any previous error
     const customizationData = {
-      email,  // Email is taken from useEffect state
+      email,
       startingPoint,
       destination,
       startDate,
       endDate,
       guests,
     };
-
-    handleSaveCustomization(customizationData); 
+  
+    handleSaveCustomization(customizationData);
   };
-
+  
   return (
     <div className='heroo'>
       <h1 className="titttle" style={{ fontWeight: '800', textAlign: 'center', fontSize: '3rem', marginTop: '5rem', marginBottom: '1rem' }}>
@@ -122,10 +166,10 @@ const HeroSection = () => {
           </div>
           <div className="search-input">
             <select value={guests} onChange={(e) => setGuests(Number(e.target.value))}>
-              <option value="1">1 Person</option>
-              <option value="2">2 Persons</option>
-              <option value="3">3 Persons</option>
-              <option value="4">4+ Persons</option>
+            <option value="1">Economy</option>
+              <option value="2">Normal</option>
+              <option value="3">Deluxe</option>
+              
             </select>
           </div>
         </div>

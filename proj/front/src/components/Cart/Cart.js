@@ -1,103 +1,200 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Calendar, User, CreditCard, Printer, Mail, Home } from 'lucide-react';
 import './Cart.css';
 import Navbar from '../NavBar/Navbar';
 
-const Cart = ({ userData, itineraryData }) => {
-  // Hardcoded data for demonstration
-  const defaultUserData = {
-    name: "Ms Milo Khan",
-    bookingId: "1001AB",
-    phone: "0333-7777777",
-    email: "m.khan@outlook.com",
-    date: "7/2/2024"
+const Cart = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [tripData, setTripData] = useState(null);
+  const [paymentDetails, setPaymentDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Get data from location state (sent from CheckoutPage)
+    if (location.state?.tripData) {
+      setTripData(location.state.tripData);
+      setPaymentDetails(location.state.paymentDetails || {});
+      setLoading(false);
+    } else {
+      // If no data in state, could fetch from API using stored ID in localStorage or redirect
+      setLoading(false);
+    }
+  }, [location]);
+
+  // Function to format date
+  const formatDate = (dateString) => {
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    } catch (error) {
+      return dateString || 'N/A';
+    }
   };
 
-  const defaultItineraryData = [
-    {
-      day: 1,
-      date: "10/2/2024",
-      schedule: [
-        { time: "9:00am PST", activity: "Departure", location: "Rawalpindi" },
-        { time: "7:30pm PST", activity: "Break/Lunch", location: "Abbottabad" },
-        { time: "2:30pm PST", activity: "Departure", location: "Abbottabad" },
-        { time: "7:30pm PST", activity: "Arrival in Naran", location: "Naran" },
-        { time: "8:30pm PST", activity: "Dinner", location: "Hotel Naran" }
-      ]
-    },
-    {
-        day: 2,
-        date: "10/2/2024",
-        schedule: [
-          { time: "9:00am PST", activity: "Departure", location: "Rawalpindi" },
-          { time: "7:30pm PST", activity: "Break/Lunch", location: "Abbottabad" },
-          { time: "2:30pm PST", activity: "Departure", location: "Abbottabad" },
-          { time: "7:30pm PST", activity: "Arrival in Naran", location: "Naran" },
-          { time: "8:30pm PST", activity: "Dinner", location: "Hotel Naran" }
-        ]
-      },
-      {
-        day: 3,
-        date: "10/2/2024",
-        schedule: [
-          { time: "9:00am PST", activity: "Departure", location: "Rawalpindi" },
-          { time: "7:30pm PST", activity: "Break/Lunch", location: "Abbottabad" },
-          { time: "2:30pm PST", activity: "Departure", location: "Abbottabad" },
-          { time: "7:30pm PST", activity: "Arrival in Naran", location: "Naran" },
-          { time: "8:30pm PST", activity: "Dinner", location: "Hotel Naran" }
-        ]
-      }
-    // Add more days as needed
-  ];
+  // Handle email itinerary
+  const handleEmailItinerary = () => {
+    // In a real application, this would call an API endpoint to send an email
+    alert('Itinerary has been sent to your email!');
+  };
 
-  const actualUserData = userData || defaultUserData;
-  const actualItineraryData = itineraryData || defaultItineraryData;
+  // Handle print itinerary
+  const handlePrintItinerary = () => {
+    window.print();
+  };
+
+  // Handle navigation back to homepage
+  const handleBackToHome = () => {
+    navigate('/');
+  };
+
+  // Display loading state
+  if (loading) {
+    return (
+      <div className="itinerary-card">
+        <Navbar />
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading your itinerary...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Display fallback if no data available
+  if (!tripData && !loading) {
+    return (
+      <div className="itinerary-card">
+        <Navbar />
+        <div className="no-data-container">
+          <h2>No Itinerary Data Available</h2>
+          <p>We couldn't find your itinerary details.</p>
+          <button className="bttn home-bttn" onClick={handleBackToHome}>BACK TO HOMEPAGE</button>
+        </div>
+      </div>
+    );
+  }
+
+  // Extract user and itinerary data from the trip data
+  const summary = tripData?.summary || {};
+  const days = tripData?.days || [];
+  
+  // Format payment date
+  const paymentDate = formatDate(paymentDetails?.date || new Date());
+
+  // Generate booking ID - in real app this would come from backend
+  const bookingId = `TRP${Math.floor(1000 + Math.random() * 9000)}`;
 
   return (
     <div className="itinerary-card">
-        <Navbar />
-      <div className="header">
-        <h1>Itinerary Details</h1>
-        <div className="user-info">
-          <div className="info-row">
-            <span>Account Name: {actualUserData.name}</span>
-            <span>Date: {actualUserData.date}</span>
-          </div>
-          <div className="info-row">
-            <span>Booking ID: {actualUserData.bookingId}</span>
-          </div>
-          <div className="info-row">
-            <span>Phone Number: {actualUserData.phone}</span>
-          </div>
-          <div className="info-row">
-            <span>Email: {actualUserData.email}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="itinerary-content">
-        {actualItineraryData.map((day, index) => (
-          <div key={index} className="day-section">
-            <h2>DAY {day.day} <span className="date">{day.date}</span></h2>
-            <div className="timeline">
-              {day.schedule.map((item, idx) => (
-                <div key={idx} className="timeline-item">
-                  <div className="timeline-content">
-                    <span className="time">{item.time}</span>
-                    <span className="activity">{item.activity}</span>
-                    <span className="location">{item.location}</span>
-                  </div>
-                  {idx < day.schedule.length - 1 && <div className="timeline-connector"></div>}
-                </div>
-              ))}
+      <Navbar />
+      <div className="receipt-container print-section">
+        <div className="header">
+          <h1>Trip Confirmation</h1>
+          <div className="booking-confirmation">
+            <div className="confirmation-badge">
+              <span>Payment Successful</span>
+              <span className="confirmation-date">{paymentDate}</span>
             </div>
           </div>
-        ))}
+          
+          <div className="user-info">
+            <div className="info-row">
+              <span><strong>Booking ID:</strong> {bookingId}</span>
+              <span><strong>Payment Date:</strong> {paymentDate}</span>
+            </div>
+            <div className="info-row">
+              <span><strong>Amount Paid:</strong> {paymentDetails?.amount?.toLocaleString() || 'N/A'}</span>
+              <span><strong>Status:</strong> {paymentDetails?.status || 'Paid'}</span>
+            </div>
+            <div className="info-row trip-overview">
+              <div className="trip-route">
+                <span className="from">{summary.from || 'Origin'}</span>
+                <span className="separator">→</span>
+                <span className="to">{summary.to || 'Destination'}</span>
+              </div>
+            </div>
+            <div className="info-row">
+              <div className="trip-dates">
+                <Calendar size={14} />
+                <span>
+                  {formatDate(summary.startDate)} - {formatDate(summary.endDate)}
+                </span>
+              </div>
+            </div>
+            <div className="info-row">
+              <div className="trip-guests">
+                <User size={14} />
+                <span>
+                  {summary.guests || 1} {(summary.guests || 1) > 1 ? 'Guests' : 'Guest'} • 
+                  {summary.duration || days.length} {(summary.duration || days.length) > 1 ? 'Days' : 'Day'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="payment-summary">
+          <h2>Payment Summary</h2>
+          <div className="payment-details">
+            <div className="payment-method">
+              <CreditCard size={18} />
+              <span>Card Payment</span>
+            </div>
+            
+            <div className="cost-breakdown">
+              {days.map((day, index) => (
+                <div key={index} className="cost-item">
+                  <span>Day {day.dayNumber}: {day.title}</span>
+                  <span className="cost">{day.totalCost?.toLocaleString()}</span>
+                </div>
+              ))}
+              
+              <div className="cost-divider"></div>
+              
+              {tripData.discountPercentage > 0 && (
+                <div className="discount cost-item">
+                  <span>Points Discount ({tripData.discountPercentage}%)</span>
+                  <span className="cost-discount">
+                    -{((days.reduce((sum, day) => sum + (day.totalCost || 0), 0) * tripData.discountPercentage) / 100).toLocaleString()}
+                  </span>
+                </div>
+              )}
+              
+              {paymentDetails?.promoDiscount > 0 && (
+                <div className="discount cost-item">
+                  <span>Promo Discount ({paymentDetails.promoApplied}: {paymentDetails.promoDiscount}%)</span>
+                  <span className="cost-discount">
+                    -{((days.reduce((sum, day) => sum + (day.totalCost || 0), 0) * paymentDetails.promoDiscount) / 100).toLocaleString()}
+                  </span>
+                </div>
+              )}
+              
+              <div className="total cost-item">
+                <span><strong>Total Amount Paid</strong></span>
+                <span className="cost-total">{paymentDetails?.amount?.toLocaleString() || 'N/A'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       
       </div>
 
       <div className="button-group">
-        <button className="bttn email-bttn">EMAIL ME</button>
-        <button className="bttn print-bttn">PRINT COPY</button>
-        <button className="bttn home-bttn">BACK TO HOMEPAGE</button>
+        <button className="bttn email-bttn" onClick={handleEmailItinerary}>
+          <Mail size={16} /> EMAIL ME
+        </button>
+        <button className="bttn print-bttn" onClick={handlePrintItinerary}>
+          <Printer size={16} /> PRINT COPY
+        </button>
+        <button className="bttn home-bttn" onClick={handleBackToHome}>
+          <Home size={16} /> BACK TO HOMEPAGE
+        </button>
       </div>
     </div>
   );
