@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm/Login';
 import SignupForm from './components/SignupForm/Signup';
 import Home from './components/HomePage/Homepage';
 import HeroSection from "./components/HomePage/HeroSection";
+import City from "./components/CityPage/City";
 import CityPage from './components/CityPage/CityPage';
 import Footer from './components/CityPage/Footer';
 import PlanSelection from './components/HomePage/PlanSelection';
@@ -25,10 +26,10 @@ import UserCustomization from "./components/Booking/UserCustomization/UserCustom
 import BookingOptions from "./components/Booking/BookingOptions"
 import BookHotel from "./components/Booking/BookHotel";
 import BookTransport from "./components/Booking/BookTransport";
-import Cart from "./components/Cart/Cart";
+import Hotel from "./components/HotelsPage/Hotels";
+import Restaurants from "./components/RestaurantsPage/Restaurants";
+
 const stripePromise = loadStripe('pk_test_51MqErmDG40mBr38yGJ5Efis4h3Sy1yPqbDVzGI0cVtt8t4dPVgK2B8nUf7pTJzhuY5I6JnI8Qpn1yReQRT9M5KL000i6zT7fco');
-
-
 
 function App() {
   const [points, setPoints] = useState(0); // State to track total points
@@ -46,7 +47,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
+            <Route path="/city" element={<City />} /> 
             <Route path="/city/:cityName" element={<CityPageWrapper />} />
+            <Route path="/restaurants" element={<Restaurants />} />
             <Route path="/UserCustomization" element={<UserCustomization/>}/>
             <Route path="/bookoption" element={<BookingOptions/>}  />
             <Route path="/BookHotel" element={<BookHotel/> } />
@@ -56,7 +59,7 @@ function App() {
             <Route path="/form-plan" element={<ItineraryForm />} />
             <Route path="/" element={<Challenges />} />
             <Route path="/crossword" element={<CrosswordGrid />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/hotels" element={<Hotel />} />
             <Route
               path="/quiz"
               element={<Quiz onPointsUpdate={handlePointsUpdate} />} // Pass callback to Quiz
@@ -86,6 +89,13 @@ const CityPageWrapper = () => {
   const cityName = location.state?.cityName || 'Islamabad'; // Default to Islamabad if no city specified
 
   return <CityPage cityName={cityName} />;
+};
+
+const ConditionalFooter = () => {
+  const location = useLocation();
+  const excludedRoutes = ["/login", "/signup"]; // Exclude on login/signup pages
+
+  return !excludedRoutes.includes(location.pathname) ? <Footer /> : null;
 };
 
 export default App;

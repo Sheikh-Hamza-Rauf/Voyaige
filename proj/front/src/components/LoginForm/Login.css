@@ -126,6 +126,7 @@
 
 .global-error {
   background-color: #fff0f0;
+
   color: #ff4d4d;
   padding: 10px;
   border-radius: 8px;
@@ -152,4 +153,13 @@
 
 .switch-form a:hover {
   text-decoration: underline;
+}
+
+h3 {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+h2 {
+  margin-top: 10px;
 }
