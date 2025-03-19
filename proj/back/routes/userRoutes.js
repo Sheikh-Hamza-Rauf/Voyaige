@@ -2,33 +2,30 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const UserCustomization=require('../models/UserCustomizationData')
-
+const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 // Register route
 router.post('/register', async (req, res) => {
   try {
     const { firstName, lastName, email, phoneNumber, password } = req.body;
-
-    let user = await User.findOne({ email });
-    if (user) {
-      return res.status(400).json({ msg: 'User already exists' });
+    if (!firstName || !lastName || !email || !phoneNumber || !password) {
+      return res.status(400).json({ error: 'All fields are required' });
     }
-
-    user = new User({
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      password: await bcrypt.hash(password, 10),
-      points: 0,
-    });
-
-    await user.save();
-    res.status(201).json({ msg: 'User registered successfully' });
-  } catch (err) {
-    console.error('Register error:', err);
-    res.status(500).json({ msg: 'Server error' });
+    
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists' });
+    }
+    
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ firstName, lastName, email, phoneNumber, password: hashedPassword });
+    await newUser.save();
+    
+    res.status(201).json({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
@@ -56,6 +53,7 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 });
+
 
 router.post('/updatePoints', async (req, res) => {
   console.log("in update");

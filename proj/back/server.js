@@ -241,72 +241,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Something went wrong!', error: err.message });
 });
 
-// Import the existing User model from models/user.js
-const User = require('./models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
-// Register API
-app.post('/api/users/register', async (req, res) => {
-  try {
-    const { firstName, lastName, email, phoneNumber, password } = req.body;
-    if (!firstName || !lastName || !email || !phoneNumber || !password) {
-      return res.status(400).json({ error: 'All fields are required' });
-    }
-    
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: 'User already exists' });
-    }
-    
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ firstName, lastName, email, phoneNumber, password: hashedPassword });
-    await newUser.save();
-    
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (error) {
-    console.error('Registration error:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
 
-// Login API
-app.post('/api/users/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password are required' });
-    }
-    
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ error: 'Invalid credentials' });
-    }
-    
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ error: 'Invalid credentials' });
-    }
-    
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
-    // Optionally, update lastLoginDate and consecutiveLoginDays here if needed.
-    res.json({ 
-      message: 'Login successful', 
-      token, 
-      user: { 
-        firstName: user.firstName, 
-        lastName: user.lastName, 
-        email: user.email, 
-        phoneNumber: user.phoneNumber,
-        points: user.points,
-        challengesStatus: user.challengesStatus 
-      } 
-    });
-  } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
