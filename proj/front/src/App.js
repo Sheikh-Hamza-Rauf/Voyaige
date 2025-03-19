@@ -28,7 +28,7 @@ import BookHotel from "./components/Booking/BookHotel";
 import BookTransport from "./components/Booking/BookTransport";
 import Hotel from "./components/HotelsPage/Hotels";
 import Restaurants from "./components/RestaurantsPage/Restaurants";
-
+import Cart from "./components/Cart/Cart";
 const stripePromise = loadStripe('pk_test_51MqErmDG40mBr38yGJ5Efis4h3Sy1yPqbDVzGI0cVtt8t4dPVgK2B8nUf7pTJzhuY5I6JnI8Qpn1yReQRT9M5KL000i6zT7fco');
 
 function App() {
@@ -75,6 +75,8 @@ function App() {
                 </Elements>
               } 
             />
+            <Route path ="/cart" element = {<Cart/>} ></Route>
+
           </Routes>
         </div>
         <Footer />

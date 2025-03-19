@@ -4,9 +4,16 @@ import axios from 'axios';
 import './HeroSection.css';
 
 const citiesInPakistan = [
-  "Islamabad", "Lahore", "Karachi", "Murree", "Peshawar",
-  "Skardu", "Hunza", "Quetta", "Multan", "Faisalabad",
-  "Kashmir", "Abbottabad", "Gilgit", "Naran", "Batakundi"
+  "Islamabad",
+  "Lahore",
+  "Karachi",
+  "Murree",
+  "Peshawar",
+  "Skardu",
+  "Hunza",
+  "Quetta",
+  "Multan",
+  "Faisalabad",
 ];
 
 const images = [

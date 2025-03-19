@@ -51,6 +51,41 @@ const UserCustomization = () => {
       dinner: ["Port Grand", "Okra Restaurant", "Cafe Flo"],
       attractions: ["Clifton Beach", "Mazar-e-Quaid", "Mohatta Palace"]
     },
+    "Murree": {
+      lunch: ["Gloria Jeans", "Lockwood Restaurant", "Red Onion"],
+      dinner: ["Usmania Restaurant", "Pines View", "Cecil Restaurant"],
+      attractions: ["Mall Road", "Patriata Chair Lift", "Kashmir Point"]
+    },
+    "Peshawar": {
+      lunch: ["Charsi Tikka", "Chief Burger", "Cafe Crunch"],
+      dinner: ["Shiraz Restaurant", "Namak Mandi", "Khyber Restaurant"],
+      attractions: ["Qissa Khwani Bazaar", "Peshawar Museum", "Bala Hisar Fort"]
+    },
+    "Skardu": {
+      lunch: ["Shangri-La Resort Restaurant", "K2 Restaurant", "Indus View Restaurant"],
+      dinner: ["Mashabrum Hotel Restaurant", "Baltistan Continental", "Snow Leopard Inn"],
+      attractions: ["Shangrila Resort", "Upper Kachura Lake", "Deosai National Park"]
+    },
+    "Hunza": {
+      lunch: ["Cafe de Hunza", "Hidden Paradise Restaurant", "Eagle's Nest"],
+      dinner: ["Hunza Serena Inn", "Karimabad Restaurant", "Panorama Restaurant"],
+      attractions: ["Baltit Fort", "Attabad Lake", "Passu Cones"]
+    },
+    "Quetta": {
+      lunch: ["Pishin Restaurant", "Lehri Sajji House", "Cafe Monal"],
+      dinner: ["Usmania Restaurant", "Lal Kabab", "Quetta Continental"],
+      attractions: ["Hanna Lake", "Hazarganji Chiltan National Park", "Quetta Geological Museum"]
+    },
+    "Multan": {
+      lunch: ["Chen One Restaurant", "Multan Khaas", "Bundu Khan"],
+      dinner: ["Savoury Restaurant", "Village Restaurant", "Multan Continental"],
+      attractions: ["Shrine of Shah Rukn-e-Alam", "Multan Fort", "Ghanta Ghar"]
+    },
+    "Faisalabad": {
+      lunch: ["La Atrium", "Lasania Restaurant", "Sandal Bar"],
+      dinner: ["Lasania Bar-B-Q", "Khan Baba Restaurant", "Pearl Continental"],
+      attractions: ["Clock Tower", "Jinnah Garden", "Lyallpur Museum"]
+    },
     // Default options for any city not in the list
     "Default": {
       lunch: ["Local Restaurant 1", "Local Restaurant 2", "Local Restaurant 3"],
@@ -58,7 +93,7 @@ const UserCustomization = () => {
       attractions: ["Local Attraction 1", "Local Attraction 2", "Local Attraction 3"]
     }
   };
-
+  
   // Load or create trip data on component mount
  // Load or create trip data on component mount
 useEffect(() => {
@@ -327,25 +362,44 @@ useEffect(() => {
       }
     }
     
-    // Assumed costs for food and attractions
-    const LUNCH_COST = 1000; // PKR
-    const DINNER_COST = 1500; // PKR
+    // Dynamic costs for food based on number of guests
+    let LUNCH_COST;
+    let DINNER_COST;
+    
+    // Set lunch and dinner costs based on number of guests
+    switch (tripSummary.guests) {
+      case 1:
+        LUNCH_COST = 1500; // PKR
+        DINNER_COST = 2000; // PKR
+        break;
+      case 2:
+        LUNCH_COST = 5000; // PKR
+        DINNER_COST = 7000; // PKR
+        break;
+      case 3:
+        LUNCH_COST = 8000; // PKR
+        DINNER_COST = 10000; // PKR
+        break;
+      default:
+        // Fallback for other guest numbers
+        LUNCH_COST = 1000; // PKR
+        DINNER_COST = 1500; // PKR
+    }
+    
     const ATTRACTION_COST = 500; // PKR per person
     
     // Calculate daily food and attraction costs
     Object.values(dayDetails).forEach(day => {
       // Add lunch cost if selected
       if (day.lunch) {
-        const lunchFee = LUNCH_COST;
-        foodCost += lunchFee;
-        totalCost += lunchFee;
+        foodCost += LUNCH_COST;
+        totalCost += LUNCH_COST;
       }
       
       // Add dinner cost if selected
       if (day.dinner) {
-        const dinnerFee = DINNER_COST;
-        foodCost += dinnerFee;
-        totalCost += dinnerFee;
+        foodCost += DINNER_COST;
+        totalCost += DINNER_COST;
       }
       
       // Add attractions cost if selected (per person)
