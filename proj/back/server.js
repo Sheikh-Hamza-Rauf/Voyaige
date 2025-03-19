@@ -146,6 +146,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const UserCustomization=require("./models/UserCustomizationData")
 const stripe = require('stripe')('sk_test_51MqErmDG40mBr38y3yBVqwJn9fPUGzLd9ODFIVysUoVrAoh33lgdWa7SyEWlBNH836vTRyHnX7GAklyfYPw3AtA000galZxA8c');
 // Removed dotenv as everything is defined here
 
@@ -168,6 +169,15 @@ mongoose.connect('mongodb://127.0.0.1:27017/Voyaige', {
 app.get('/', (req, res) => {
   res.send('Welcome to the backend server.');
 });
+// Import and use user routes
+const userRoutes = require('./routes/userRoutes');
+app.use('/api/users', userRoutes);
+
+
+// Import and use search routes
+const searchRoutes = require('./routes/search');
+app.use('/api', searchRoutes);
+
 
 // Create Payment Intent Route
 app.post('/api/payment-intent', async (req, res) => {
@@ -191,16 +201,7 @@ app.post('/api/payment-intent', async (req, res) => {
   }
 });
 
-const customizationSchema = new mongoose.Schema({
-  email: String,
-  startingPoint: String,
-  destination: String,
-  startDate: String,
-  endDate: String,
-  guests: Number,
-});
 
-const UserCustomization = mongoose.model("UserCustomization", customizationSchema);
 
 // API Route to Save Customization
 app.post("/api/users/customizations", async (req, res) => {

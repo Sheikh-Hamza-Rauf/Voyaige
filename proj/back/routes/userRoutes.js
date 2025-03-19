@@ -161,28 +161,22 @@ router.get('/points', async (req, res) => {
   }
 });
 
+// Fetch past trips for a user by email
+router.get('/past-trips', async (req, res) => {
+  const { email } = req.query;
 
-router.post('/customizations', async (req, res) => {
+  if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+  }
+
   try {
-    const { email, startingPoint, destination, startDate, endDate, guests } = req.body;
-
-    const newCustomization = new UserCustomization({
-      email,
-      startingPoint,
-      destination,
-      startDate,
-      endDate,
-      guests
-    });
-
-    await newCustomization.save();
-    res.status(201).json({ message: "Customization saved successfully!" });
+      const pastTrips = await UserCustomization.find({ email: email });
+      res.json(pastTrips);
   } catch (error) {
-    console.error("Error saving customization:", error);
-    res.status(500).json({ message: "Failed to save customization." });
+      console.error("Error fetching past trips:", error);
+      res.status(500).json({ message: "Internal server error" });
   }
 });
-
 
 
 module.exports = router;
