@@ -18,22 +18,37 @@
   padding: 20px;
   width: 100%;
 }
-
-.panorama-button {
-  background: linear-gradient(135deg, #34495e, #5cb8c2);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
+.panorama-icon {
+  width: 90px;
+  height: 90px;
   cursor: pointer;
-  border-radius: 5px;
-  margin: 20px auto;
-  margin-top: -54px;
-  display: block;
-  margin-right: 50px;
-  text-align: center;
+  transition: transform 0.3s;
+  position: relative;
+  top: -260px; /* Moves the icon upwards */
+  right: -510px; /* Adjusts horizontal alignment if needed */
 }
 
-.panorama-button:hover {
-  background: linear-gradient(135deg, #5cb8c2, #34495e);
+.panorama-icon:hover {
+  transform: scale(1.2);
+}
+
+.tooltip {
+  position: absolute;
+  top: 60%;
+  left: 90%; /* Positions the tooltip to the right of the icon */
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.panorama-icon-wrapper:hover .tooltip {
+  opacity: 1;
 }

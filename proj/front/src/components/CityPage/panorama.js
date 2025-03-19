@@ -1,4 +1,4 @@
-// src/components/CityPage/panorama.jsx
+
 import React, { useEffect, useRef, useState } from 'react';
 import panoramaData from './panoramadata.js';
 import './panorama.css';
@@ -6,7 +6,7 @@ import './panorama.css';
 const PanoramaViewer = ({ cityName, showPanorama, onClose }) => {
   const panoramaRef = useRef(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
+
   // Get images for the current city
   const images = panoramaData[cityName] || [];
 
@@ -54,8 +54,8 @@ const PanoramaViewer = ({ cityName, showPanorama, onClose }) => {
   if (!showPanorama || images.length === 0) return null;
 
   return (
-    <div className="panorama-overlay" onClick={onClose}>
-      <div className="panorama-popup" onClick={(e) => e.stopPropagation()}>
+    <div className="panorama-overlay">
+      <div className="panorama-popup">
         <button className="close-button" onClick={onClose}>×</button>
         <div 
           ref={panoramaRef} 

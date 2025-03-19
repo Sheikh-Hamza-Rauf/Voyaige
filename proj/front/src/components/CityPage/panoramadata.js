@@ -8,9 +8,11 @@ const panoramaData = {
       "https://zamulk.com/public/blogs/36/pakeproperty_1597763032.jpg"
     ],
     Lahore: [
-      "https://example.com/lahore-image1.jpg",
-      "https://example.com/lahore-image2.jpg",
-      "https://example.com/lahore-image3.jpg"
+      "https://mediaim.expedia.com/destination/2/862470e05f53c81d849be4b5f146c9f6.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/e/e2/Badshahi_Mosquee%2C_Lahore.jpg",
+      "https://mediaim.expedia.com/destination/1/7d01ed01c22a1685a1f2046a37ac7f1f.jpg",
+      "https://i0.wp.com/tayonthemove.com/wp-content/uploads/2017/06/Badshahi-Mosque-Lahore-Pakistan-28.jpg?fit=2528%2C3512&ssl=1"
+      
     ],
     Karachi: [
       "https://example.com/karachi-image1.jpg",
