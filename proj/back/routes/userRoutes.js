@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const UserCustomization=require('../models/UserCustomizationData')
+const Preplanned = require('../models/PrePlannedTripBooking');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
@@ -176,5 +177,24 @@ router.get('/past-trips', async (req, res) => {
   }
 });
 
+// Create a new preplanned trip
+router.post('/add-preplanned', async (req, res) => {
+  const { email, tripTitle, cityBookings } = req.body;
+
+  try {
+    const newPreplannedTrip = new Preplanned({
+      email,
+      tripTitle,
+      cityBookings,
+    });
+
+    await newPreplannedTrip.save();
+
+    res.status(201).json({ message: 'Preplanned trip added successfully', trip: newPreplannedTrip });
+  } catch (error) {
+    console.error('Error adding preplanned trip:', error);
+    res.status(500).json({ message: 'Failed to add preplanned trip', error });
+  }
+});
 
 module.exports = router;

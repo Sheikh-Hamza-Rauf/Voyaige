@@ -3,18 +3,23 @@
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f4f8;
-  color: #333;
+  color: black;
   margin: 0;
   padding: 0;
 }
 
 .itinerary-form-container {
-  max-width: 1000px;
+  max-width: 800px;
   margin: 2rem auto;
+  margin-top: 60px;
   padding: 2rem;
+  padding-top: 60px;
   background: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.547);
+  color: black;
+
+
 }
 
 .itinerary-form-container h2 {
@@ -22,6 +27,7 @@ body {
   text-align: center;
   margin-bottom: 2rem;
   font-size: 2.5rem;
+  padding-top: 30px;
   font-weight: 700;
 }
 
@@ -82,7 +88,7 @@ body {
 }
 
 .submit-button {
-  background: linear-gradient(135deg, #3498db, #2980b9);
+  background: linear-gradient(135deg, #34495e, #5cb8c2);
   color: #fff;
   border: none;
   padding: 1rem 2rem;
@@ -97,7 +103,7 @@ body {
 }
 
 .submit-button:hover {
-  background: linear-gradient(135deg, #2980b9, #3498db);
+  opacity: 0.9;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
 }
@@ -146,7 +152,7 @@ body {
 .hotel-info,
 .transport-info,
 .cost-breakdown {
-  background-color: #e8f4fd;
+  background-color: #dfeefc;
   padding: 1.5rem;
   border-radius: 10px;
   margin-bottom: 1.5rem;
@@ -154,21 +160,27 @@ body {
 
 .hotel-info h4,
 .transport-info h4 {
-  color: #2980b9;
+  color: #2c3e50;
   margin-bottom: 1rem;
 }
 
 .daily-itinerary {
-  display: grid;
-  gap: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #dfeefc;
+
+}
+.cost-breakdown p
+{
+  margin-top: 10px;
+  font-size: 16px;
 }
 
 .day-itinerary {
-  background-color: #f0f4f8;
-  border-left: 4px solid #3498db;
   padding: 1.5rem;
   border-radius: 0 10px 10px 0;
   transition: all 0.3s ease;
+  margin: 0 auto;
 }
 
 .day-itinerary:hover {
@@ -177,7 +189,7 @@ body {
 }
 
 .day-itinerary h4 {
-  color: #2980b9;
+  color: #2c3e50;
   margin-bottom: 1rem;
   font-size: 1.2rem;
 }
@@ -187,7 +199,7 @@ body {
 }
 
 .confirm-button {
-  background: #27ae60;
+  background: linear-gradient(135deg, #34495e, #5cb8c2);
   color: #fff;
   border: none;
   padding: 1rem 2rem;
@@ -204,7 +216,7 @@ body {
 }
 
 .confirm-button:hover {
-  background: #219150;
+  opacity: 0.9;
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
 }
@@ -227,4 +239,22 @@ body {
   .itinerary-summary {
     grid-template-columns: 1fr;
   }
+}
+.error-message {
+  color: #D8000C;
+  background-color: #FFBABA;
+  border: 1px solid #D8000C;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.error-message ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.error-message li {
+  list-style-type: disc;
 }

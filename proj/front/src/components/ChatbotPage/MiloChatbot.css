@@ -1,204 +1,277 @@
+/* General Styles */
 body {
-  background-color: #eef3f7; /* Light gray with a slight tint for a clean look */
-  font-family: Arial, sans-serif;
+  background-color: #f0f2f5; /* Light gray background for better contrast */
+  font-family: 'Inter', sans-serif; /* Modern, clean font */
   margin: 0;
   padding: 0;
+  color: #1a1a1a;
 }
 
+/* Main Chatbot Container */
 .chatbot-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 85vh;
-  width: 55%;
-  background-color: #f4f6f9; /* Slightly darker shade for contrast */
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  margin-left: 2%;
+  width: 90%; /* Wider container */
+  max-width: 1000px; /* Increased max-width */
+  background: #ffffff;
+  padding: 25px; /* Increased padding */
+  border-radius: 16px; /* Slightly larger border radius */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Stronger shadow for depth */
+  margin: 40px auto;
   position: relative;
-  transition: background-color 0.3s ease, width 0.3s ease;
   z-index: 1;
+  margin-top: 60px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e2e8f0; /* Subtle border for definition */
+  margin-top: 85px;
 }
 
 .chatbot-container:hover {
-  background-color: #e8eff5; /* Subtle hover effect for the main container */
+  box-shadow: 0 0 20px rgba(0, 102, 204, 0.7);
 }
 
-.welcome-message {
-  background: linear-gradient(135deg, #2c3e50, #4ca1af);
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+.chatbot-container h3 {
   text-align: center;
-  font-size: 1.4rem;
-  color: #ffffff;
-  font-weight: bold;
-  box-shadow: 0 3px 6px rgb(255, 238, 238);
-  transition: transform 0.3s ease;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
 }
 
-.welcome-message:hover {
-  transform: scale(1.02);
+.chatbot-container h3:hover {
+  color: #1a73e8;
 }
 
+/* Chat Container */
 .chat-container {
   flex: 1;
+  width: 100%;
   overflow-y: auto;
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 20px; /* Increased padding */
+  border-radius: 12px; /* Larger border radius */
+  background-color: #f9fafb; /* Light gray background for chat area */
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle inset shadow */
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
+  gap: 12px; /* Slightly larger gap between messages */
 }
 
-.chat-container.reduced-width {
-  transition: width 0.3s ease;
-}
-
+/* Chat Bubbles */
 .chat-bubble {
-  margin: 10px 0;
-  padding: 12px 15px;
-  border-radius: 15px;
-  max-width: 75%;
+  margin: 6px 0; /* Slightly larger margin */
+  padding: 14px 18px; /* Increased padding */
+  border-radius: 14px; /* Larger border radius */
+  max-width: 75%; /* Slightly wider bubbles */
   word-wrap: break-word;
-  font-size: 1rem;
-  line-height: 1.5;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  font-size: 1rem; /* Slightly larger font size */
+  line-height: 1.6; /* Improved line height */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  position: relative; /* Required for positioning icons */
+}
+
+/* User chat bubble */
+.chat-bubble.user {
+  background-color: #4ca1af;
+  color: #ffffff;
+  align-self: flex-end;
+  text-align: right;
+  margin-right: 40px; /* Add space for the icon */
+}
+
+/* User icon */
+.chat-bubble.user::before {
+  content: "👤"; /* User icon */
+  position: absolute;
+  right: -40px; /* Position outside the bubble on the right */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+
+/* Milo chat bubble */
+.chat-bubble.milo {
+  background-color: #ffffff;
+  color: #2d3748;
+  align-self: flex-start;
+  text-align: left;
+  border: 1px solid #e2e8f0;
+  margin-left: 40px; /* Add space for the icon */
+}
+
+/* Bot icon */
+.chat-bubble.milo::before {
+  content: "🤖"; /* Bot icon */
+  position: absolute;
+  left: -40px; /* Position outside the bubble on the left */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
 }
 
 .chat-bubble:hover {
-  transform: translateY(-3px); /* Slight lift effect on hover */
+  transform: translateY(-3px); /* Slightly larger hover effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced hover shadow */
 }
 
-.chat-bubble.user {
-  background-color: #003366; /* Dark navy blue for user */
-  color: #ffffff; /* White text */
-  align-self: flex-end;
-  text-align: right;
+/* Itinerary Container */
+.itinerary-container {
+  width: 100%;
+  margin-top: 20px; /* Increased margin */
+  padding: 20px;
+  border-radius: 12px; /* Larger border radius */
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Stronger shadow */
 }
 
-.chat-bubble.milo {
-  background-color: #fdd835; /* Golden yellow for Milo */
-  color: #333333; /* Dark text */
-  align-self: flex-start;
+/* Itinerary Day Cards */
+.itinerary-day-card {
+  background: #ffffff;
+  padding: 18px; /* Increased padding */
+  border-radius: 12px; /* Larger border radius */
+  margin-bottom: 14px; /* Slightly larger margin */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  color: #2d3748;
+  border-left: 5px solid #4a5568; /* Thicker border */
+}
+
+.itinerary-day-card:hover {
+  transform: scale(1.03); /* Slightly larger hover effect */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Enhanced hover shadow */
+}
+
+.itinerary-day-card h4 {
+  margin-bottom: 12px; /* Slightly larger margin */
+  font-size: 1.2rem; /* Slightly larger font size */
+  color: #2d3748;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 2px solid #e2e8f0; /* Thicker border */
+  padding-bottom: 10px; /* Increased padding */
+}
+
+.itinerary-day-card p {
+  margin: 8px 0; /* Slightly larger margin */
+  font-size: 1rem; /* Slightly larger font size */
   text-align: left;
+  color: #4a5568;
+  line-height: 1.6;
 }
 
+/* Total Cost Card */
+.total-cost-card {
+  background: #ffffff;
+  padding: 18px; /* Increased padding */
+  border-radius: 12px; /* Larger border radius */
+  margin-top: 14px; /* Slightly larger margin */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  color: #2d3748;
+  text-align: center;
+  border-left: 5px solid #e53e3e; /* Thicker border */
+}
+
+.total-cost-card h4 {
+  margin: 0 0 10px 0; /* Slightly larger margin */
+  font-size: 1.2rem; /* Slightly larger font size */
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.total-cost-card p {
+  margin: 0;
+  font-size: 1.1rem; /* Slightly larger font size */
+  color: #4a5568;
+  font-weight: 500;
+}
+
+/* Recommendation Cards */
+.recommendation-card {
+  background-color: #ffffff;
+  padding: 14px; /* Increased padding */
+  border-radius: 12px; /* Larger border radius */
+  margin-bottom: 10px; /* Slightly larger margin */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+  color: #2d3748;
+  text-align: left;
+  border-left: 5px solid #4a5568; /* Thicker border */
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.recommendation-card:hover {
+  transform: scale(1.03); /* Slightly larger hover effect */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Enhanced hover shadow */
+}
+
+.recommendation-card p {
+  margin: 0;
+  font-size: 1rem; /* Slightly larger font size */
+  line-height: 1.6;
+}
+
+/* Input Section */
 .input-container {
   display: flex;
-  gap: 15px;
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
+  gap: 12px; /* Slightly larger gap */
+  margin-top: 20px; /* Increased margin */
+  padding-top: 12px; /* Increased padding */
+  border-top: 2px solid #e2e8f0; /* Thicker border */
+  width: 100%;
 }
 
 input[type="text"] {
   flex: 1;
-  padding: 12px 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 14px 18px; /* Increased padding */
+  border: 2px solid #e2e8f0; /* Thicker border */
+  border-radius: 12px; /* Larger border radius */
   outline: none;
-  font-size: 1rem;
+  font-size: 1rem; /* Slightly larger font size */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+input[type="text"]:hover {
+  border-color: #bdc8d4;
+}
+
 input[type="text"]:focus {
-  border-color: #45a049;
-  box-shadow: 0 0 5px rgba(69, 160, 73, 0.5);
+  border-color: #4a5568;
+  box-shadow: 0 0 6px rgba(74, 85, 104, 0.3); /* Stronger focus shadow */
 }
 
 button {
-  padding: 12px 20px;
+  padding: 14px 22px; /* Increased padding */
   background-color: #4ca1af;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 12px; /* Larger border radius */
+  font-size: 1rem; /* Slightly larger font size */
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
   background-color: #2c3e50;
-  transform: scale(1.05);
+  transform: scale(1.06); /* Slightly larger hover effect */
 }
 
 button:active {
   transform: scale(0.95);
 }
 
-.itinerary-container,
-.recommendations-container {
-  position: fixed;
-  top: 10%;
-  right: 2%;
-  height: 80vh;
-  width: 40%;
-  background-color: #ffffff;
-  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
-  border-left: 1px solid #ddd;
-  border-radius: 15px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  z-index: 10;
-}
-
-.itinerary-container h2,
-.recommendations-container h2 {
-  font-size: 1.6rem;
-  color: #333;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.itinerary-content,
-.recommendations-content {
-  flex: 1;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-  white-space: pre-wrap;
-  overflow-y: auto;
-}
-
-.close-itinerary,
-.close-recommendations {
-  align-self: flex-end;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #888;
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-
-.close-itinerary:hover,
-.close-recommendations:hover {
-  color: #333;
-  transform: scale(1.1);
-}
-
-@media (max-width: 1024px) {
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
   .chatbot-container {
-    width: 90%;
+    width: 95%;
+    height: 85vh;
   }
 
-  .chat-container.reduced-width {
-    width: 100%;
+  .chat-bubble {
+    max-width: 85%;
   }
 
-  .itinerary-container,
-  .recommendations-container {
-    width: 90%;
-    left: 5%;
-    height: 90vh;
-    top: 5%;
-    border-radius: 0;
+  .itinerary-day-card, .total-cost-card, .recommendation-card {
+    padding: 14px;
   }
 }

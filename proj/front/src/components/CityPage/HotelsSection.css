@@ -30,6 +30,7 @@
 .hotel-card-page {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
+    width: 350px;
     overflow: hidden;
 }
 
@@ -108,4 +109,133 @@
     .hotels-list-page {
         grid-template-columns: 1fr;
     }
+}
+
+/* Overlay for Restaurant Details */
+.destination-hotel-detail-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: flex;
+    align-items: right;
+    justify-content: right;
+}
+
+.destination-hotel-detail-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 500px;
+    height: 800px;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.destination-hotel-detail-close-btn {
+    position: absolute;
+    top: 25px;
+    right: 15px;
+    background-color:transparent;
+    color: black;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.destination-hotel-detail-close-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Image Styling */
+
+.destination-hotel-detail-image {
+    width: 440px;
+    height: 370px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Restaurant Details Section */
+.destination-hotel-detail-section {
+    margin-bottom: 1.5rem;
+}
+
+.destination-hotel-detail-section h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-top: 30px;
+}
+
+.destination-hotel-detail-section p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Reviews Section */
+.destination-hotel-detail-review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.destination-hotel-detail-review-item {
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.5rem;
+}
+
+.profile-icon-circle {
+    width: 40px;
+    height: 40px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-icon {
+    color: #555;
+    width: 24px;
+    height: 24px;
+}
+
+.review-info strong {
+    font-size: 1rem;
+    color: #333;
+}
+
+.review-info .rating {
+    font-size: 0.9rem;
+    color: #ffcc00;
+}
+
+.review-info span {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.trip-detail-review-item p {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.4;
 }

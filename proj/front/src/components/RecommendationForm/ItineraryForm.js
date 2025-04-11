@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ItineraryForm.css';
+import { useNavigate } from 'react-router-dom';
+
 import Navbar from '../NavBar/Navbar';
 
 const ItineraryForm = () => {
@@ -17,10 +19,11 @@ const ItineraryForm = () => {
       attractions: 20
     }
   });
-
+  const navigate = useNavigate();
   const [itinerary, setItinerary] = useState(null);
+  // Using an object for errors so we can show multiple field errors
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,11 +44,66 @@ const ItineraryForm = () => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Starting point validation
+    if (!formData.starting_point.trim()) {
+      newErrors.starting_point = "Starting point is required";
+    } else if (!/^[a-zA-Z\s\-,.]+$/.test(formData.starting_point)) {
+      newErrors.starting_point = "Starting point should contain only letters";
+    }
+    
+    // Destination validation
+    if (!formData.destination.trim()) {
+      newErrors.destination = "Destination is required";
+    } else if (!/^[a-zA-Z\s\-,.]+$/.test(formData.destination)) {
+      newErrors.destination = "Destination should contain only letters";
+    } else if (formData.destination.trim().toLowerCase() === formData.starting_point.trim().toLowerCase()) {
+      newErrors.destination = "Destination cannot be the same as starting point";
+    }
+    
+    // Duration validation
+    if (!formData.duration_days) {
+      newErrors.duration_days = "Duration is required";
+    } else if (isNaN(formData.duration_days) || parseInt(formData.duration_days) <= 0) {
+      newErrors.duration_days = "Duration must be a positive number";
+    } else if (parseInt(formData.duration_days) > 7) {
+      newErrors.duration_days = "Duration cannot exceed 7 days";
+    }
+    
+    // Number of travelers validation
+    if (!formData.num_travelers) {
+      newErrors.num_travelers = "Number of travelers is required";
+    } else if (isNaN(formData.num_travelers) || parseInt(formData.num_travelers) <= 0) {
+      newErrors.num_travelers = "Number of travelers must be a positive number";
+    } else if (parseInt(formData.num_travelers) > 10) {
+      newErrors.num_travelers = "Number of travelers cannot exceed 10";
+    }
+    
+    // Area of interest validation
+    if (!formData.area_of_interest.trim()) {
+      newErrors.area_of_interest = "Area of interest is required";
+    } else if (!/^[a-zA-Z\s\-,.]+$/.test(formData.area_of_interest)) {
+      newErrors.area_of_interest = "Area of interest should contain only letters";
+    }
+
+    return newErrors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
     setItinerary(null);
+    setErrors({});
+
+    // Validate form data
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      setLoading(false);
+      return;
+    }
 
     const payload = {
       starting_point: formData.starting_point,
@@ -62,23 +120,47 @@ const ItineraryForm = () => {
       setItinerary(response.data.itinerary);
     } catch (err) {
       const errorMessage = err.response?.data?.error || err.message || 'An unknown error occurred';
-      setError(errorMessage);
+      // If the error comes from the API, we show it as a global error
+      setErrors({ global: errorMessage });
     } finally {
       setLoading(false);
     }
   };
 
   const confirmBooking = () => {
-    // Forward itinerary data to the booking page.
+    // Save itinerary to localStorage
+    localStorage.setItem('confirmedItinerary', JSON.stringify(itinerary));
+
+    // Optionally log for debug
     console.log("Confirmed Itinerary:", itinerary);
-    alert('Booking confirmed! Redirecting to payment page...');
-    window.location.href = '/confirm-booking'; // Replace with your actual route
+
+    // Redirect to CheckoutPage with itinerary in state
+    navigate('/chekout', { state: { itinerary } });
   };
 
   return (
     <div className="itinerary-form-container">
       <Navbar />
       <h2>Plan Your Dream Trip</h2>
+      
+      {/* Display Global Error if present */}
+      {errors.global && (
+        <div className="error-message">
+          {errors.global}
+        </div>
+      )}
+
+      {/* Display Field-specific Errors */}
+      {Object.keys(errors).length > 0 && !errors.global && (
+        <div className="error-message">
+          <ul>
+            {Object.entries(errors).map(([field, message]) => (
+              <li key={field}>{message}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <form className="itinerary-form" onSubmit={handleSubmit}>
         <div className="form-row">
           <div className="form-group">
@@ -100,7 +182,6 @@ const ItineraryForm = () => {
               name="destination"
               value={formData.destination}
               onChange={handleChange}
-              required
               placeholder="e.g., Murree"
             />
           </div>
@@ -114,7 +195,6 @@ const ItineraryForm = () => {
               name="duration_days"
               value={formData.duration_days}
               onChange={handleChange}
-              required
               min="1"
               placeholder="e.g., 5"
             />
@@ -127,7 +207,6 @@ const ItineraryForm = () => {
               name="num_travelers"
               value={formData.num_travelers}
               onChange={handleChange}
-              required
               min="1"
               placeholder="e.g., 4"
             />
@@ -142,7 +221,6 @@ const ItineraryForm = () => {
               name="area_of_interest"
               value={formData.area_of_interest}
               onChange={handleChange}
-              required
               placeholder="e.g., Urban Exploration"
             />
           </div>
@@ -154,7 +232,6 @@ const ItineraryForm = () => {
               name="budget"
               value={formData.budget}
               onChange={handleChange}
-              required
               min="1"
               placeholder="e.g., 12000"
             />
@@ -164,8 +241,6 @@ const ItineraryForm = () => {
           {loading ? 'Generating Itinerary...' : 'Generate Itinerary'}
         </button>
       </form>
-
-      {error && <div className="error-message">{error}</div>}
 
       {itinerary && (
         <div className="itinerary-result">

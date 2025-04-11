@@ -188,8 +188,12 @@ app.post('/api/payment-intent', async (req, res) => {
       return res.status(400).json({ error: "Invalid amount" });
     }
 
+    // Convert to cents and round to the nearest integer
+    const amountInCents = Math.round(amount * 100);
+
+    // Create payment intent
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount * 100, // Convert to cents
+      amount: amountInCents,
       currency: 'usd',
       payment_method_types: ['card'],
     });
@@ -200,8 +204,6 @@ app.post('/api/payment-intent', async (req, res) => {
     res.status(500).json({ error: "Failed to create payment intent" });
   }
 });
-
-
 
 // API Route to Save Customization
 app.post("/api/users/customizations", async (req, res) => {
@@ -240,11 +242,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!', error: err.message });
 });
-
-
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

@@ -14,7 +14,7 @@ const AiBanner = () => {
           <p className="aisubtitle">Get a whole getaway's worth of ideas made for you—ready in seconds.</p>
           <Link to="/PlanSelection">
   <button className="try-button">
-    <span className="icon">✦</span> Try it
+    <span className="iconn">✦</span> Try it
   </button>
 </Link>
 

@@ -10,12 +10,24 @@ const Cart = () => {
   const [tripData, setTripData] = useState(null);
   const [paymentDetails, setPaymentDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [dayDetails, setDayDetails] = useState({});
 
   useEffect(() => {
     // Get data from location state (sent from CheckoutPage)
     if (location.state?.tripData) {
       setTripData(location.state.tripData);
       setPaymentDetails(location.state.paymentDetails || {});
+      
+      // Get day details from local storage
+      try {
+        const storedDayDetails = localStorage.getItem('dayDetails');
+        if (storedDayDetails) {
+          setDayDetails(JSON.parse(storedDayDetails));
+        }
+      } catch (error) {
+        console.error("Error parsing day details from localStorage:", error);
+      }
+      
       setLoading(false);
     } else {
       // If no data in state, could fetch from API using stored ID in localStorage or redirect
@@ -129,10 +141,8 @@ const Cart = () => {
             <div className="info-row">
               <div className="trip-guests">
                 <User size={14} />
-                <span>
-                  {summary.guests || 1} {(summary.guests || 1) > 1 ? 'Guests' : 'Guest'} • 
-                  {summary.duration || days.length} {(summary.duration || days.length) > 1 ? 'Days' : 'Day'}
-                </span>
+                <span>Budget: {tripData.summary.guests === 1 ? 'Economic' : tripData.summary.guests === 2 ? 'Normal' : tripData.summary.guests === 3 ? 'Deluxe' : 'N/A'} • {tripData.summary.duration} {tripData.summary.duration > 1 ? 'Days' : 'Day'}</span>
+
               </div>
             </div>
           </div>
@@ -147,48 +157,57 @@ const Cart = () => {
             </div>
             
             <div className="cost-breakdown">
-              {days.map((day, index) => (
-                <div key={index} className="cost-item">
-                  <span>Day {day.dayNumber}: {day.title}</span>
-                  <span className="cost">{day.totalCost?.toLocaleString()}</span>
-                </div>
-              ))}
-              
-              <div className="cost-divider"></div>
-              
-              {tripData.discountPercentage > 0 && (
-                <div className="discount cost-item">
-                  <span>Points Discount ({tripData.discountPercentage}%)</span>
-                  <span className="cost-discount">
-                    -{((days.reduce((sum, day) => sum + (day.totalCost || 0), 0) * tripData.discountPercentage) / 100).toLocaleString()}
-                  </span>
-                </div>
-              )}
-              
-              {paymentDetails?.promoDiscount > 0 && (
-                <div className="discount cost-item">
-                  <span>Promo Discount ({paymentDetails.promoApplied}: {paymentDetails.promoDiscount}%)</span>
-                  <span className="cost-discount">
-                    -{((days.reduce((sum, day) => sum + (day.totalCost || 0), 0) * paymentDetails.promoDiscount) / 100).toLocaleString()}
-                  </span>
-                </div>
-              )}
-              
-              <div className="total cost-item">
-                <span><strong>Total Amount Paid</strong></span>
-                <span className="cost-total">{paymentDetails?.amount?.toLocaleString() || 'N/A'}</span>
-              </div>
-            </div>
+  {days.map((day, index) => {
+    // Get details for this day from localStorage
+    const dayDetail = dayDetails[day.dayNumber] || {};
+
+    return (
+      <div key={index} className="cost-item">
+        <div>
+          <div>Day {day.dayNumber}: {day.title}</div>
+          <div className="day-detail-summary">
+            <span>Attraction: {dayDetail.attraction || 'No selected'}</span>
+            <span> • Lunch: {dayDetail.lunch || 'No selected'}</span>
+            <span> • Dinner: {dayDetail.dinner || 'No selected'}</span>
           </div>
         </div>
+        <span className="cost">{day.totalCost?.toLocaleString()}</span>
+      </div>
+    );
+  })}
 
-       
+  <div className="cost-divider"></div>
+
+  {tripData.discountPercentage > 0 && (
+    <div className="discount cost-item">
+      <span>Points Discount ({tripData.discountPercentage}%)</span>
+      <span className="cost-discount">
+        -{((days.reduce((sum, day) => sum + (day.totalCost || 0), 0) * tripData.discountPercentage) / 100).toLocaleString()}
+      </span>
+    </div>
+  )}
+
+  {paymentDetails?.promoDiscount > 0 && (
+    <div className="discount cost-item">
+      <span>Promo Discount ({paymentDetails.promoApplied}: {paymentDetails.promoDiscount}%)</span>
+      <span className="cost-discount">
+        -{((days.reduce((sum, day) => sum + (day.totalCost || 0), 0) * paymentDetails.promoDiscount) / 100).toLocaleString()}
+      </span>
+    </div>
+  )}
+
+  <div className="total cost-item">
+    <span><strong>Total Amount Paid</strong></span>
+    <span className="cost-total">{paymentDetails?.amount?.toLocaleString() || 'N/A'}</span>
+  </div>
+</div>
+
+          </div>
+        </div>
       </div>
 
       <div className="button-group">
-        <button className="bttn email-bttn" onClick={handleEmailItinerary}>
-          <Mail size={16} /> EMAIL ME
-        </button>
+       
         <button className="bttn print-bttn" onClick={handlePrintItinerary}>
           <Printer size={16} /> PRINT COPY
         </button>

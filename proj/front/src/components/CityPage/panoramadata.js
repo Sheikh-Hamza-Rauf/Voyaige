@@ -15,8 +15,8 @@ const panoramaData = {
       
     ],
     Karachi: [
-      "https://example.com/karachi-image1.jpg",
-      "https://example.com/karachi-image2.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/7/78/KarachiSkyline-View_from_Hill_Park-Panorama.jpg",
+      "https://t4.ftcdn.net/jpg/03/25/15/41/360_F_325154156_7bAfi9sNDcJxu7kHnC52m70zN2Vku8Lr.jpg",
       "https://example.com/karachi-image3.jpg"
     ]
   };

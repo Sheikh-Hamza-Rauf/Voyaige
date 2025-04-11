@@ -4,6 +4,7 @@ import pandas as pd
 import random
 import numpy as np
 import torch
+import json
 from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
@@ -220,7 +221,6 @@ def get_randomized_cost(info, category):
     
     return 1000  # Default value if no category matches
 
-# Predefined minimum budgets per day
 MIN_BUDGET_PER_DAY = 7500
 
 def generate_itinerary(user_input, starting_city, destination_city, days, mode_of_transport, budget=None):
@@ -240,8 +240,8 @@ def generate_itinerary(user_input, starting_city, destination_city, days, mode_o
 
         # Initialize total cost
         total_cost = 0
-        itinerary_details = f"Generated Itinerary from {starting_city.title()} to {destination_city.title()} ({days} days):\n" \
-                            "----------------------\n\n"
+        response_messages.append(f"Generated Itinerary from {starting_city.title()} to {destination_city.title()} ({days} days):")
+        response_messages.append("----------------------")
 
         # Get city-specific recommendations
         city_hotels = [name for name in hotel_names if destination_city.lower() in name.lower()]
@@ -253,7 +253,7 @@ def generate_itinerary(user_input, starting_city, destination_city, days, mode_o
 
         # Generate itinerary for each day
         for day in range(1, days + 1):
-            daily_details = f"\tDay {day}\n"
+            response_messages.append(f"Day {day}")
 
             # Transport
             if day == 1:
@@ -264,44 +264,43 @@ def generate_itinerary(user_input, starting_city, destination_city, days, mode_o
                         model.transformer.wte(tokenizer.encode(user_input, return_tensors='pt')).mean(dim=1).detach().numpy(),
                         top_n=1
                     )[0]
-                    daily_details += f"Transport: {mode_of_transport.title()} - {transport}\n"
+                    response_messages.append(f"Transport: {mode_of_transport.title()} - {transport}")
                 else:
-                    daily_details += "Transport: Car - User-selected car\n"
+                    response_messages.append("Transport: Car - User-selected car")
             else:
-                daily_details += "Transport: Car - Rental option\n"
+                response_messages.append("Transport: Car - Rental option")
 
             # Accommodation
             accommodation = random.choice(city_hotels)
             accommodation_cost = random.randint(3000, 15000)
-            daily_details += f"Accommodation: {accommodation} - Rs{accommodation_cost}\n"
+            response_messages.append(f"Accommodation: {accommodation} - Rs{accommodation_cost}")
             total_cost += accommodation_cost
 
             # Attractions
             attraction = random.choice(city_attractions)
-            daily_details += f"Attraction 1: {attraction}\n"
+            response_messages.append(f"Attraction 1: {attraction}")
             if len(city_attractions) > 1:
                 second_attraction = random.choice(city_attractions)
                 while second_attraction == attraction:
                     second_attraction = random.choice(city_attractions)
-                daily_details += f"Attraction 2: {second_attraction}\n"
+                response_messages.append(f"Attraction 2: {second_attraction}")
 
             # Restaurants
             restaurant1 = random.choice(city_restaurants)
             restaurant1_cost = random.randint(500, 3500)
-            daily_details += f"Restaurant 1: {restaurant1} - Rs{restaurant1_cost}\n"
+            response_messages.append(f"Restaurant 1: {restaurant1} - Rs{restaurant1_cost}")
 
             restaurant2 = random.choice(city_restaurants)
             while restaurant2 == restaurant1:
                 restaurant2 = random.choice(city_restaurants)
             restaurant2_cost = random.randint(500, 3500)
-            daily_details += f"Restaurant 2: {restaurant2} - Rs{restaurant2_cost}\n"
+            response_messages.append(f"Restaurant 2: {restaurant2} - Rs{restaurant2_cost}")
 
             daily_cost = accommodation_cost + restaurant1_cost + restaurant2_cost
             total_cost += restaurant1_cost + restaurant2_cost
 
-            daily_details += f"Total cost for Day {day}: Rs{daily_cost}\n" \
-                             "----------------------\n\n"
-            itinerary_details += daily_details
+            response_messages.append(f"Total cost for Day {day}: Rs{daily_cost}")
+            response_messages.append("----------------------")
 
         # Final budget check
         if budget and total_cost > budget:
@@ -311,10 +310,12 @@ def generate_itinerary(user_input, starting_city, destination_city, days, mode_o
             }
 
         # Return final itinerary
-        itinerary_details += f"Total Trip Cost: Rs{total_cost}\n"
-        return {"status": "success", "messages": [itinerary_details]}
+        response_messages.append(f"Total Trip Cost: Rs{total_cost}")
+
+        return {"status": "success", "messages": response_messages}  # ✅ Returns a list, not a string
     except Exception as e:
         return {"status": "error", "messages": [f"An error occurred: {str(e)}"]}
+
 
 # Function to retrieve details without specifying types
 def retrieve_details(user_input):
@@ -461,16 +462,9 @@ def generate_itinerary_endpoint():
         budget=data.get('budget', None)
     )
 
-    print(result)  # Debugging: Log the result
+    print("Backend Response:", json.dumps(result, indent=2))  # Debugging
 
-    if result["status"] == "success":
-        # Join messages into a readable string
-        messages = "\n".join(result["messages"])
-        return jsonify({"response": messages})
-    else:
-        # Join error messages into a readable string
-        error_messages = "\n".join(result["messages"])
-        return jsonify({"response": error_messages})
+    return jsonify(result) 
 
 @app.route('/retrieve-details', methods=['POST'])
 def retrieve_details_endpoint():

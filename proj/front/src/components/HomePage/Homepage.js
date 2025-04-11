@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import HeroSection from "./HeroSection";
 import "./Homepage.css";
 import NavBar from "../NavBar/Navbar";
-import ToursSection from "./ToursSection";
+import ToursSection from "./PreplannedTrip/ToursSection";
 import PopularDestinations from "./PopularDestinations"
 import AiBanner from "./AiBanner";
 import Challenges from "./Challenges";

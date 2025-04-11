@@ -373,12 +373,12 @@ useEffect(() => {
         DINNER_COST = 2000; // PKR
         break;
       case 2:
-        LUNCH_COST = 5000; // PKR
-        DINNER_COST = 7000; // PKR
+        LUNCH_COST = 2000; // PKR
+        DINNER_COST = 3000; // PKR
         break;
       case 3:
-        LUNCH_COST = 8000; // PKR
-        DINNER_COST = 10000; // PKR
+        LUNCH_COST = 3000; // PKR
+        DINNER_COST = 4000; // PKR
         break;
       default:
         // Fallback for other guest numbers
@@ -425,53 +425,87 @@ useEffect(() => {
     return days;
   };
 
-  // Build itinerary day details for checkout
-  const buildItineraryDays = () => {
-    return getDaysArray().map(({ dayNumber }) => {
-      const details = dayDetails[dayNumber] || {};
-      const dayTitle = `Day ${dayNumber}: ${getPropertyValue(tripDetails.transport, 'type', 'Trip')} + Hotel`;
-      
-      // Calculate day cost
-      let dayCost = 0;
-      
-      // Add hotel cost (divided by number of days)
-      if (tripDetails.hotel && tripDetails.hotel.price) {
-        const hotelPrice = parseFloat(tripDetails.hotel.price);
-        if (!isNaN(hotelPrice)) {
-          dayCost += hotelPrice / tripSummary.numberOfDays;
-        }
+// Build itinerary day details for checkout
+// Build itinerary day details for checkout
+const buildItineraryDays = () => {
+  return getDaysArray().map(({ dayNumber }) => {
+    const details = dayDetails[dayNumber] || {};
+    const dayTitle = `Day ${dayNumber}: ${getPropertyValue(tripDetails.transport, 'type', 'Trip')} + Hotel`;
+    
+    // Calculate day cost
+    let dayCost = 0;
+    
+    // Add hotel cost (divided by number of days)
+    if (tripDetails.hotel && tripDetails.hotel.price) {
+      const hotelPrice = parseFloat(tripDetails.hotel.price);
+      if (!isNaN(hotelPrice)) {
+        dayCost += hotelPrice / tripSummary.numberOfDays;
       }
-      
-      // Add transport cost (divided by number of days)
-      if (tripDetails.transport && tripDetails.transport.price) {
-        const transportPrice = parseFloat(tripDetails.transport.price);
-        if (!isNaN(transportPrice)) {
-          dayCost += transportPrice / tripSummary.numberOfDays;
-        }
+    }
+    
+    // Add transport cost (divided by number of days)
+    if (tripDetails.transport && tripDetails.transport.price) {
+      const transportPrice = parseFloat(tripDetails.transport.price);
+      if (!isNaN(transportPrice)) {
+        dayCost += transportPrice / tripSummary.numberOfDays;
       }
-      
-      // Add food and attraction costs
-      if (details.lunch) dayCost += 1000; // LUNCH_COST
-      if (details.dinner) dayCost += 1500; // DINNER_COST
-      if (details.attraction) dayCost += 500 * tripSummary.guests; // ATTRACTION_COST * guests
-      
-      return {
-        dayNumber,
-        title: dayTitle,
-        transportMode: getPropertyValue(tripDetails.transport, 'type', 'Transport'),
-        hotel: getPropertyValue(tripDetails.hotel, 'name', 'Hotel'),
-        lunch: details.lunch || null,
-        dinner: details.dinner || null,
-        attraction: details.attraction || null,
-        totalCost: Math.round(dayCost) // Round to nearest integer
-      };
-    });
-  };
-
+    }
+    
+    // Get dynamic meal costs based on number of guests
+    let LUNCH_COST;
+    let DINNER_COST;
+    
+    // Set lunch and dinner costs based on number of guests
+    switch (tripSummary.guests) {
+      case 1:
+        LUNCH_COST = 1500; // PKR
+        DINNER_COST = 2000; // PKR
+        break;
+      case 2:
+        LUNCH_COST = 2000; // PKR
+        DINNER_COST = 3000; // PKR
+        break;
+      case 3:
+        LUNCH_COST = 3000; // PKR
+        DINNER_COST = 4000; // PKR
+        break;
+      default:
+        // Fallback for other guest numbers
+        LUNCH_COST = 1000; // PKR
+        DINNER_COST = 1500; // PKR
+    }
+    
+    const ATTRACTION_COST = 500; // PKR per person
+    
+    // Add food and attraction costs using the same dynamic pricing as calculateTotalCost
+    if (details.lunch) dayCost += LUNCH_COST;
+    if (details.dinner) dayCost += DINNER_COST;
+    if (details.attraction) dayCost += ATTRACTION_COST * tripSummary.guests;
+    
+    return {
+      dayNumber,
+      title: dayTitle,
+      transportMode: getPropertyValue(tripDetails.transport, 'type', 'Transport'),
+      hotel: getPropertyValue(tripDetails.hotel, 'name', 'Hotel'),
+      lunch: details.lunch || null,
+      dinner: details.dinner || null,
+      attraction: details.attraction || null,
+      totalCost: Math.round(dayCost) // Round to nearest integer
+    };
+  });
+};
+// Handle proceed to checkout
 // Handle proceed to checkout
 const handleProceedToCheckout = async () => {
   try {
     const { totalCost } = calculateTotalCost();
+    
+    // Calculate user discount based on points (mock implementation)
+    // In a real app, you would fetch this from user data
+    const userPointsDiscount = 0; // Default no discount
+    
+    // Build the daily breakdown with corrected costs
+    const daysData = buildItineraryDays();
     
     // Create trip data object for checkout
     const tripData = {
@@ -483,10 +517,15 @@ const handleProceedToCheckout = async () => {
         guests: tripSummary.guests,
         duration: tripSummary.numberOfDays
       },
-      days: buildItineraryDays(),
-      discountPercentage: 0, // Default no discount, can be calculated based on user points
-      totalCost
+      days: daysData,
+      discountPercentage: userPointsDiscount,
+      totalCost // This should match what's calculated in the checkout page now
     };
+    
+    // Verify the total cost matches the sum of all days' costs
+    const sumOfDayCosts = daysData.reduce((sum, day) => sum + day.totalCost, 0);
+    console.log("Sum of all day costs:", sumOfDayCosts);
+    console.log("Total calculated cost:", totalCost);
     
     // Update trip status to 'checkout' in database
     await axios.patch(`http://localhost:5000/api/trips/${tripId}`, {
@@ -734,20 +773,20 @@ return (
             return (
               <div className="cost-breakdown">
                 <div className="cost-grid">
-                  <div className="cost-item">
-                    <span className="cost-label">Hotel:</span>
+                  <div className="cost-itemm">
+                    <span className="cost-labell">Hotel:</span>
                     <span className="cost-value">{hotelCost.toLocaleString()} PKR</span>
                   </div>
-                  <div className="cost-item">
-                    <span className="cost-label">Transport:</span>
+                  <div className="cost-itemm">
+                    <span className="cost-labell">Transport:</span>
                     <span className="cost-value">{transportCost.toLocaleString()} PKR</span>
                   </div>
-                  <div className="cost-item">
-                    <span className="cost-label">Food:</span>
+                  <div className="cost-itemm">
+                    <span className="cost-labell">Food:</span>
                     <span className="cost-value">{foodCost.toLocaleString()} PKR</span>
                   </div>
-                  <div className="cost-item">
-                    <span className="cost-label">Attractions:</span>
+                  <div className="cost-itemm">
+                    <span className="cost-labell">Attractions:</span>
                     <span className="cost-value">{attractionsCost.toLocaleString()} PKR</span>
                   </div>
                 </div>

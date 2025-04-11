@@ -10,10 +10,6 @@ const MiloChatbot = () => {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isTyping, setIsTyping] = useState(false);
 
-  const [rightContainerVisible, setRightContainerVisible] = useState(false);
-  const [rightContainerContent, setRightContainerContent] = useState("");
-  const [rightContainerTitle, setRightContainerTitle] = useState("");
-
   const apiBaseURL = "http://127.0.0.1:5001/";
 
   useEffect(() => {
@@ -101,24 +97,66 @@ const MiloChatbot = () => {
       const data = await response.json();
 
       let botResponse;
+      console.log("Backend Response:", data);
 
       if (endpoint === "/retrieve-details" && data.result) {
         botResponse = data.result.replace(/\n/g, "<br>");
+        setMessages((prev) => [...prev, { sender: "milo", text: botResponse }]);
       } else if (endpoint === "/retrieve-top-items" && data.result) {
-        botResponse = "Here are the top recommendations:";
-        setRightContainerTitle("Top Recommendations");
-        setRightContainerContent(data.result.replace(/\n/g, "<br>"));
-        setRightContainerVisible(true);
-      } else if (endpoint === "/generate-itinerary" && data.response) {
-        botResponse = "Generated itinerary is ready!";
-        setRightContainerTitle("Itinerary");
-        setRightContainerContent(data.response.replace(/\n/g, "<br>"));
-        setRightContainerVisible(true);
+        const recommendations = data.result.split("\n").map((item, index) => (
+          <div key={index} className="recommendation-card">
+            {item}
+          </div>
+        ));
+        setMessages((prev) => [
+          ...prev,
+          { sender: "milo", text: "Here are the top recommendations:" },
+          { sender: "milo", content: recommendations },
+        ]);
+      }  else if (endpoint === "/generate-itinerary" && data.messages) {
+        const itineraryText = data.messages.join("\n"); // Convert array to a single string
+        const daySections = itineraryText.split("----------------------").filter(Boolean); // Split by separator
+        
+        let itineraryCards = [];
+        
+        for (let i = 1; i < daySections.length - 1; i++) { // Ignore header and total cost
+            const dayDetails = daySections[i].trim().split("\n").filter(line => line);
+            const dayNumber = dayDetails[0].match(/Day\s+(\d+)/i)?.[1] || `Unknown`;
+            
+            const dayContent = dayDetails.slice(1).map((detail, index) => (
+                <p key={index}>{detail}</p>
+            ));
+    
+            itineraryCards.push(
+                <div key={i} className="itinerary-day-card">
+                    <h4>Day {dayNumber}</h4>
+                    {dayContent}
+                </div>
+            );
+        }
+
+        // Extract total trip cost
+        const totalCost = data.messages.find(msg => msg.includes("Total Trip Cost"));
+        const totalCostCard = totalCost ? (
+            <div className="total-cost-card">
+                <h4>Total Trip Cost</h4>
+                <p>{totalCost.replace("Total Trip Cost:", "").trim()}</p>
+            </div>
+        ) : null;
+    
+        setMessages((prev) => [
+            ...prev,
+            { sender: "milo", text: "Generated itinerary is ready!" },
+            { sender: "milo", content: itineraryCards },
+            totalCostCard ? { sender: "milo", content: totalCostCard } : null,
+        ].filter(Boolean)); // Remove null values;
       } else {
         botResponse = "I'm here to assist you!";
+        if (!data || !data.messages) {
+          botResponse = "Failed to generate itinerary. Please try again.";
+        }
+        setMessages((prev) => [...prev, { sender: "milo", text: botResponse }]);
       }
-
-      setMessages((prev) => [...prev, { sender: "milo", text: botResponse }]);
     } catch (error) {
       console.error("Error communicating with backend:", error);
       setMessages((prev) => [
@@ -148,13 +186,6 @@ const MiloChatbot = () => {
     }
   };
 
-  const closeRightContainer = () => {
-    setRightContainerVisible(false);
-    setTimeout(() => {
-      setRightContainerContent("");
-    }, 300);
-  };
-
   return (
     <div className="chatbot-container">
       <Navbar />
@@ -165,10 +196,14 @@ const MiloChatbot = () => {
         </div>
       )}
 
-      <div className={rightContainerVisible ? "chat-container reduced-width" : "chat-container"}>
+      <div className="chat-container">
         {messages.map((msg, index) => (
           <div key={index} className={`chat-bubble ${msg.sender}`}>
-            <span>{msg.sender === "user" ? `You: ${msg.text}` : `Milo: ${msg.text}`}</span>
+            {msg.content ? (
+              msg.content
+            ) : (
+              <span>{msg.sender === "user" ? `You: ${msg.text}` : `Milo: ${msg.text}`}</span>
+            )}
           </div>
         ))}
         {isTyping && (
@@ -177,19 +212,6 @@ const MiloChatbot = () => {
           </div>
         )}
       </div>
-
-      {rightContainerVisible && (
-        <div className={rightContainerTitle === "Itinerary" ? "itinerary-container" : "recommendations-container"}>
-          <button className="close-right-container" onClick={closeRightContainer}>
-            &times;
-          </button>
-          <h2>{rightContainerTitle}</h2>
-          <div
-            className="right-container-content"
-            dangerouslySetInnerHTML={{ __html: rightContainerContent }}
-          ></div>
-        </div>
-      )}
 
       <div className="input-container">
         <input

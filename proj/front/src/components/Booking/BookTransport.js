@@ -445,15 +445,10 @@ const BookTransport = () => {
   return (
     <div className="book-transport">
       <Navbar />
-      <div className="back-arrow" onClick={() => navigate("/bookoption", {
-        state: { customizationData, currentDetails, tripId }
-      })}>
-        ←
-      </div>
+
       
       <div className="trans">
         <h2>Choose Bus Transport to {destinationCity}</h2>
-        <p className="subtitle">Top 5 Available Buses</p>
 
         {/* Buses Section */}
         <div className="transport-section">
@@ -500,8 +495,8 @@ const BookTransport = () => {
                 <p><strong>Type:</strong> {selectedItem.type || "Standard"}</p>
               </div>
               <div className="confirmation-buttons">
-                <button className="confirm-btn" onClick={confirmBooking}>Confirm Booking</button>
-                <button className="cancel-btn" onClick={cancelBooking}>Cancel</button>
+                <button className="confirm-btnnn" onClick={confirmBooking}>Confirm Booking</button>
+                <button className="cancel-btnnn" onClick={cancelBooking}>Cancel</button>
               </div>
             </div>
           </div>

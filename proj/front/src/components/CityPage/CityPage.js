@@ -4,7 +4,7 @@ import Navbar from '../NavBar/Navbar';
 import Hero from './Hero';
 import TopAttractions from './TopAttractions';
 import HotelsSection from './HotelsSection';
-import RestaurantsSection from './CityRestaurants';
+import RestaurantsSection from './RestaurantsSection';
 import PanoramaViewer from './panorama.js';
 import './CityPage.css';
 

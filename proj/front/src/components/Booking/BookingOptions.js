@@ -304,7 +304,7 @@ const BookingOptions = () => {
               </button>
             </div>
           ) : (
-            <button onClick={handleBookTransport} className="explore-btn">
+            <button onClick={handleBookTransport} className="explore-btnnn">
               Choose Transport
             </button>
           )}
@@ -324,7 +324,7 @@ const BookingOptions = () => {
               </button>
             </div>
           ) : (
-            <button onClick={handleBookHotel} className="explore-btn">
+            <button onClick={handleBookHotel} className="explore-btnnn">
               Choose Hotel
             </button>
           )}
@@ -334,11 +334,11 @@ const BookingOptions = () => {
       {/* Confirm Button */}
       <div className="confirm-btn-container">
         <button 
-          className="confirm-btn" 
+          className="confirm-bt" 
           onClick={handleConfirmBooking}
           disabled={!selectedHotel && !selectedTransport}
         >
-          Confirm: {calculateTotalPrice()} PKR ➔
+          Confirm: {calculateTotalPrice()} PKR
         </button>
       </div>
     </div>
@@ -346,3 +346,6 @@ const BookingOptions = () => {
 };
 
 export default BookingOptions;
+
+
+

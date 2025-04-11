@@ -13,7 +13,7 @@
     font-weight: bold;
     margin-bottom: 15px;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 60px;
 }
 
 .scroll-container {
@@ -34,13 +34,14 @@
     padding: 10px;
     width: 85%;
     margin: auto;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: #aaa transparent;
 }
 
 .hotels-row::-webkit-scrollbar {
     display: none;
 }
-
+  
 .hotel-card {
     flex: 0 0 250px;
     background: white;

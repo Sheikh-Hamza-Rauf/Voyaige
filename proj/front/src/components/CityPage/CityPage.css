@@ -19,12 +19,12 @@
   width: 100%;
 }
 .panorama-icon {
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 80%;
   cursor: pointer;
   transition: transform 0.3s;
   position: relative;
-  top: -260px; /* Moves the icon upwards */
+  top: -230px; /* Moves the icon upwards */
   right: -510px; /* Adjusts horizontal alignment if needed */
 }
 

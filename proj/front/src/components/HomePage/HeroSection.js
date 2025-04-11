@@ -98,7 +98,7 @@ const HeroSection = () => {
   
     // Ensure trip starts at least one day after today
     const minStartDate = new Date();
-    minStartDate.setDate(today.getDate() + 1);
+    minStartDate.setDate(today.getDate());
   
     if (tripStart < minStartDate) {
       setError("Trip start date must be at least one day after today.");
@@ -141,7 +141,12 @@ const HeroSection = () => {
   
     handleSaveCustomization(customizationData);
   };
-  
+const today = new Date();
+const todayStr = today.toISOString().split("T")[0]; // Format: YYYY-MM-DD
+
+const next7Days = new Date();
+next7Days.setDate(today.getDate() + 7);
+const next7DaysStr = next7Days.toISOString().split("T")[0];
   return (
     <div className='heroo'>
       <h1 className="titttle" style={{ fontWeight: '800', textAlign: 'center', fontSize: '3rem', marginTop: '5rem', marginBottom: '1rem' }}>
@@ -165,12 +170,29 @@ const HeroSection = () => {
               ))}
             </select>
           </div>
+    
           <div className="search-input">
-            <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-          </div>
-          <div className="search-input">
-            <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-          </div>
+      <input
+        type="date"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
+        min={todayStr}
+        max={next7DaysStr}
+        placeholder="Starting Date"
+      />
+    </div>
+
+    <div className="search-input">
+      <input
+        type="date"
+        value={endDate}
+        onChange={(e) => setEndDate(e.target.value)}
+        min={todayStr}
+        max={next7DaysStr}
+        placeholder="Ending Date"
+      />
+    </div>
+    
           <div className="search-input">
             <select value={guests} onChange={(e) => setGuests(Number(e.target.value))}>
             <option value="1">Economy</option>

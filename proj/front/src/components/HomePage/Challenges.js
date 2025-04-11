@@ -111,7 +111,7 @@ const Challenges = () => {
     if (location.state?.redirectedFromChallengeId) {
       const challengeId = location.state.redirectedFromChallengeId;
       console.log(
-        `Back in Challenges page. Redirected from Challenge ID: ${challengeId}`
+        "Back in Challenges page. Redirected from Challenge ID: ${challengeId}"
       );
       fetchAllChallengeStatuses();
     } else {
@@ -143,11 +143,11 @@ const Challenges = () => {
           });
           setConsecutiveLogins((prev) => prev + 1); // Increment consecutive logins
           setLoginMessage(
-            `You have logged in for ${consecutiveLoginDays + 1} consecutive days. Keep going!`
+            ("You have logged in for ${consecutiveLoginDays + 1} consecutive days. Keep going!")
           );
         } else {
           // If the login is on the same day, just update the message
-          setLoginMessage(`You have logged in for ${consecutiveLoginDays} consecutive days. Keep going!`);
+          setLoginMessage("You have logged in for ${consecutiveLoginDays} consecutive days. Keep going!");
         }
       } catch (error) {
         console.error("Error checking consecutive login days:", error);

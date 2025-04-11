@@ -61,7 +61,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  color: #4b5563;
+  color: black;
   font-size: 0.95rem;
 }
 
@@ -86,7 +86,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #4b5563;
+  color: black;
 }
 
 .payment-summary {
@@ -120,8 +120,15 @@
 .cost-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  color: #4b5563;
+  align-items: flex-start;
+  color: black;
+  padding: 0.5rem 0;
+}
+
+.day-detail-summary {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
 }
 
 .cost-divider {
@@ -274,9 +281,10 @@
 }
 
 .print-bttn {
-  background-color: #ffffff;
+  background-color: #dad3d3;
   color: #4b5563;
   border: 1px solid #d1d5db;
+  margin-right: 700px;
 }
 
 .print-bttn:hover {
@@ -284,13 +292,12 @@
 }
 
 .home-bttn {
-  background-color: #111827;
+  background: linear-gradient(135deg, #34495e, #5cb8c2);
   color: white;
 }
 
 .home-bttn:hover {
-  background-color: #1f2937;
-}
+opacity: 0.9;}
 
 .loading-container {
   display: flex;
@@ -364,4 +371,18 @@
     align-items: flex-start;
     gap: 0.5rem;
   }
+}
+.day-detail-summary {
+  font-size: 0.85rem;
+  color: black;
+  margin-top: 0.25rem;
+}
+
+/* Update the cost-item to better handle the new structure */
+.cost-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: black;
+  padding: 0.5rem 0;
 }

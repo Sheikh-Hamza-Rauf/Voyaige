@@ -5,6 +5,7 @@ import axios from 'axios';
 import { CreditCard, Lock, Calendar, User, Shield } from 'lucide-react';
 import './CheckoutPage.css';
 import Navbar from '../NavBar/Navbar';
+import './Checkout2.css'
 
 const CheckoutPage = () => {
   const stripe = useStripe();
@@ -29,13 +30,14 @@ const CheckoutPage = () => {
       try {
         if (location.state?.tripId) {
           const response = await axios.get(`http://localhost:5000/api/trips/${location.state.tripId}`);
-          
+          console.log(response);
           if (response.data && response.data.checkoutData) {
             setTripData({
               days: response.data.checkoutData.days || [],
               discountPercentage: response.data.checkoutData.discountPercentage || 0,
               summary: response.data.checkoutData.summary || {}
             });
+            
           } else {
             setError("Trip data not found or incomplete");
           }
@@ -63,7 +65,6 @@ const CheckoutPage = () => {
     const promoAmount = (subtotal * promoDiscount) / 100;
     const totalDiscount = pointsDiscount + promoAmount;
     const total = subtotal - totalDiscount;
-    
     return { subtotal, discount: totalDiscount, total, pointsDiscount, promoAmount };
   };
 
@@ -121,7 +122,7 @@ const CheckoutPage = () => {
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [success, navigate, tripData]);
+  }, [success, navigate, tripData, calculateTotals]); // Added calculateTotals to dependency array
 
   // Handle payment submission
   const handleSubmit = async (event) => {
@@ -257,7 +258,7 @@ const CheckoutPage = () => {
                 </div>
                 <div className="trip-guests">
                   <User size={14} />
-                  <span>{tripData.summary.guests} {tripData.summary.guests > 1 ? 'Guests' : 'Guest'} • {tripData.summary.duration} {tripData.summary.duration > 1 ? 'Days' : 'Day'}</span>
+                  <span>Budget: {tripData.summary.guests === 1 ? 'Economic' : tripData.summary.guests === 2 ? 'Normal' : tripData.summary.guests === 3 ? 'Deluxe' : 'N/A'} • {tripData.summary.duration} {tripData.summary.duration > 1 ? 'Days' : 'Day'}</span>
                 </div>
               </div>
             )}
@@ -265,7 +266,7 @@ const CheckoutPage = () => {
             <div className="cost-breakdown">
               {tripData && tripData.days.map((day, index) => (
                 <div key={index} className="cost-item slide-in">
-                  <span>Day {day.dayNumber}: {day.title}</span>
+                  <span>{day.title}</span>
                   <span className="cost">{day.totalCost.toLocaleString()}</span>
                 </div>
               ))}

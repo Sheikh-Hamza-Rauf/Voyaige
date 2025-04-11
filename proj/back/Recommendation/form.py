@@ -376,16 +376,16 @@ def generate_itinerary_api():
 if __name__ == '__main__':
     # Paths for input datasets (adjust paths as necessary)
     paths = {
-        "Cleaned_attr": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_attr.csv",
-        "clean_hotel_data": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\clean_hotel_data.json",
-        "Cleaned_Airbnb": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_Airbnb.csv",
-        "Cleaned_busses": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_busses.csv",
-        "Cleaned_Cars": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_Cars.csv",
-        "Cleaned_trains": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\cleaned_data\\Cleaned_trains.csv",
-        "hotel_reviews": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\new_hotel_database.reviews.json",
-        "restaurant_data": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\new_restaurant_db.restaurants_data.json",
-        "restaurant_reviews": "F:\\Web\\Voyaige\\Voyaige\\Dataset\\new_restaurant_db.restaurants_reviews.json"
-    }
+    "Cleaned_attr": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_attr.csv",
+    "clean_hotel_data": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\clean_hotel_data.json",
+    "Cleaned_Airbnb": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_Airbnb.csv",
+    "Cleaned_busses": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_busses.csv",
+    "Cleaned_Cars": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_Cars.csv",
+    "Cleaned_trains": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_trains.csv",
+    "hotel_reviews": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\clean_hotel_review_data.json",
+    "restaurant_data": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\new_restaurant_db.restaurants_data.json",
+    "restaurant_reviews": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\new_restaurant_db.restaurants_reviews.json"
+}
     
     print("Loading and preprocessing data...")
     data_dict = load_and_preprocess_data(paths)
