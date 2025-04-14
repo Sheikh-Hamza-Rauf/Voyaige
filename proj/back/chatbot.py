@@ -12,15 +12,17 @@ from langchain_community.llms import HuggingFacePipeline
 from sklearn.metrics.pairwise import cosine_similarity
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 from flask import Flask, request, jsonify
-import re
-from flask_cors import CORS
-from flask_cors import cross_origin
+from flask_cors import CORS, cross_origin
 import logging
 
 app = Flask(__name__)
-#CORS(app)
 CORS(app, resources={r"/MiloChatbot": {"origins": "http://localhost:3000"}})
 
+# Define base paths using environment variables with defaults
+CLEANED_DATA_PATH = os.getenv('CLEANED_DATA_PATH', '/app/chatbot/Cleaned')
+EMBEDDINGS_PATH = os.getenv('EMBEDDINGS_PATH', '/app/chatbot/Embeddings')
+NAMES_PATH = os.getenv('NAMES_PATH', '/app/chatbot/Names')
+MODEL_PATH = os.getenv('MODEL_PATH', '/app/fine_tuned_gpt1_1')
 
 def load_data(file_path, file_type='csv'):
     if not os.path.exists(file_path):
@@ -35,14 +37,15 @@ def load_data(file_path, file_type='csv'):
         print(f"Error loading {file_path}: {e}")
         return None
 
-hotel_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\new_hotel_data.csv')
-ratings_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\clean_hotel_review_data.json', 'json')
-restaurant_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\new_restaurant_db.restaurants_data.json', 'json')
-attraction_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_attr.csv')
-airbnb_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_Airbnb.csv')
-busses_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_busses.csv')
-cars_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_Cars.csv')
-trains_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_trains.csv')
+# Load data files using os.path.join for proper path handling
+hotel_df = load_data(os.path.join(CLEANED_DATA_PATH, 'new_hotel_data.csv'))
+ratings_df = load_data(os.path.join(CLEANED_DATA_PATH, 'clean_hotel_review_data.json'), 'json')
+restaurant_df = load_data(os.path.join(CLEANED_DATA_PATH, 'new_restaurant_db.restaurants_data.json'), 'json')
+attraction_df = load_data(os.path.join(CLEANED_DATA_PATH, 'Cleaned_attr.csv'))
+airbnb_df = load_data(os.path.join(CLEANED_DATA_PATH, 'Cleaned_Airbnb.csv'))
+busses_df = load_data(os.path.join(CLEANED_DATA_PATH, 'Cleaned_busses.csv'))
+cars_df = load_data(os.path.join(CLEANED_DATA_PATH, 'Cleaned_Cars.csv'))
+trains_df = load_data(os.path.join(CLEANED_DATA_PATH, 'Cleaned_trains.csv'))
 
 # Merge hotel/restaurant data with ratings
 merged_df = hotel_df.merge(ratings_df, on='hotel_id', how='left')
@@ -50,7 +53,7 @@ average_ratings = merged_df.groupby('hotel_id')['rating'].mean().reset_index()
 average_ratings.columns = ['hotel_id', 'average_rating']
 hotel_df = hotel_df.merge(average_ratings, on='hotel_id', how='left')
 hotel_df.rename(columns={'average_rating': 'Rating'}, inplace=True)
-restaurant_ratings_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\new_restaurant_db.restaurants_reviews.json', 'json')
+restaurant_ratings_df = load_data(os.path.join(CLEANED_DATA_PATH, 'new_restaurant_db.restaurants_reviews.json'), 'json')
 restaurant_merged_df = restaurant_df.merge(restaurant_ratings_df, on='restaurant_id', how='left')
 average_restaurant_ratings = restaurant_merged_df.groupby('restaurant_id')['rating'].mean().reset_index()
 average_restaurant_ratings.columns = ['restaurant_id', 'average_restaurant_ratings']
@@ -99,34 +102,36 @@ amenities_data = {
 }
 
 amenities_data
-ratings_df = pd.read_csv('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\ratings.csv')
+ratings_df = pd.read_csv(os.path.join(CLEANED_DATA_PATH, 'ratings.csv'))
 
-# Load embeddings from the specified files
-hotel_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\hotel_embeddings.npy')
-restaurant_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\restaurant_embeddings.npy')
-attraction_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\attr_embeddings.npy')
-airbnb_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\airbnb_embeddings.npy')
-bus_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\buses_embeddings.npy')
-car_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\cars_embeddings.npy')
-train_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\trains_embeddings.npy')
+# Load embeddings using os.path.join
+hotel_embeddings = np.load(os.path.join(EMBEDDINGS_PATH, 'hotel_embeddings.npy'))
+restaurant_embeddings = np.load(os.path.join(EMBEDDINGS_PATH, 'restaurant_embeddings.npy'))
+attraction_embeddings = np.load(os.path.join(EMBEDDINGS_PATH, 'attr_embeddings.npy'))
+airbnb_embeddings = np.load(os.path.join(EMBEDDINGS_PATH, 'airbnb_embeddings.npy'))
+bus_embeddings = np.load(os.path.join(EMBEDDINGS_PATH, 'buses_embeddings.npy'))
+car_embeddings = np.load(os.path.join(EMBEDDINGS_PATH, 'cars_embeddings.npy'))
+train_embeddings = np.load(os.path.join(EMBEDDINGS_PATH, 'trains_embeddings.npy'))
 
-hotel_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\hotel_names.npy', allow_pickle=True)
-restaurant_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\restaurant_names.npy', allow_pickle=True)
-attraction_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\attraction_names.npy', allow_pickle=True)
-airbnb_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\airbnb_names.npy', allow_pickle=True)
-car_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\car_names.npy', allow_pickle=True)
-bus_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\bus_names.npy', allow_pickle=True)
-train_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\train_names.npy', allow_pickle=True)
+# Load names using os.path.join
+hotel_names = np.load(os.path.join(NAMES_PATH, 'hotel_names.npy'), allow_pickle=True)
+restaurant_names = np.load(os.path.join(NAMES_PATH, 'restaurant_names.npy'), allow_pickle=True)
+attraction_names = np.load(os.path.join(NAMES_PATH, 'attraction_names.npy'), allow_pickle=True)
+airbnb_names = np.load(os.path.join(NAMES_PATH, 'airbnb_names.npy'), allow_pickle=True)
+car_names = np.load(os.path.join(NAMES_PATH, 'car_names.npy'), allow_pickle=True)
+bus_names = np.load(os.path.join(NAMES_PATH, 'bus_names.npy'), allow_pickle=True)
+train_names = np.load(os.path.join(NAMES_PATH, 'train_names.npy'), allow_pickle=True)
 
-model_name = "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\proj\\back\\fine_tuned_gpt1_1"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
+# Initialize tokenizer and model from pretrained GPT-2
+model_name = "gpt2"  # Using standard GPT-2 model
+tokenizer = AutoTokenizer.from_pretrained(model_name, local_files_only=False)
+model = AutoModelForCausalLM.from_pretrained(model_name, local_files_only=False)
 pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_length=100)
 llm = HuggingFacePipeline(pipeline=pipe)
 
 # Load model and tokenizer during app startup
-preloaded_model = AutoModelForCausalLM.from_pretrained(model_name)  # Replace with your model loader
-preloaded_tokenizer = AutoTokenizer.from_pretrained(model_name)  # Replace with your tokenizer loader
+preloaded_model = model  # Use the same model instance
+preloaded_tokenizer = tokenizer  # Use the same tokenizer instance
 
 # Updated prompt to enhance coherence
 prompt_template = PromptTemplate(input_variables=["query"], template="Respond to this travel-related question: {query}")

@@ -19,8 +19,8 @@ warnings.filterwarnings('ignore')
 app = Flask(__name__)
 CORS(app)
 
-# Directory to save models and training columns
-MODEL_DIR = "models"
+# Directory to save models and training columns - using absolute path in container
+MODEL_DIR = "/app/models"
 if not os.path.exists(MODEL_DIR):
     os.makedirs(MODEL_DIR)
 
@@ -374,18 +374,18 @@ def generate_itinerary_api():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    # Paths for input datasets (adjust paths as necessary)
+    # Paths for input datasets using absolute paths in container
     paths = {
-    "Cleaned_attr": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_attr.csv",
-    "clean_hotel_data": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\clean_hotel_data.json",
-    "Cleaned_Airbnb": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_Airbnb.csv",
-    "Cleaned_busses": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_busses.csv",
-    "Cleaned_Cars": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_Cars.csv",
-    "Cleaned_trains": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\Cleaned_trains.csv",
-    "hotel_reviews": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\cleaned_data\\clean_hotel_review_data.json",
-    "restaurant_data": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\new_restaurant_db.restaurants_data.json",
-    "restaurant_reviews": "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\Dataset\\new_restaurant_db.restaurants_reviews.json"
-}
+        "Cleaned_attr": "/app/data/Cleaned_attr.csv",
+        "clean_hotel_data": "/app/data/clean_hotel_data.json",
+        "Cleaned_Airbnb": "/app/data/Cleaned_Airbnb.csv",
+        "Cleaned_busses": "/app/data/Cleaned_busses.csv",
+        "Cleaned_Cars": "/app/data/Cleaned_Cars.csv",
+        "Cleaned_trains": "/app/data/Cleaned_trains.csv",
+        "hotel_reviews": "/app/data/clean_hotel_review_data.json",
+        "restaurant_data": "/app/data/new_restaurant_db.restaurants_data.json",
+        "restaurant_reviews": "/app/data/new_restaurant_db.restaurants_reviews.json"
+    }
     
     print("Loading and preprocessing data...")
     data_dict = load_and_preprocess_data(paths)
@@ -410,4 +410,4 @@ if __name__ == '__main__':
         joblib.dump(training_columns, TRAINING_COLS_FILE)
     
     print("Starting Flask server...")
-    app.run(port=5002)
+    app.run(host='0.0.0.0', port=5002)
