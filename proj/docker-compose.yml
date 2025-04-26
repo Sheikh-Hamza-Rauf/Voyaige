@@ -1,0 +1,15 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: proj/back/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./dataset:/app/dataset
+      - ./chatbot:/app/chatbot
+      - ./proj/back:/app
+    environment:
+      - NODE_ENV=production
+    command: ["node", "server.js"]

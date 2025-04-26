@@ -35,14 +35,14 @@ def load_data(file_path, file_type='csv'):
         print(f"Error loading {file_path}: {e}")
         return None
 
-hotel_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\new_hotel_data.csv')
-ratings_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\clean_hotel_review_data.json', 'json')
-restaurant_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\new_restaurant_db.restaurants_data.json', 'json')
-attraction_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_attr.csv')
-airbnb_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_Airbnb.csv')
-busses_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_busses.csv')
-cars_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_Cars.csv')
-trains_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\Cleaned_trains.csv')
+hotel_df = load_data('../../chatbot/Cleaned/new_hotel_data.csv')
+ratings_df = load_data('../../chatbot/Cleaned/clean_hotel_review_data.json', 'json')
+restaurant_df = load_data('../../chatbot/Cleaned/new_restaurant_db.restaurants_data.json', 'json')
+attraction_df = load_data('../../chatbot/Cleaned/Cleaned_attr.csv')
+airbnb_df = load_data('../../chatbot/Cleaned/Cleaned_Airbnb.csv')
+busses_df = load_data('../../chatbot/Cleaned/Cleaned_busses.csv')
+cars_df = load_data('../../chatbot/Cleaned/Cleaned_Cars.csv')
+trains_df = load_data('../../chatbot/Cleaned/Cleaned_trains.csv')
 
 # Merge hotel/restaurant data with ratings
 merged_df = hotel_df.merge(ratings_df, on='hotel_id', how='left')
@@ -50,7 +50,7 @@ average_ratings = merged_df.groupby('hotel_id')['rating'].mean().reset_index()
 average_ratings.columns = ['hotel_id', 'average_rating']
 hotel_df = hotel_df.merge(average_ratings, on='hotel_id', how='left')
 hotel_df.rename(columns={'average_rating': 'Rating'}, inplace=True)
-restaurant_ratings_df = load_data('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\new_restaurant_db.restaurants_reviews.json', 'json')
+restaurant_ratings_df = load_data('../../chatbot/Cleaned/new_restaurant_db.restaurants_reviews.json', 'json')
 restaurant_merged_df = restaurant_df.merge(restaurant_ratings_df, on='restaurant_id', how='left')
 average_restaurant_ratings = restaurant_merged_df.groupby('restaurant_id')['rating'].mean().reset_index()
 average_restaurant_ratings.columns = ['restaurant_id', 'average_restaurant_ratings']
@@ -99,26 +99,26 @@ amenities_data = {
 }
 
 amenities_data
-ratings_df = pd.read_csv('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Cleaned\\ratings.csv')
+ratings_df = pd.read_csv('../../chatbot/Cleaned/ratings.csv')
 
 # Load embeddings from the specified files
-hotel_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\hotel_embeddings.npy')
-restaurant_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\restaurant_embeddings.npy')
-attraction_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\attr_embeddings.npy')
-airbnb_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\airbnb_embeddings.npy')
-bus_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\buses_embeddings.npy')
-car_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\cars_embeddings.npy')
-train_embeddings = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Embeddings\\trains_embeddings.npy')
+hotel_embeddings = np.load('../../chatbot/Embeddings/hotel_embeddings.npy')
+restaurant_embeddings = np.load('../../chatbot/Embeddings/restaurant_embeddings.npy')
+attraction_embeddings = np.load('../../chatbot/Embeddings/attr_embeddings.npy')
+airbnb_embeddings = np.load('../../chatbot/Embeddings/airbnb_embeddings.npy')
+bus_embeddings = np.load('../../chatbot/Embeddings/buses_embeddings.npy')
+car_embeddings = np.load('../../chatbot/Embeddings/cars_embeddings.npy')
+train_embeddings = np.load('../../chatbot/Embeddings/trains_embeddings.npy')
 
-hotel_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\hotel_names.npy', allow_pickle=True)
-restaurant_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\restaurant_names.npy', allow_pickle=True)
-attraction_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\attraction_names.npy', allow_pickle=True)
-airbnb_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\airbnb_names.npy', allow_pickle=True)
-car_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\car_names.npy', allow_pickle=True)
-bus_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\bus_names.npy', allow_pickle=True)
-train_names = np.load('C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\chatbot\\Names\\train_names.npy', allow_pickle=True)
+hotel_names = np.load('../../chatbot/Names/hotel_names.npy', allow_pickle=True)
+restaurant_names = np.load('../../chatbot/Names/restaurant_names.npy', allow_pickle=True)
+attraction_names = np.load('../../chatbot/Names/attraction_names.npy', allow_pickle=True)
+airbnb_names = np.load('../../chatbot/Names/airbnb_names.npy', allow_pickle=True)
+car_names = np.load('../../chatbot/Names/car_names.npy', allow_pickle=True)
+bus_names = np.load('../../chatbot/Names/bus_names.npy', allow_pickle=True)
+train_names = np.load('../../chatbot/Names/train_names.npy', allow_pickle=True)
 
-model_name = "C:\\Users\\DELL\\OneDrive\\Documents\\GitHub\\Voyaige\\proj\\back\\fine_tuned_gpt1_1"
+model_name = "fine_tuned_gpt1_1"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_length=100)
