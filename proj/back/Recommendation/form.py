@@ -376,15 +376,15 @@ def generate_itinerary_api():
 if __name__ == '__main__':
     # Paths for input datasets (adjust paths as necessary)
     paths = {
-    "Cleaned_attr": "../../../Dataset/cleaned_data/Cleaned_attr.csv",
-    "clean_hotel_data": "../../../Dataset/cleaned_data/clean_hotel_data.json",
-    "Cleaned_Airbnb": "../../../Dataset/cleaned_data/Cleaned_Airbnb.csv",
-    "Cleaned_busses": "../../../Dataset/cleaned_data/Cleaned_busses.csv",
-    "Cleaned_Cars": "../../../Dataset/cleaned_data/Cleaned_Cars.csv",
-    "Cleaned_trains": "../../../Dataset/cleaned_data/Cleaned_trains.csv",
-    "hotel_reviews": "../../../Dataset/cleaned_data/clean_hotel_review_data.json",
-    "restaurant_data": "../../../Dataset/new_restaurant_db.restaurants_data.json",
-    "restaurant_reviews": "../../../Dataset/new_restaurant_db.restaurants_reviews.json"
+    "Cleaned_attr": "../Dataset/cleaned_data/Cleaned_attr.csv",
+    "clean_hotel_data": "../Dataset/cleaned_data/clean_hotel_data.json",
+    "Cleaned_Airbnb": "../Dataset/cleaned_data/Cleaned_Airbnb.csv",
+    "Cleaned_busses": "../Dataset/cleaned_data/Cleaned_busses.csv",
+    "Cleaned_Cars": "../Dataset/cleaned_data/Cleaned_Cars.csv",
+    "Cleaned_trains": "../Dataset/cleaned_data/Cleaned_trains.csv",
+    "hotel_reviews": "../Dataset/cleaned_data/clean_hotel_review_data.json",
+    "restaurant_data": "../Dataset/new_restaurant_db.restaurants_data.json",
+    "restaurant_reviews": "../Dataset/new_restaurant_db.restaurants_reviews.json"
 }
     
     print("Loading and preprocessing data...")
