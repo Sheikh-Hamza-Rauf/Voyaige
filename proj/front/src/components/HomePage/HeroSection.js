@@ -54,7 +54,7 @@ const HeroSection = () => {
   const handleSaveCustomization = async (customizationData) => {
     sessionStorage.removeItem('currentTripId');
     try {
-      const response = await axios.post("http://localhost:5000/api/users/customizations", customizationData);
+      const response = await axios.post("https://voyaige-production.up.railway.app//api/users/customizations", customizationData);
 
       if (response.status === 201 || response.status === 200) {
         navigate('/UserCustomization', { state: { customizationData } });

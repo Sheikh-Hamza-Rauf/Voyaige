@@ -48,7 +48,7 @@ const ChekoutPage = () => {
     try {
       const total = calculateTotal();
       // Create payment intent on the backend
-      const response = await axios.post('http://localhost:5000/api/payment-intent', {
+      const response = await axios.post(`https://voyaige-production.up.railway.app/api/payment-intent`, {
         amount: total
       });
       if (response.status !== 200) {

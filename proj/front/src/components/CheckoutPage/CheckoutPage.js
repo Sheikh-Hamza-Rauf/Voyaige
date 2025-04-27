@@ -29,7 +29,7 @@ const CheckoutPage = () => {
     const fetchTripData = async () => {
       try {
         if (location.state?.tripId) {
-          const response = await axios.get(`http://localhost:5000/api/trips/${location.state.tripId}`);
+          const response = await axios.get(`https://voyaige-production.up.railway.app/api/trips/${location.state.tripId}`);
           console.log(response);
           if (response.data && response.data.checkoutData) {
             setTripData({

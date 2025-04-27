@@ -35,7 +35,7 @@ const Navbar = () => {
         return;
       }
 
-      const response = await axios.get('http://localhost:5000/api/users/points', {
+      const response = await axios.get(`https://voyaige-production.up.railway.app/api/users/updatePoints/api/users/points`, {
         headers: {
           Authorization: `Bearer ${token}`, // Pass the token
           'X-User-Email': user.email,      // Pass the email in a custom header
@@ -79,7 +79,7 @@ const Navbar = () => {
       const matchedCity = CITIES.find(city => city.toLowerCase().includes(query.toLowerCase()));
       if (matchedCity) {
         try {
-          const { data } = await axios.get('http://localhost:5000/api/search', {
+          const { data } = await axios.get(`https://voyaige-production.up.railway.app/api/users/points/api/search`, {
             params: { query: matchedCity }
           });
           setSearchResults({

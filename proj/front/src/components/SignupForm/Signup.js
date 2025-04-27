@@ -222,7 +222,7 @@ const SignupForm = () => {
     // Only submit if no errors
     if (Object.keys(newErrors).length === 0) {
       try {
-        const res = await axios.post('http://localhost:5000/api/users/register', formData);
+        const res = await axios.post(`https://voyaige-production.up.railway.app/api/users/points/api/users/register`, formData);
         alert('Registration successful, please log in.');
         navigate('/login');
       } catch (err) {

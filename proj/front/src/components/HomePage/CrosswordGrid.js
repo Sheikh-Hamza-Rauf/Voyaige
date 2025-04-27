@@ -96,7 +96,7 @@ const CrosswordGrid = () => {
     const updatePointsAndStatus = async (email, points) => {
         try {
             console.log('Sending POST request to update points and challenge status:', { email, points });
-            const response = await axios.post("http://localhost:5000/api/users/updatePoints", {
+            const response = await axios.post("https://voyaige-production.up.railway.app/api/users/updatePoints", {
                 email,
                 points,
                 challengeId: 1 // Mark challenge ID 1 as completed

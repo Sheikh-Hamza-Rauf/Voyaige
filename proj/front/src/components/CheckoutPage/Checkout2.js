@@ -62,7 +62,7 @@ const Checkout2 = () => {
 
     try {
       const { total } = calculateTotals();
-      const response = await axios.post('http://localhost:5000/api/payment-intent', { amount: total });
+      const response = await axios.post(`https://voyaige-production.up.railway.app/api/payment-intent`, { amount: total });
 
       if (response.status !== 200) throw new Error(response.data.message);
 

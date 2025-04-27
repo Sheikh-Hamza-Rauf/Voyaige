@@ -125,7 +125,7 @@ useEffect(() => {
         const existingTripId = sessionStorage.getItem('currentTripId');
         
         if (existingTripId) {
-          const response = await axios.get(`http://localhost:5000/api/trips/${existingTripId}`);
+          const response = await axios.get(`https://voyaige-production.up.railway.app/api/trips/${existingTripId}`);
           const tripData = response.data;
           
           setTripId(existingTripId);
@@ -145,7 +145,7 @@ useEffect(() => {
           
         } else {
           // ✅ Send userEmail instead of userId
-          const response = await axios.post('http://localhost:5000/api/trips', {
+          const response = await axios.post(`https://voyaige-production.up.railway.app/api/trips`, {
             userEmail: user.email,
             startingPoint,
             destination,
@@ -173,7 +173,7 @@ useEffect(() => {
           });
         }
       } else if (location.state?.tripId) {
-        const response = await axios.get(`http://localhost:5000/api/trips/${location.state.tripId}`);
+        const response = await axios.get(`https://voyaige-production.up.railway.app/api/trips/${location.state.tripId}`);
         const tripData = response.data;
         
         setTripId(tripData._id);
@@ -197,7 +197,7 @@ useEffect(() => {
         const existingTripId = sessionStorage.getItem('currentTripId');
         
         if (existingTripId) {
-          const response = await axios.get(`http://localhost:5000/api/trips/${existingTripId}`);
+          const response = await axios.get(`https://voyaige-production.up.railway.app/api/trips/${existingTripId}`);
           const tripData = response.data;
           
           setTripId(existingTripId);
@@ -247,7 +247,7 @@ useEffect(() => {
         
         setTripDetails(updatedDetails);
         
-        await axios.patch(`http://localhost:5000/api/trips/${tripId}`, {
+        await axios.patch(`https://voyaige-production.up.railway.app/api/trips/${tripId}`, {
           hotel: selectedHotel || tripDetails.hotel,
           transport: selectedTransport || tripDetails.transport
         });
@@ -293,7 +293,7 @@ useEffect(() => {
       setDayDetails(updatedDayDetails);
       
       // Update in the database
-      await axios.patch(`http://localhost:5000/api/trips/${tripId}`, {
+      await axios.patch(`https://voyaige-production.up.railway.app/api/trips/${tripId}`, {
         dayDetails: updatedDayDetails
       });
     } catch (error) {
@@ -528,7 +528,7 @@ const handleProceedToCheckout = async () => {
     console.log("Total calculated cost:", totalCost);
     
     // Update trip status to 'checkout' in database
-    await axios.patch(`http://localhost:5000/api/trips/${tripId}`, {
+    await axios.patch(`https://voyaige-production.up.railway.app/api/trips/${tripId}`, {
       status: 'checkout',
       checkoutData: tripData
     });
