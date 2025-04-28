@@ -1,3 +1,5 @@
+from app import app
+from waitress import serve
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pandas as pd
@@ -410,4 +412,4 @@ if __name__ == '__main__':
         joblib.dump(training_columns, TRAINING_COLS_FILE)
     
     print("Starting Flask server...")
-    app.run(port=5002)
+    serve(app, host="0.0.0.0", port=8000)
