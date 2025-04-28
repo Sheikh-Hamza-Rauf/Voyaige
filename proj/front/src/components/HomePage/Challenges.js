@@ -91,7 +91,7 @@ const Challenges = () => {
       const user = JSON.parse(localStorage.getItem("user"));
       if (user && user.email) {
         try {
-          const response = await axios.post(`https://voyaige-production.up.railway.app/api/users/checkAllChallengeStatuses`, {
+          const response = await axios.post(`http://localhost:5000/api/users/checkAllChallengeStatuses`, {
             email: user.email,
           });
 
@@ -124,7 +124,7 @@ const Challenges = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       try {
-        const response = await axios.post(`https://voyaige-production.up.railway.app/api/users/checkConsecutiveLogins`, {
+        const response = await axios.post(`http://localhost:5000/api/users/checkConsecutiveLogins`, {
           email: user.email,
         });
   
@@ -137,7 +137,7 @@ const Challenges = () => {
   
         if (currentDate !== lastLogin) {
           // If the user has logged in on a new day, call the API to update lastLoginDate
-          await axios.post(`https://voyaige-production.up.railway.app/api/users/updateLastLogin`, {
+          await axios.post(`http://localhost:5000/api/users/updateLastLogin`, {
             email: user.email,
             lastLoginDate: new Date(),
           });
