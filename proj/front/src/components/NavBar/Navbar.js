@@ -35,7 +35,7 @@ const Navbar = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/api/users/updatePoints/api/users/points`, {
+      const response = await axios.get(`https://voyaige-production.up.railway.app/api/users/points`, {
         headers: {
           Authorization: `Bearer ${token}`, // Pass the token
           'X-User-Email': user.email,      // Pass the email in a custom header

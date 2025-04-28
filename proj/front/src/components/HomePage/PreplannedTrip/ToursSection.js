@@ -102,7 +102,7 @@ const ToursSection = () => {
     
       const fetchPastTrips = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/api/users/past-trips?email=${userEmail}`);
+          const response = await fetch(`https://voyaige-production.up.railway.app/api/users/past-trips?email=${userEmail}`);
           const data = await response.json();
     
           if (!response.ok) {

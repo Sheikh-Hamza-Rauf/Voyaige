@@ -29,7 +29,7 @@ const CheckoutPage = () => {
     const fetchTripData = async () => {
       try {
         if (location.state?.tripId) {
-          const response = await axios.get(`http://localhost:5000/api/trips/${location.state.tripId}`);
+          const response = await axios.get(`https://voyaige-production.up.railway.app/api/trips/${location.state.tripId}`);
           console.log(response);
           if (response.data && response.data.checkoutData) {
             setTripData({
@@ -140,7 +140,7 @@ const CheckoutPage = () => {
       const { total } = calculateTotals();
       
       // Create payment intent
-      const response = await axios.post('http://localhost:5000/api/payment-intent', {
+      const response = await axios.post('https://voyaige-production.up.railway.app/api/payment-intent', {
         amount: total
       });
   
@@ -163,7 +163,7 @@ const CheckoutPage = () => {
       } else if (paymentIntent.status === 'succeeded') {
         // Update trip status to 'paid' in the database
         if (location.state?.tripId) {
-          await axios.patch(`http://localhost:5000/api/trips/${location.state.tripId}`, {
+          await axios.patch(`https://voyaige-production.up.railway.app/api/trips/${location.state.tripId}`, {
             status: 'paid',
             paymentDetails: {
               amount: total,

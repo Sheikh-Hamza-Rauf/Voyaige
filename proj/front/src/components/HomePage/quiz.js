@@ -59,7 +59,7 @@ const Quiz = () => {
   const updatePoints = async (email, points) => {
     try {
         console.log('Sending POST request to update points:', { email, points });
-        const response = await axios.post(`http://localhost:5000/api/users/updatePoints`, {
+        const response = await axios.post(`https://voyaige-production.up.railway.app/api/users/updatePoints`, {
             email,
             points,
             challengeId:2

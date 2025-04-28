@@ -215,7 +215,7 @@ const TripDetails = () => {
     };
   
     try {
-      const response = await fetch('http://localhost:5000/api/users/add-preplanned', {
+      const response = await fetch('https://voyaige-production.up.railway.app/api/users/add-preplanned', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(bookingData),
