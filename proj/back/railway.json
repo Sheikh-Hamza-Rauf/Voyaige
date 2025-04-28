@@ -1,0 +1,12 @@
+{
+    "build": {
+      "builder": "NIXPACKS",
+      "nixpacksPlan": {
+        "providers": ["python"]
+      }
+    },
+    "deploy": {
+      "startCommand": "python Recommendation/form.py"
+    }
+  }
+  
