@@ -6,7 +6,7 @@
       }
     },
     "deploy": {
-      "startCommand": "python Recommendation/form.py"
+      "startCommand": "python3 Recommendation/form.py"
     }
   }
   
