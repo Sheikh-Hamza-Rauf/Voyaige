@@ -354,6 +354,11 @@ def generate_itinerary(user_input, models, data_dict):
     
     return itinerary
 
+@app.route("/")
+def index():
+    return "Server is up"
+
+
 @app.route('/api/ItineraryForm', methods=['POST'])
 def generate_itinerary_api():
     try:
