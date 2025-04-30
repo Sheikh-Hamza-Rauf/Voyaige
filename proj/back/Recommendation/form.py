@@ -414,5 +414,8 @@ if __name__ == '__main__':
             joblib.dump(model, MODEL_FILES[comp])
         joblib.dump(training_columns, TRAINING_COLS_FILE)
     
-    print("Starting Flask server...")
-    serve(app, host="0.0.0.0", port=8000)
+    # print("Starting Flask server...")
+    # port = int(os.environ.get("PORT", 5000))
+    # serve(app, host="0.0.0.0", port=port)
+    # print("Flask server running...")
+    
