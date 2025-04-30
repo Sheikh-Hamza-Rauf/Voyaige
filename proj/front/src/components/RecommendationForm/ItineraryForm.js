@@ -116,7 +116,7 @@ const ItineraryForm = () => {
     };
 
     try {
-      const response = await axios.post('http://127.0.0.1:5002/api/ItineraryForm', payload);
+      const response = await axios.post('https://voyaige-production-ca75.up.railway.app/api/ItineraryForm', payload);
       setItinerary(response.data.itinerary);
     } catch (err) {
       const errorMessage = err.response?.data?.error || err.message || 'An unknown error occurred';
