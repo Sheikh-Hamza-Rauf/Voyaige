@@ -1,10 +1,12 @@
 {
     "$schema": "https://railway.com/railway.schema.json",
     "build": {
-      "builder": "nixpacks"
+      "builder": "nixpacks",
+      "buildCommand": "echo building!"
     },
     "deploy": {
-      "startCommand": "waitress-serve --port=$PORT Recommendation.form:app",
+      "startCommand": "waitress-serve --port=5000 app:app",
+      "restartPolicyType": "never",
       "healthcheckPath": "/",
       "healthcheckTimeout": 100
     }
