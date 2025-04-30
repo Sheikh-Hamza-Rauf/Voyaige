@@ -1,5 +1,6 @@
 {
     "$schema": "https://railway.com/railway.schema.json",
+    "rootDir": "proj/back/Recommendation",
     "build": {
       "builder": "nixpacks",
       "buildCommand": "echo building!"
