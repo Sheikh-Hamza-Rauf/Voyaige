@@ -975,6 +975,6 @@ if __name__ == '__main__':
 @app.route('/')
 def home():
     return "Welcome to the Flask App (FORM-BASED)!"
-port = int(os.environ.get("PORT", 5000))
+
 if __name__ == "__main__":
-    app.run(port=port)
+    app.run(port=5002)
