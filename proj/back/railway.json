@@ -5,7 +5,7 @@
       "buildCommand": "echo building!"
     },
     "deploy": {
-      "startCommand": "web: waitress-serve --port=5000 form:app",
+      "startCommand": "waitress-serve --port=5000 Recommendation.form:app",
       "restartPolicyType": "never",
       "healthcheckPath": "/",
       "healthcheckTimeout": 100
