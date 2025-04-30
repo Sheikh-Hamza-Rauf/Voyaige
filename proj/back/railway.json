@@ -4,7 +4,7 @@
     "builder": "nixpacks"
   },
   "deploy": {
-    "startCommand": "waitress-serve --port=$PORT app:app",
+    "startCommand": "waitress-serve --port=$PORT Recommendation.form:app",
     "healthcheckPath": "/",
     "healthcheckTimeout": 100
   }
