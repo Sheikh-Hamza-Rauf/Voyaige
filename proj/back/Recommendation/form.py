@@ -410,4 +410,4 @@ if __name__ == '__main__':
         joblib.dump(training_columns, TRAINING_COLS_FILE)
     
     print("Starting Flask server...")
-    app.run(port=5002)
+    serve(app, host="0.0.0.0", port=8000)
