@@ -7,7 +7,7 @@
     "deploy": {
       "startCommand": "waitress-serve --port=5000 Recommendation.form:app",
       "restartPolicyType": "never",
-      "healthcheckPath": "/api/ItineraryForm",
+      "healthcheckPath": "/",
       "healthcheckTimeout": 100
     }
   }
