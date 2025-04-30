@@ -1,12 +1,22 @@
 {
-    "build": {
-      "builder": "NIXPACKS",
-      "nixpacksPlan": {
-        "providers": ["python"]
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "nixpacks",
+    "nixpacksPlan": {
+      "providers": ["python"],
+      "phases": {
+        "setup": {
+          "nixPkgs": ["pkg-config", "mariadb-connector-c"]
+        }
       }
     },
-    "deploy": {
-      "startCommand": "python3 Recommendation/form.py"
-    }
+    "buildCommand": "echo building!"
+  },
+  "deploy": {
+    "preDeployCommand": [],
+    "startCommand": "python3 Recommendation/form.py",
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 100,
+    "restartPolicyType": "never"
   }
-  
+}
