@@ -17,7 +17,7 @@ from waitress import serve
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
-CORS(app, origins=["https://voyaige-harry.vercel.app"], supports_credentials=True)
+CORS(app)
 
 # Directory to save models and training columns
 MODEL_DIR = "models"
