@@ -157,7 +157,13 @@ const PORT = 5000; // Using a hardcoded port
 // Define JWT secret directly in this file
 const JWT_SECRET = 'mysecretkey'; // Replace with a secure key for production
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://voyaige-harry.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 
 // MongoDB connection (hardcoded URI)
