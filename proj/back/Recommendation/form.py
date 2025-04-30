@@ -373,6 +373,7 @@ def generate_itinerary_api():
     except Exception as e:
         print(f"Error generating itinerary: {e}")
         return jsonify({'error': str(e)}), 500
+port = int(os.environ.get("PORT", 5000))
 
 if __name__ == '__main__':
     # Paths for input datasets (adjust paths as necessary)
@@ -411,4 +412,4 @@ if __name__ == '__main__':
         joblib.dump(training_columns, TRAINING_COLS_FILE)
     
     print("Starting Flask server...")
-    serve(app, host="0.0.0.0", port=8000)
+    serve(app, host="0.0.0.0", port=port)
