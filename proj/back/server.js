@@ -152,20 +152,12 @@ const UserCustomization=require("./models/UserCustomizationData")
 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000; // Using a hardcoded port
 
 // Define JWT secret directly in this file
 const JWT_SECRET = 'mysecretkey'; // Replace with a secure key for production
 
-const corsOptions = {
-  origin: 'https://voyaige-harry.vercel.app', //  frontend domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));             //  consistent setup
-app.options('*', cors(corsOptions));    //  preflight support
-
+app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection (hardcoded URI)
