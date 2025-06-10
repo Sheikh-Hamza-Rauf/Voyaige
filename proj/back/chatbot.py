@@ -118,8 +118,11 @@ car_names = np.load('./chatbot/Names/car_names.npy', allow_pickle=True)
 bus_names = np.load('./chatbot/Names/bus_names.npy', allow_pickle=True)
 train_names = np.load('./chatbot/Names/train_names.npy', allow_pickle=True)
 
-model_name = "fine_tuned_gpt1_1"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+model_name = "/app/fine_tuned_gpt1_1"
+tokenizer = AutoTokenizer.from_pretrained(
+    model_name,
+    low_cpu_mem_usage=True,
+    use_safetensors=True)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_length=100)
 llm = HuggingFacePipeline(pipeline=pipe)
