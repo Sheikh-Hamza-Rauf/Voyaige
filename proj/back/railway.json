@@ -1,12 +1,13 @@
 {
   "$schema": "https://railway.com/railway.schema.json",
+  "rootDir": "proj/back",
   "build": {
     "builder": "nixpacks",
     "buildCommand": "echo building!"
     },
   "deploy": {
     "preDeployCommand": "pip install -r requirements.txt",
-    "startCommand": "gunicorn -b 0.0.0.0:$PORT chatbot:app",
+    "startCommand": "python chatbot.py",
     "healthcheckPath": "/",
     "healthcheckTimeout": 100,
     "restartPolicyType": "never"
