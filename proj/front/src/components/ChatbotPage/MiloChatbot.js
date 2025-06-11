@@ -10,7 +10,7 @@ const MiloChatbot = () => {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [isTyping, setIsTyping] = useState(false);
 
-  const apiBaseURL = "http://127.0.0.1:5001/";
+  const apiBaseURL = "https://exemplary-wonder-production-6654.up.railway.app/";
 
   useEffect(() => {
     const initialMessages = [
