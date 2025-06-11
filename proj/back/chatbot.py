@@ -565,6 +565,6 @@ def home():
     return "Welcome to the Flask App!"
 
 if __name__ == '__main__' and os.environ.get('RAILWAY_ENVIRONMENT') is None:
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT"))
     app.run(host='0.0.0.0', port=port)
 
